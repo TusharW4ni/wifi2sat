@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+.venv/
+venv/
+ENV/
+
+# macOS System Files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build and Distribution
+build/
+dist/
+*.egg-info/
+
+# Local Environment Variables
+.env
+.env.local
+
+# Data and Logs
+*.log
