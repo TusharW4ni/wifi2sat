@@ -9,7 +9,7 @@ from collections import defaultdict
 
 import serial
 import numpy as np
-from pyubx2 import UBXReader
+from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
 
 # ── Config ──
 PORT = "/dev/cu.usbmodem11301"
@@ -39,7 +39,7 @@ def parse_sample(buf):
     phases = defaultdict(list)
     msg_counts = defaultdict(int)
 
-    ubr = UBXReader(buf)
+    ubr = UBXReader(buf, protfilter=UBX_PROTOCOL | NMEA_PROTOCOL | RTCM3_PROTOCOL)
     for _raw, parsed in ubr:
         if parsed is None:
             continue
@@ -84,7 +84,7 @@ def parse_sample(buf):
 
     return elevations, dict(phases), dict(msg_counts)
 
-def capture_single_sample(sample_label, current_idx, total_samples, port):
+def capture_single_sample(sample_label, current_idx, total_samples, port, no_elev=False):
     print(f"\n=======================================================")
     print(f"  Collecting Sample {current_idx} of {total_samples} : [{sample_label}]")
     print(f"=======================================================")
@@ -124,7 +124,10 @@ def capture_single_sample(sample_label, current_idx, total_samples, port):
     n_gps = msg_counts.get("1077", 0)
     n_bds = msg_counts.get("1127", 0)
     
-    msg_counts_ok = (n_gps >= 100) and (n_bds >= 100) and (n_nav >= 10)
+    if no_elev:
+        msg_counts_ok = (n_gps >= 100) and (n_bds >= 100)
+    else:
+        msg_counts_ok = (n_gps >= 100) and (n_bds >= 100) and (n_nav >= 10)
     
     # 3b. Health Check: Satellites & Cycle Slips
     good_sats = []
@@ -139,7 +142,13 @@ def capture_single_sample(sample_label, current_idx, total_samples, port):
         if enough and clean:
             good_sats.append((k, elev if elev is not None else -91))
 
-    good_sats.sort(key=lambda x: x[1], reverse=True)
+    if no_elev:
+        # Sort primarily by constellation (GPS first, they start with 'G'), then PRN
+        good_sats.sort(key=lambda x: x[0])
+    else:
+        # Sort by elevation (highest first)
+        good_sats.sort(key=lambda x: x[1], reverse=True)
+        
     n_good = len(good_sats)
     
     # Require strict message counts AND at least 2 clean satellites
@@ -147,15 +156,21 @@ def capture_single_sample(sample_label, current_idx, total_samples, port):
 
     # 4. Gatekeeper: Discard or Auto-Save
     if not sample_healthy:
-        print(f"\n❌ FAIL | Sample corrupted or too short. Discarding and retrying...")
-        print(f"   Counts -> GPS 1077: {n_gps}/100 | BDS 1127: {n_bds}/100 | NAV-SAT: {n_nav}/10")
+        print(f"\nFAIL | Sample corrupted or too short. Discarding and retrying...")
+        if no_elev:
+            print(f"   Counts -> GPS 1077: {n_gps}/100 | BDS 1127: {n_bds}/100 | NAV-SAT: (Bypassed)")
+        else:
+            print(f"   Counts -> GPS 1077: {n_gps}/100 | BDS 1127: {n_bds}/100 | NAV-SAT: {n_nav}/10")
         print(f"   Usable Satellites -> {n_good} (Need >= 2)")
         time.sleep(2.5) # Pause to read the error
         return False 
     else:
         ref_key = good_sats[0][0]
-        print(f"\n✅ PASS | Ref: {ref_key} | {n_good - 1} target(s)")
-        print(f"   Counts -> GPS: {n_gps} | BDS: {n_bds} | NAV: {n_nav}")
+        print(f"\nPASS | Ref: {ref_key} | {n_good - 1} target(s)")
+        if no_elev:
+            print(f"   Counts -> GPS: {n_gps} | BDS: {n_bds} | NAV: (Bypassed)")
+        else:
+            print(f"   Counts -> GPS: {n_gps} | BDS: {n_bds} | NAV: {n_nav}")
         
         # Auto-save healthy sample
         os.makedirs(SAMPLE_DIR, exist_ok=True)
@@ -167,13 +182,14 @@ def capture_single_sample(sample_label, current_idx, total_samples, port):
         with open(filepath, "wb") as f:
             f.write(raw_buffer.read())
             
-        print(f"💾 Saved: {filename}")
+        print(f"Saved: {filename}")
         time.sleep(1.5) # Brief reset before next capture
         return True
 
 def main():
     parser = argparse.ArgumentParser(description="High-Speed Batch Capture GNSS samples.")
     parser.add_argument("--port", default=PORT, help=f"Serial port (default: {PORT})")
+    parser.add_argument("--no-elev", action="store_true", help="Bypass NAV-SAT elevation check if receiver isn't sending it.")
     args = parser.parse_args()
 
     sample_label = input("Enter gesture label (e.g., 'push', 'swipe_left'): ").strip()
@@ -190,11 +206,11 @@ def main():
     current_idx = 1
     while current_idx <= total_samples:
         # If capture returns True, we move to the next. If False, we retry the current index.
-        success = capture_single_sample(sample_label, current_idx, total_samples, args.port)
+        success = capture_single_sample(sample_label, current_idx, total_samples, args.port, args.no_elev)
         if success:
             current_idx += 1
             
-    print(f"\n🎉 Batch collection complete! Collected {total_samples} samples for '{sample_label}'.")
+    print(f"\nCollected {total_samples} samples for '{sample_label}'.")
 
 if __name__ == "__main__":
     try:
