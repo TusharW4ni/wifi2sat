@@ -1,0 +1,892 @@
+→ uv run run_session.py --session ref_day1 --gest~/s/wifi2sat/gnss-data-collection/window-experiment/phase1 (main)ures push,star --reps 6 --windows 4 --spacing 15
+Session 'ref_day1': 4 window(s), gestures=['push', 'star'], reps=6
+
+=== Window 0 @ 15:02:20Z ===
+
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 104 | BDS: 104 | NAV: 10
+Saved: push_W0-260626-150223Z.rtcm  (+ push_W0-260626-150223Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 10
+Saved: push_W0-260626-150240Z.rtcm  (+ push_W0-260626-150240Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_021 | 3 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W0-260626-150257Z.rtcm  (+ push_W0-260626-150257Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_021 | 2 target(s)
+   Counts -> GPS: 103 | BDS: 103 | NAV: 10
+Saved: push_W0-260626-150313Z.rtcm  (+ push_W0-260626-150313Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 105 | BDS: 105 | NAV: 11
+Saved: push_W0-260626-150330Z.rtcm  (+ push_W0-260626-150330Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_041 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W0-260626-150347Z.rtcm  (+ push_W0-260626-150347Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: star_W0-260626-150403Z.rtcm  (+ star_W0-260626-150403Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 104 | BDS: 104 | NAV: 10
+Saved: star_W0-260626-150420Z.rtcm  (+ star_W0-260626-150420Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 10
+Saved: star_W0-260626-150437Z.rtcm  (+ star_W0-260626-150437Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 102 | BDS: 102 | NAV: 10
+Saved: star_W0-260626-150454Z.rtcm  (+ star_W0-260626-150454Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 3 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 10
+Saved: star_W0-260626-150510Z.rtcm  (+ star_W0-260626-150510Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.8s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 103 | BDS: 103 | NAV: 10
+Saved: star_W0-260626-150527Z.rtcm  (+ star_W0-260626-150527Z.meta.json)
+
+=== Window 1 @ 15:17:20Z ===
+  waiting for 15:17:20Z --      1s
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_005 | 3 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 11
+Saved: push_W1-260626-151723Z.rtcm  (+ push_W1-260626-151723Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 105 | BDS: 105 | NAV: 10
+Saved: push_W1-260626-151740Z.rtcm  (+ push_W1-260626-151740Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_041 | 1 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 11
+Saved: push_W1-260626-151757Z.rtcm  (+ push_W1-260626-151757Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_041 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W1-260626-151813Z.rtcm  (+ push_W1-260626-151813Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 3 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 10
+Saved: push_W1-260626-151830Z.rtcm  (+ push_W1-260626-151830Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 11
+Saved: push_W1-260626-151847Z.rtcm  (+ push_W1-260626-151847Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 3 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W1-260626-151903Z.rtcm  (+ star_W1-260626-151903Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 11
+Saved: star_W1-260626-151920Z.rtcm  (+ star_W1-260626-151920Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: star_W1-260626-151937Z.rtcm  (+ star_W1-260626-151937Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W1-260626-151954Z.rtcm  (+ star_W1-260626-151954Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 3 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W1-260626-152010Z.rtcm  (+ star_W1-260626-152010Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 3 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W1-260626-152027Z.rtcm  (+ star_W1-260626-152027Z.meta.json)
+
+=== Window 2 @ 15:32:20Z ===
+  waiting for 15:32:20Z --      0s
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_041 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W2-260626-153223Z.rtcm  (+ push_W2-260626-153223Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: push_W2-260626-153240Z.rtcm  (+ push_W2-260626-153240Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 2 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: push_W2-260626-153257Z.rtcm  (+ push_W2-260626-153257Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 105 | BDS: 105 | NAV: 10
+Saved: push_W2-260626-153313Z.rtcm  (+ push_W2-260626-153313Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 106/100 | BDS 1127: 106/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 106 | BDS: 106 | NAV: 11
+Saved: push_W2-260626-153348Z.rtcm  (+ push_W2-260626-153348Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: push_W2-260626-153405Z.rtcm  (+ push_W2-260626-153405Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 0 (Need >= 2)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 10
+Saved: star_W2-260626-153439Z.rtcm  (+ star_W2-260626-153439Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 107/100 | BDS 1127: 107/100 | NAV-SAT: 10/5
+   Usable Satellites -> 0 (Need >= 2)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 11
+Saved: star_W2-260626-153513Z.rtcm  (+ star_W2-260626-153513Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 107/100 | BDS 1127: 107/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 106/100 | BDS 1127: 106/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 105 | BDS: 105 | NAV: 10
+Saved: star_W2-260626-153606Z.rtcm  (+ star_W2-260626-153606Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 10
+Saved: star_W2-260626-153622Z.rtcm  (+ star_W2-260626-153622Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 103 | BDS: 103 | NAV: 10
+Saved: star_W2-260626-153639Z.rtcm  (+ star_W2-260626-153639Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 107/100 | BDS 1127: 107/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 107/100 | BDS 1127: 107/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 106/100 | BDS 1127: 106/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W2]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 1 target(s)
+   Counts -> GPS: 105 | BDS: 105 | NAV: 11
+Saved: star_W2-260626-153749Z.rtcm  (+ star_W2-260626-153749Z.meta.json)
+
+=== Window 3 @ 15:47:20Z ===
+  waiting for 15:47:20Z --      0s
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 107/100 | BDS 1127: 107/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W3-260626-154741Z.rtcm  (+ push_W3-260626-154741Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_005 | 2 target(s)
+   Counts -> GPS: 109 | BDS: 109 | NAV: 11
+Saved: push_W3-260626-154758Z.rtcm  (+ push_W3-260626-154758Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 106/100 | BDS 1127: 106/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 110/100 | BDS 1127: 110/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W3-260626-154907Z.rtcm  (+ push_W3-260626-154907Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 109 | BDS: 109 | NAV: 11
+Saved: push_W3-260626-154924Z.rtcm  (+ push_W3-260626-154924Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 110/100 | BDS 1127: 110/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 0 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 109/100 | BDS 1127: 109/100 | NAV-SAT: 11/5
+   Usable Satellites -> 0 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 109/100 | BDS 1127: 109/100 | NAV-SAT: 10/5
+   Usable Satellites -> 0 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 109/100 | BDS 1127: 109/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 110/100 | BDS 1127: 110/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W3-260626-155220Z.rtcm  (+ push_W3-260626-155220Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 109 | BDS: 109 | NAV: 11
+Saved: push_W3-260626-155237Z.rtcm  (+ push_W3-260626-155237Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W3-260626-155254Z.rtcm  (+ star_W3-260626-155254Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: star_W3-260626-155310Z.rtcm  (+ star_W3-260626-155310Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 109 | BDS: 109 | NAV: 11
+Saved: star_W3-260626-155345Z.rtcm  (+ star_W3-260626-155345Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 110 | BDS: 110 | NAV: 11
+Saved: star_W3-260626-155401Z.rtcm  (+ star_W3-260626-155401Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 108/100 | BDS 1127: 108/100 | NAV-SAT: 10/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 110/100 | BDS 1127: 110/100 | NAV-SAT: 11/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+FAIL | Sample corrupted or too short. Discarding and retrying...
+   Counts -> GPS 1077: 109/100 | BDS 1127: 109/100 | NAV-SAT: 10/5
+   Usable Satellites -> 1 (Need >= 2)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 10
+Saved: star_W3-260626-155511Z.rtcm  (+ star_W3-260626-155511Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W3]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_027 | 1 target(s)
+   Counts -> GPS: 107 | BDS: 107 | NAV: 10
+Saved: star_W3-260626-155528Z.rtcm  (+ star_W3-260626-155528Z.meta.json)
+
+Done. 48 samples -> samples/ref_day1_manifest.json
