@@ -1,0 +1,75 @@
+{
+  "session": "ref_day1",
+  "created_utc": "2026-06-26T14:46:44.300957+00:00",
+  "gestures": [
+    "push",
+    "star"
+  ],
+  "reps": 6,
+  "mode": "spaced",
+  "entries": [
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 1,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:46:47.318290+00:00",
+      "rtcm": "push_W0-260626-144647Z.rtcm",
+      "meta": "push_W0-260626-144647Z.meta.json"
+    },
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 2,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:47:04.006194+00:00",
+      "rtcm": "push_W0-260626-144704Z.rtcm",
+      "meta": "push_W0-260626-144704Z.meta.json"
+    },
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 3,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:47:20.704267+00:00",
+      "rtcm": "push_W0-260626-144720Z.rtcm",
+      "meta": "push_W0-260626-144720Z.meta.json"
+    },
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 4,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:47:37.403334+00:00",
+      "rtcm": "push_W0-260626-144737Z.rtcm",
+      "meta": "push_W0-260626-144737Z.meta.json"
+    },
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 5,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:47:54.122991+00:00",
+      "rtcm": "push_W0-260626-144754Z.rtcm",
+      "meta": "push_W0-260626-144754Z.meta.json"
+    },
+    {
+      "gesture": "push",
+      "window_index": 0,
+      "rep": 6,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:48:10.802276+00:00",
+      "rtcm": "push_W0-260626-144810Z.rtcm",
+      "meta": "push_W0-260626-144810Z.meta.json"
+    },
+    {
+      "gesture": "star",
+      "window_index": 0,
+      "rep": 1,
+      "target_utc": "2026-06-26T14:46:44.300733+00:00",
+      "actual_utc": "2026-06-26T14:48:27.490011+00:00",
+      "rtcm": "star_W0-260626-144827Z.rtcm",
+      "meta": "star_W0-260626-144827Z.meta.json"
+    }
+  ]
+}
