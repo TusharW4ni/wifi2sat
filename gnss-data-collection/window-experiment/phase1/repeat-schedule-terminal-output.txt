@@ -1,0 +1,629 @@
+~/s/wifi2sat/gnss-data-collection/window-experiment/phase1 (main)
+→ uv run repeat_schedule.py --manifest samples/ref_day1_manifest.json --mode gps --emit targets_day2.json
+mode=gps  sidereal_days=1  (shift 0.9973 solar days)
+
+[push_W0_r1]  ref 2026-06-26 15:02:23Z  ->  repeat 2026-06-27 14:58:27Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:38:27Z
+      e=-12 min  ->  14:46:27Z
+      e= -8 min  ->  14:50:27Z
+      e= -5 min  ->  14:53:27Z
+      e= -3 min  ->  14:55:27Z
+      e= +0 min  ->  14:58:27Z
+      e= +3 min  ->  15:01:27Z
+      e= +5 min  ->  15:03:27Z
+      e= +8 min  ->  15:06:27Z
+      e=+12 min  ->  15:10:27Z
+      e=+20 min  ->  15:18:27Z
+
+[push_W0_r2]  ref 2026-06-26 15:02:40Z  ->  repeat 2026-06-27 14:58:44Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:38:44Z
+      e=-12 min  ->  14:46:44Z
+      e= -8 min  ->  14:50:44Z
+      e= -5 min  ->  14:53:44Z
+      e= -3 min  ->  14:55:44Z
+      e= +0 min  ->  14:58:44Z
+      e= +3 min  ->  15:01:44Z
+      e= +5 min  ->  15:03:44Z
+      e= +8 min  ->  15:06:44Z
+      e=+12 min  ->  15:10:44Z
+      e=+20 min  ->  15:18:44Z
+
+[push_W0_r3]  ref 2026-06-26 15:02:57Z  ->  repeat 2026-06-27 14:59:01Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:39:01Z
+      e=-12 min  ->  14:47:01Z
+      e= -8 min  ->  14:51:01Z
+      e= -5 min  ->  14:54:01Z
+      e= -3 min  ->  14:56:01Z
+      e= +0 min  ->  14:59:01Z
+      e= +3 min  ->  15:02:01Z
+      e= +5 min  ->  15:04:01Z
+      e= +8 min  ->  15:07:01Z
+      e=+12 min  ->  15:11:01Z
+      e=+20 min  ->  15:19:01Z
+
+[push_W0_r4]  ref 2026-06-26 15:03:13Z  ->  repeat 2026-06-27 14:59:17Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:39:17Z
+      e=-12 min  ->  14:47:17Z
+      e= -8 min  ->  14:51:17Z
+      e= -5 min  ->  14:54:17Z
+      e= -3 min  ->  14:56:17Z
+      e= +0 min  ->  14:59:17Z
+      e= +3 min  ->  15:02:17Z
+      e= +5 min  ->  15:04:17Z
+      e= +8 min  ->  15:07:17Z
+      e=+12 min  ->  15:11:17Z
+      e=+20 min  ->  15:19:17Z
+
+[push_W0_r5]  ref 2026-06-26 15:03:30Z  ->  repeat 2026-06-27 14:59:34Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:39:34Z
+      e=-12 min  ->  14:47:34Z
+      e= -8 min  ->  14:51:34Z
+      e= -5 min  ->  14:54:34Z
+      e= -3 min  ->  14:56:34Z
+      e= +0 min  ->  14:59:34Z
+      e= +3 min  ->  15:02:34Z
+      e= +5 min  ->  15:04:34Z
+      e= +8 min  ->  15:07:34Z
+      e=+12 min  ->  15:11:34Z
+      e=+20 min  ->  15:19:34Z
+
+[push_W0_r6]  ref 2026-06-26 15:03:47Z  ->  repeat 2026-06-27 14:59:51Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:39:51Z
+      e=-12 min  ->  14:47:51Z
+      e= -8 min  ->  14:51:51Z
+      e= -5 min  ->  14:54:51Z
+      e= -3 min  ->  14:56:51Z
+      e= +0 min  ->  14:59:51Z
+      e= +3 min  ->  15:02:51Z
+      e= +5 min  ->  15:04:51Z
+      e= +8 min  ->  15:07:51Z
+      e=+12 min  ->  15:11:51Z
+      e=+20 min  ->  15:19:51Z
+
+[star_W0_r1]  ref 2026-06-26 15:04:03Z  ->  repeat 2026-06-27 15:00:07Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:40:07Z
+      e=-12 min  ->  14:48:07Z
+      e= -8 min  ->  14:52:07Z
+      e= -5 min  ->  14:55:07Z
+      e= -3 min  ->  14:57:07Z
+      e= +0 min  ->  15:00:07Z
+      e= +3 min  ->  15:03:07Z
+      e= +5 min  ->  15:05:07Z
+      e= +8 min  ->  15:08:07Z
+      e=+12 min  ->  15:12:07Z
+      e=+20 min  ->  15:20:07Z
+
+[star_W0_r2]  ref 2026-06-26 15:04:20Z  ->  repeat 2026-06-27 15:00:24Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:40:24Z
+      e=-12 min  ->  14:48:24Z
+      e= -8 min  ->  14:52:24Z
+      e= -5 min  ->  14:55:24Z
+      e= -3 min  ->  14:57:24Z
+      e= +0 min  ->  15:00:24Z
+      e= +3 min  ->  15:03:24Z
+      e= +5 min  ->  15:05:24Z
+      e= +8 min  ->  15:08:24Z
+      e=+12 min  ->  15:12:24Z
+      e=+20 min  ->  15:20:24Z
+
+[star_W0_r3]  ref 2026-06-26 15:04:37Z  ->  repeat 2026-06-27 15:00:41Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:40:41Z
+      e=-12 min  ->  14:48:41Z
+      e= -8 min  ->  14:52:41Z
+      e= -5 min  ->  14:55:41Z
+      e= -3 min  ->  14:57:41Z
+      e= +0 min  ->  15:00:41Z
+      e= +3 min  ->  15:03:41Z
+      e= +5 min  ->  15:05:41Z
+      e= +8 min  ->  15:08:41Z
+      e=+12 min  ->  15:12:41Z
+      e=+20 min  ->  15:20:41Z
+
+[star_W0_r4]  ref 2026-06-26 15:04:54Z  ->  repeat 2026-06-27 15:00:58Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:40:58Z
+      e=-12 min  ->  14:48:58Z
+      e= -8 min  ->  14:52:58Z
+      e= -5 min  ->  14:55:58Z
+      e= -3 min  ->  14:57:58Z
+      e= +0 min  ->  15:00:58Z
+      e= +3 min  ->  15:03:58Z
+      e= +5 min  ->  15:05:58Z
+      e= +8 min  ->  15:08:58Z
+      e=+12 min  ->  15:12:58Z
+      e=+20 min  ->  15:20:58Z
+
+[star_W0_r5]  ref 2026-06-26 15:05:10Z  ->  repeat 2026-06-27 15:01:14Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:41:14Z
+      e=-12 min  ->  14:49:14Z
+      e= -8 min  ->  14:53:14Z
+      e= -5 min  ->  14:56:14Z
+      e= -3 min  ->  14:58:14Z
+      e= +0 min  ->  15:01:14Z
+      e= +3 min  ->  15:04:14Z
+      e= +5 min  ->  15:06:14Z
+      e= +8 min  ->  15:09:14Z
+      e=+12 min  ->  15:13:14Z
+      e=+20 min  ->  15:21:14Z
+
+[star_W0_r6]  ref 2026-06-26 15:05:27Z  ->  repeat 2026-06-27 15:01:31Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:41:31Z
+      e=-12 min  ->  14:49:31Z
+      e= -8 min  ->  14:53:31Z
+      e= -5 min  ->  14:56:31Z
+      e= -3 min  ->  14:58:31Z
+      e= +0 min  ->  15:01:31Z
+      e= +3 min  ->  15:04:31Z
+      e= +5 min  ->  15:06:31Z
+      e= +8 min  ->  15:09:31Z
+      e=+12 min  ->  15:13:31Z
+      e=+20 min  ->  15:21:31Z
+
+[push_W1_r1]  ref 2026-06-26 15:17:23Z  ->  repeat 2026-06-27 15:13:27Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:53:27Z
+      e=-12 min  ->  15:01:27Z
+      e= -8 min  ->  15:05:27Z
+      e= -5 min  ->  15:08:27Z
+      e= -3 min  ->  15:10:27Z
+      e= +0 min  ->  15:13:27Z
+      e= +3 min  ->  15:16:27Z
+      e= +5 min  ->  15:18:27Z
+      e= +8 min  ->  15:21:27Z
+      e=+12 min  ->  15:25:27Z
+      e=+20 min  ->  15:33:27Z
+
+[push_W1_r2]  ref 2026-06-26 15:17:40Z  ->  repeat 2026-06-27 15:13:44Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:53:44Z
+      e=-12 min  ->  15:01:44Z
+      e= -8 min  ->  15:05:44Z
+      e= -5 min  ->  15:08:44Z
+      e= -3 min  ->  15:10:44Z
+      e= +0 min  ->  15:13:44Z
+      e= +3 min  ->  15:16:44Z
+      e= +5 min  ->  15:18:44Z
+      e= +8 min  ->  15:21:44Z
+      e=+12 min  ->  15:25:44Z
+      e=+20 min  ->  15:33:44Z
+
+[push_W1_r3]  ref 2026-06-26 15:17:57Z  ->  repeat 2026-06-27 15:14:01Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:54:01Z
+      e=-12 min  ->  15:02:01Z
+      e= -8 min  ->  15:06:01Z
+      e= -5 min  ->  15:09:01Z
+      e= -3 min  ->  15:11:01Z
+      e= +0 min  ->  15:14:01Z
+      e= +3 min  ->  15:17:01Z
+      e= +5 min  ->  15:19:01Z
+      e= +8 min  ->  15:22:01Z
+      e=+12 min  ->  15:26:01Z
+      e=+20 min  ->  15:34:01Z
+
+[push_W1_r4]  ref 2026-06-26 15:18:13Z  ->  repeat 2026-06-27 15:14:17Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:54:17Z
+      e=-12 min  ->  15:02:17Z
+      e= -8 min  ->  15:06:17Z
+      e= -5 min  ->  15:09:17Z
+      e= -3 min  ->  15:11:17Z
+      e= +0 min  ->  15:14:17Z
+      e= +3 min  ->  15:17:17Z
+      e= +5 min  ->  15:19:17Z
+      e= +8 min  ->  15:22:17Z
+      e=+12 min  ->  15:26:17Z
+      e=+20 min  ->  15:34:17Z
+
+[push_W1_r5]  ref 2026-06-26 15:18:30Z  ->  repeat 2026-06-27 15:14:34Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:54:34Z
+      e=-12 min  ->  15:02:34Z
+      e= -8 min  ->  15:06:34Z
+      e= -5 min  ->  15:09:34Z
+      e= -3 min  ->  15:11:34Z
+      e= +0 min  ->  15:14:34Z
+      e= +3 min  ->  15:17:34Z
+      e= +5 min  ->  15:19:34Z
+      e= +8 min  ->  15:22:34Z
+      e=+12 min  ->  15:26:34Z
+      e=+20 min  ->  15:34:34Z
+
+[push_W1_r6]  ref 2026-06-26 15:18:47Z  ->  repeat 2026-06-27 15:14:51Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:54:51Z
+      e=-12 min  ->  15:02:51Z
+      e= -8 min  ->  15:06:51Z
+      e= -5 min  ->  15:09:51Z
+      e= -3 min  ->  15:11:51Z
+      e= +0 min  ->  15:14:51Z
+      e= +3 min  ->  15:17:51Z
+      e= +5 min  ->  15:19:51Z
+      e= +8 min  ->  15:22:51Z
+      e=+12 min  ->  15:26:51Z
+      e=+20 min  ->  15:34:51Z
+
+[star_W1_r1]  ref 2026-06-26 15:19:03Z  ->  repeat 2026-06-27 15:15:07Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:55:07Z
+      e=-12 min  ->  15:03:07Z
+      e= -8 min  ->  15:07:07Z
+      e= -5 min  ->  15:10:07Z
+      e= -3 min  ->  15:12:07Z
+      e= +0 min  ->  15:15:07Z
+      e= +3 min  ->  15:18:07Z
+      e= +5 min  ->  15:20:07Z
+      e= +8 min  ->  15:23:07Z
+      e=+12 min  ->  15:27:07Z
+      e=+20 min  ->  15:35:07Z
+
+[star_W1_r2]  ref 2026-06-26 15:19:20Z  ->  repeat 2026-06-27 15:15:24Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:55:24Z
+      e=-12 min  ->  15:03:24Z
+      e= -8 min  ->  15:07:24Z
+      e= -5 min  ->  15:10:24Z
+      e= -3 min  ->  15:12:24Z
+      e= +0 min  ->  15:15:24Z
+      e= +3 min  ->  15:18:24Z
+      e= +5 min  ->  15:20:24Z
+      e= +8 min  ->  15:23:24Z
+      e=+12 min  ->  15:27:24Z
+      e=+20 min  ->  15:35:24Z
+
+[star_W1_r3]  ref 2026-06-26 15:19:37Z  ->  repeat 2026-06-27 15:15:41Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:55:41Z
+      e=-12 min  ->  15:03:41Z
+      e= -8 min  ->  15:07:41Z
+      e= -5 min  ->  15:10:41Z
+      e= -3 min  ->  15:12:41Z
+      e= +0 min  ->  15:15:41Z
+      e= +3 min  ->  15:18:41Z
+      e= +5 min  ->  15:20:41Z
+      e= +8 min  ->  15:23:41Z
+      e=+12 min  ->  15:27:41Z
+      e=+20 min  ->  15:35:41Z
+
+[star_W1_r4]  ref 2026-06-26 15:19:54Z  ->  repeat 2026-06-27 15:15:58Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:55:58Z
+      e=-12 min  ->  15:03:58Z
+      e= -8 min  ->  15:07:58Z
+      e= -5 min  ->  15:10:58Z
+      e= -3 min  ->  15:12:58Z
+      e= +0 min  ->  15:15:58Z
+      e= +3 min  ->  15:18:58Z
+      e= +5 min  ->  15:20:58Z
+      e= +8 min  ->  15:23:58Z
+      e=+12 min  ->  15:27:58Z
+      e=+20 min  ->  15:35:58Z
+
+[star_W1_r5]  ref 2026-06-26 15:20:10Z  ->  repeat 2026-06-27 15:16:14Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:56:14Z
+      e=-12 min  ->  15:04:14Z
+      e= -8 min  ->  15:08:14Z
+      e= -5 min  ->  15:11:14Z
+      e= -3 min  ->  15:13:14Z
+      e= +0 min  ->  15:16:14Z
+      e= +3 min  ->  15:19:14Z
+      e= +5 min  ->  15:21:14Z
+      e= +8 min  ->  15:24:14Z
+      e=+12 min  ->  15:28:14Z
+      e=+20 min  ->  15:36:14Z
+
+[star_W1_r6]  ref 2026-06-26 15:20:27Z  ->  repeat 2026-06-27 15:16:31Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  14:56:31Z
+      e=-12 min  ->  15:04:31Z
+      e= -8 min  ->  15:08:31Z
+      e= -5 min  ->  15:11:31Z
+      e= -3 min  ->  15:13:31Z
+      e= +0 min  ->  15:16:31Z
+      e= +3 min  ->  15:19:31Z
+      e= +5 min  ->  15:21:31Z
+      e= +8 min  ->  15:24:31Z
+      e=+12 min  ->  15:28:31Z
+      e=+20 min  ->  15:36:31Z
+
+[push_W2_r1]  ref 2026-06-26 15:32:23Z  ->  repeat 2026-06-27 15:28:27Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:08:27Z
+      e=-12 min  ->  15:16:27Z
+      e= -8 min  ->  15:20:27Z
+      e= -5 min  ->  15:23:27Z
+      e= -3 min  ->  15:25:27Z
+      e= +0 min  ->  15:28:27Z
+      e= +3 min  ->  15:31:27Z
+      e= +5 min  ->  15:33:27Z
+      e= +8 min  ->  15:36:27Z
+      e=+12 min  ->  15:40:27Z
+      e=+20 min  ->  15:48:27Z
+
+[push_W2_r2]  ref 2026-06-26 15:32:40Z  ->  repeat 2026-06-27 15:28:44Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:08:44Z
+      e=-12 min  ->  15:16:44Z
+      e= -8 min  ->  15:20:44Z
+      e= -5 min  ->  15:23:44Z
+      e= -3 min  ->  15:25:44Z
+      e= +0 min  ->  15:28:44Z
+      e= +3 min  ->  15:31:44Z
+      e= +5 min  ->  15:33:44Z
+      e= +8 min  ->  15:36:44Z
+      e=+12 min  ->  15:40:44Z
+      e=+20 min  ->  15:48:44Z
+
+[push_W2_r3]  ref 2026-06-26 15:32:57Z  ->  repeat 2026-06-27 15:29:01Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:09:01Z
+      e=-12 min  ->  15:17:01Z
+      e= -8 min  ->  15:21:01Z
+      e= -5 min  ->  15:24:01Z
+      e= -3 min  ->  15:26:01Z
+      e= +0 min  ->  15:29:01Z
+      e= +3 min  ->  15:32:01Z
+      e= +5 min  ->  15:34:01Z
+      e= +8 min  ->  15:37:01Z
+      e=+12 min  ->  15:41:01Z
+      e=+20 min  ->  15:49:01Z
+
+[push_W2_r4]  ref 2026-06-26 15:33:13Z  ->  repeat 2026-06-27 15:29:17Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:09:17Z
+      e=-12 min  ->  15:17:17Z
+      e= -8 min  ->  15:21:17Z
+      e= -5 min  ->  15:24:17Z
+      e= -3 min  ->  15:26:17Z
+      e= +0 min  ->  15:29:17Z
+      e= +3 min  ->  15:32:17Z
+      e= +5 min  ->  15:34:17Z
+      e= +8 min  ->  15:37:17Z
+      e=+12 min  ->  15:41:17Z
+      e=+20 min  ->  15:49:17Z
+
+[push_W2_r5]  ref 2026-06-26 15:33:48Z  ->  repeat 2026-06-27 15:29:52Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:09:52Z
+      e=-12 min  ->  15:17:52Z
+      e= -8 min  ->  15:21:52Z
+      e= -5 min  ->  15:24:52Z
+      e= -3 min  ->  15:26:52Z
+      e= +0 min  ->  15:29:52Z
+      e= +3 min  ->  15:32:52Z
+      e= +5 min  ->  15:34:52Z
+      e= +8 min  ->  15:37:52Z
+      e=+12 min  ->  15:41:52Z
+      e=+20 min  ->  15:49:52Z
+
+[push_W2_r6]  ref 2026-06-26 15:34:05Z  ->  repeat 2026-06-27 15:30:09Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:10:09Z
+      e=-12 min  ->  15:18:09Z
+      e= -8 min  ->  15:22:09Z
+      e= -5 min  ->  15:25:09Z
+      e= -3 min  ->  15:27:09Z
+      e= +0 min  ->  15:30:09Z
+      e= +3 min  ->  15:33:09Z
+      e= +5 min  ->  15:35:09Z
+      e= +8 min  ->  15:38:09Z
+      e=+12 min  ->  15:42:09Z
+      e=+20 min  ->  15:50:09Z
+
+[star_W2_r1]  ref 2026-06-26 15:34:39Z  ->  repeat 2026-06-27 15:30:43Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:10:43Z
+      e=-12 min  ->  15:18:43Z
+      e= -8 min  ->  15:22:43Z
+      e= -5 min  ->  15:25:43Z
+      e= -3 min  ->  15:27:43Z
+      e= +0 min  ->  15:30:43Z
+      e= +3 min  ->  15:33:43Z
+      e= +5 min  ->  15:35:43Z
+      e= +8 min  ->  15:38:43Z
+      e=+12 min  ->  15:42:43Z
+      e=+20 min  ->  15:50:43Z
+
+[star_W2_r2]  ref 2026-06-26 15:35:13Z  ->  repeat 2026-06-27 15:31:17Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:11:17Z
+      e=-12 min  ->  15:19:17Z
+      e= -8 min  ->  15:23:17Z
+      e= -5 min  ->  15:26:17Z
+      e= -3 min  ->  15:28:17Z
+      e= +0 min  ->  15:31:17Z
+      e= +3 min  ->  15:34:17Z
+      e= +5 min  ->  15:36:17Z
+      e= +8 min  ->  15:39:17Z
+      e=+12 min  ->  15:43:17Z
+      e=+20 min  ->  15:51:17Z
+
+[star_W2_r3]  ref 2026-06-26 15:36:06Z  ->  repeat 2026-06-27 15:32:10Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:12:10Z
+      e=-12 min  ->  15:20:10Z
+      e= -8 min  ->  15:24:10Z
+      e= -5 min  ->  15:27:10Z
+      e= -3 min  ->  15:29:10Z
+      e= +0 min  ->  15:32:10Z
+      e= +3 min  ->  15:35:10Z
+      e= +5 min  ->  15:37:10Z
+      e= +8 min  ->  15:40:10Z
+      e=+12 min  ->  15:44:10Z
+      e=+20 min  ->  15:52:10Z
+
+[star_W2_r4]  ref 2026-06-26 15:36:22Z  ->  repeat 2026-06-27 15:32:26Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:12:26Z
+      e=-12 min  ->  15:20:26Z
+      e= -8 min  ->  15:24:26Z
+      e= -5 min  ->  15:27:26Z
+      e= -3 min  ->  15:29:26Z
+      e= +0 min  ->  15:32:26Z
+      e= +3 min  ->  15:35:26Z
+      e= +5 min  ->  15:37:26Z
+      e= +8 min  ->  15:40:26Z
+      e=+12 min  ->  15:44:26Z
+      e=+20 min  ->  15:52:26Z
+
+[star_W2_r5]  ref 2026-06-26 15:36:39Z  ->  repeat 2026-06-27 15:32:43Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:12:43Z
+      e=-12 min  ->  15:20:43Z
+      e= -8 min  ->  15:24:43Z
+      e= -5 min  ->  15:27:43Z
+      e= -3 min  ->  15:29:43Z
+      e= +0 min  ->  15:32:43Z
+      e= +3 min  ->  15:35:43Z
+      e= +5 min  ->  15:37:43Z
+      e= +8 min  ->  15:40:43Z
+      e=+12 min  ->  15:44:43Z
+      e=+20 min  ->  15:52:43Z
+
+[star_W2_r6]  ref 2026-06-26 15:37:49Z  ->  repeat 2026-06-27 15:33:53Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:13:53Z
+      e=-12 min  ->  15:21:53Z
+      e= -8 min  ->  15:25:53Z
+      e= -5 min  ->  15:28:53Z
+      e= -3 min  ->  15:30:53Z
+      e= +0 min  ->  15:33:53Z
+      e= +3 min  ->  15:36:53Z
+      e= +5 min  ->  15:38:53Z
+      e= +8 min  ->  15:41:53Z
+      e=+12 min  ->  15:45:53Z
+      e=+20 min  ->  15:53:53Z
+
+[push_W3_r1]  ref 2026-06-26 15:47:41Z  ->  repeat 2026-06-27 15:43:45Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:23:45Z
+      e=-12 min  ->  15:31:45Z
+      e= -8 min  ->  15:35:45Z
+      e= -5 min  ->  15:38:45Z
+      e= -3 min  ->  15:40:45Z
+      e= +0 min  ->  15:43:45Z
+      e= +3 min  ->  15:46:45Z
+      e= +5 min  ->  15:48:45Z
+      e= +8 min  ->  15:51:45Z
+      e=+12 min  ->  15:55:45Z
+      e=+20 min  ->  16:03:45Z
+
+[push_W3_r2]  ref 2026-06-26 15:47:58Z  ->  repeat 2026-06-27 15:44:02Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:24:02Z
+      e=-12 min  ->  15:32:02Z
+      e= -8 min  ->  15:36:02Z
+      e= -5 min  ->  15:39:02Z
+      e= -3 min  ->  15:41:02Z
+      e= +0 min  ->  15:44:02Z
+      e= +3 min  ->  15:47:02Z
+      e= +5 min  ->  15:49:02Z
+      e= +8 min  ->  15:52:02Z
+      e=+12 min  ->  15:56:02Z
+      e=+20 min  ->  16:04:02Z
+
+[push_W3_r3]  ref 2026-06-26 15:49:07Z  ->  repeat 2026-06-27 15:45:12Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:25:12Z
+      e=-12 min  ->  15:33:12Z
+      e= -8 min  ->  15:37:12Z
+      e= -5 min  ->  15:40:12Z
+      e= -3 min  ->  15:42:12Z
+      e= +0 min  ->  15:45:12Z
+      e= +3 min  ->  15:48:12Z
+      e= +5 min  ->  15:50:12Z
+      e= +8 min  ->  15:53:12Z
+      e=+12 min  ->  15:57:12Z
+      e=+20 min  ->  16:05:12Z
+
+[push_W3_r4]  ref 2026-06-26 15:49:24Z  ->  repeat 2026-06-27 15:45:28Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:25:28Z
+      e=-12 min  ->  15:33:28Z
+      e= -8 min  ->  15:37:28Z
+      e= -5 min  ->  15:40:28Z
+      e= -3 min  ->  15:42:28Z
+      e= +0 min  ->  15:45:28Z
+      e= +3 min  ->  15:48:28Z
+      e= +5 min  ->  15:50:28Z
+      e= +8 min  ->  15:53:28Z
+      e=+12 min  ->  15:57:28Z
+      e=+20 min  ->  16:05:28Z
+
+[push_W3_r5]  ref 2026-06-26 15:52:20Z  ->  repeat 2026-06-27 15:48:24Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:28:24Z
+      e=-12 min  ->  15:36:24Z
+      e= -8 min  ->  15:40:24Z
+      e= -5 min  ->  15:43:24Z
+      e= -3 min  ->  15:45:24Z
+      e= +0 min  ->  15:48:24Z
+      e= +3 min  ->  15:51:24Z
+      e= +5 min  ->  15:53:24Z
+      e= +8 min  ->  15:56:24Z
+      e=+12 min  ->  16:00:24Z
+      e=+20 min  ->  16:08:24Z
+
+[push_W3_r6]  ref 2026-06-26 15:52:37Z  ->  repeat 2026-06-27 15:48:41Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:28:41Z
+      e=-12 min  ->  15:36:41Z
+      e= -8 min  ->  15:40:41Z
+      e= -5 min  ->  15:43:41Z
+      e= -3 min  ->  15:45:41Z
+      e= +0 min  ->  15:48:41Z
+      e= +3 min  ->  15:51:41Z
+      e= +5 min  ->  15:53:41Z
+      e= +8 min  ->  15:56:41Z
+      e=+12 min  ->  16:00:41Z
+      e=+20 min  ->  16:08:41Z
+
+[star_W3_r1]  ref 2026-06-26 15:52:54Z  ->  repeat 2026-06-27 15:48:58Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:28:58Z
+      e=-12 min  ->  15:36:58Z
+      e= -8 min  ->  15:40:58Z
+      e= -5 min  ->  15:43:58Z
+      e= -3 min  ->  15:45:58Z
+      e= +0 min  ->  15:48:58Z
+      e= +3 min  ->  15:51:58Z
+      e= +5 min  ->  15:53:58Z
+      e= +8 min  ->  15:56:58Z
+      e=+12 min  ->  16:00:58Z
+      e=+20 min  ->  16:08:58Z
+
+[star_W3_r2]  ref 2026-06-26 15:53:10Z  ->  repeat 2026-06-27 15:49:14Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:29:14Z
+      e=-12 min  ->  15:37:14Z
+      e= -8 min  ->  15:41:14Z
+      e= -5 min  ->  15:44:14Z
+      e= -3 min  ->  15:46:14Z
+      e= +0 min  ->  15:49:14Z
+      e= +3 min  ->  15:52:14Z
+      e= +5 min  ->  15:54:14Z
+      e= +8 min  ->  15:57:14Z
+      e=+12 min  ->  16:01:14Z
+      e=+20 min  ->  16:09:14Z
+
+[star_W3_r3]  ref 2026-06-26 15:53:45Z  ->  repeat 2026-06-27 15:49:49Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:29:49Z
+      e=-12 min  ->  15:37:49Z
+      e= -8 min  ->  15:41:49Z
+      e= -5 min  ->  15:44:49Z
+      e= -3 min  ->  15:46:49Z
+      e= +0 min  ->  15:49:49Z
+      e= +3 min  ->  15:52:49Z
+      e= +5 min  ->  15:54:49Z
+      e= +8 min  ->  15:57:49Z
+      e=+12 min  ->  16:01:49Z
+      e=+20 min  ->  16:09:49Z
+
+[star_W3_r4]  ref 2026-06-26 15:54:01Z  ->  repeat 2026-06-27 15:50:05Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:30:05Z
+      e=-12 min  ->  15:38:05Z
+      e= -8 min  ->  15:42:05Z
+      e= -5 min  ->  15:45:05Z
+      e= -3 min  ->  15:47:05Z
+      e= +0 min  ->  15:50:05Z
+      e= +3 min  ->  15:53:05Z
+      e= +5 min  ->  15:55:05Z
+      e= +8 min  ->  15:58:05Z
+      e=+12 min  ->  16:02:05Z
+      e=+20 min  ->  16:10:05Z
+
+[star_W3_r5]  ref 2026-06-26 15:55:11Z  ->  repeat 2026-06-27 15:51:15Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:31:15Z
+      e=-12 min  ->  15:39:15Z
+      e= -8 min  ->  15:43:15Z
+      e= -5 min  ->  15:46:15Z
+      e= -3 min  ->  15:48:15Z
+      e= +0 min  ->  15:51:15Z
+      e= +3 min  ->  15:54:15Z
+      e= +5 min  ->  15:56:15Z
+      e= +8 min  ->  15:59:15Z
+      e=+12 min  ->  16:03:15Z
+      e=+20 min  ->  16:11:15Z
+
+[star_W3_r6]  ref 2026-06-26 15:55:28Z  ->  repeat 2026-06-27 15:51:32Z  (wall-clock -3.93 min vs same time 1 days on)
+      e=-20 min  ->  15:31:32Z
+      e=-12 min  ->  15:39:32Z
+      e= -8 min  ->  15:43:32Z
+      e= -5 min  ->  15:46:32Z
+      e= -3 min  ->  15:48:32Z
+      e= +0 min  ->  15:51:32Z
+      e= +3 min  ->  15:54:32Z
+      e= +5 min  ->  15:56:32Z
+      e= +8 min  ->  15:59:32Z
+      e=+12 min  ->  16:03:32Z
+      e=+20 min  ->  16:11:32Z
+
+wrote 528 targets -> targets_day2.json

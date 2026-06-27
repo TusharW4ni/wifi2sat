@@ -1,0 +1,311 @@
+~/s/wifi2sat/gnss-data-collection/window-experiment/phase1 (main) ●
+→ uv run run_session.py --session ref_day1.1 --gestures push,star --reps 6 --windows 4 --spacing 15
+Session 'ref_day1.1': 4 window(s), gestures=['push', 'star'], reps=6
+
+=== Window 0 @ 21:16:05Z ===
+
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 5 target(s)
+   Counts -> GPS: 119 | BDS: 119 | NAV: 11
+Saved: push_W0-260626-211608Z.rtcm  (+ push_W0-260626-211608Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 4 target(s)
+   Counts -> GPS: 119 | BDS: 119 | NAV: 12
+Saved: push_W0-260626-211625Z.rtcm  (+ push_W0-260626-211625Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12sUnknown protocol header b'$\x1a'.
+Unknown protocol header b'$\xc3'.
+Unknown protocol header b'\xd3\x97'.
+Unknown protocol header b'$\x05'.
+Unknown protocol header b'$\xc6'.
+Unknown protocol header b'\xd3\x9d'.
+Unknown protocol header b'\xb5\xc3'.
+Unknown protocol header b'$\x05'.
+
+PASS | Ref: BDS_012 | 5 target(s)
+   Counts -> GPS: 120 | BDS: 120 | NAV: 12
+Saved: push_W0-260626-211642Z.rtcm  (+ push_W0-260626-211642Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 3 target(s)
+   Counts -> GPS: 120 | BDS: 120 | NAV: 12
+Saved: push_W0-260626-211659Z.rtcm  (+ push_W0-260626-211659Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 119 | BDS: 119 | NAV: 12
+Saved: push_W0-260626-211716Z.rtcm  (+ push_W0-260626-211716Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 5 target(s)
+   Counts -> GPS: 119 | BDS: 119 | NAV: 12
+Saved: push_W0-260626-211733Z.rtcm  (+ push_W0-260626-211733Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 7 target(s)
+   Counts -> GPS: 120 | BDS: 120 | NAV: 12
+Saved: star_W0-260626-211750Z.rtcm  (+ star_W0-260626-211750Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 118 | BDS: 118 | NAV: 12
+Saved: star_W0-260626-211806Z.rtcm  (+ star_W0-260626-211806Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 118 | BDS: 118 | NAV: 11
+Saved: star_W0-260626-211823Z.rtcm  (+ star_W0-260626-211823Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12sUnknown protocol header b'$('.
+Unknown protocol header b'$\x05'.
+
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 117 | BDS: 117 | NAV: 12
+Saved: star_W0-260626-211840Z.rtcm  (+ star_W0-260626-211840Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 115 | BDS: 115 | NAV: 11
+Saved: star_W0-260626-211857Z.rtcm  (+ star_W0-260626-211857Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W0]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: BDS_012 | 6 target(s)
+   Counts -> GPS: 118 | BDS: 118 | NAV: 12
+Saved: star_W0-260626-211914Z.rtcm  (+ star_W0-260626-211914Z.meta.json)
+
+=== Window 1 @ 21:31:05Z ===
+  waiting for 21:31:05Z --      1s
+
+=======================================================
+  Collecting Sample 1 of 1 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_010 | 4 target(s)
+   Counts -> GPS: 110 | BDS: 110 | NAV: 11
+Saved: push_W1-260626-213108Z.rtcm  (+ push_W1-260626-213108Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 4 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W1-260626-213125Z.rtcm  (+ push_W1-260626-213125Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_010 | 6 target(s)
+   Counts -> GPS: 111 | BDS: 111 | NAV: 11
+Saved: push_W1-260626-213142Z.rtcm  (+ push_W1-260626-213142Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_032 | 4 target(s)
+   Counts -> GPS: 109 | BDS: 109 | NAV: 11
+Saved: push_W1-260626-213159Z.rtcm  (+ push_W1-260626-213159Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 4 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 11
+Saved: push_W1-260626-213216Z.rtcm  (+ push_W1-260626-213216Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [push_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_010 | 5 target(s)
+   Counts -> GPS: 114 | BDS: 114 | NAV: 12
+Saved: push_W1-260626-213233Z.rtcm  (+ push_W1-260626-213233Z.meta.json)
+
+=======================================================
+  Collecting Sample 1 of 1 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 3 target(s)
+   Counts -> GPS: 108 | BDS: 108 | NAV: 10
+Saved: star_W1-260626-213250Z.rtcm  (+ star_W1-260626-213250Z.meta.json)
+
+=======================================================
+  Collecting Sample 2 of 2 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_010 | 5 target(s)
+   Counts -> GPS: 111 | BDS: 111 | NAV: 11
+Saved: star_W1-260626-213306Z.rtcm  (+ star_W1-260626-213306Z.meta.json)
+
+=======================================================
+  Collecting Sample 3 of 3 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 11.9s / 12s
+PASS | Ref: GPS_010 | 4 target(s)
+   Counts -> GPS: 112 | BDS: 112 | NAV: 11
+Saved: star_W1-260626-213323Z.rtcm  (+ star_W1-260626-213323Z.meta.json)
+
+=======================================================
+  Collecting Sample 4 of 4 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 3 target(s)
+   Counts -> GPS: 114 | BDS: 114 | NAV: 11
+Saved: star_W1-260626-213340Z.rtcm  (+ star_W1-260626-213340Z.meta.json)
+
+=======================================================
+  Collecting Sample 5 of 5 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_032 | 5 target(s)
+   Counts -> GPS: 111 | BDS: 111 | NAV: 11
+Saved: star_W1-260626-213357Z.rtcm  (+ star_W1-260626-213357Z.meta.json)
+
+=======================================================
+  Collecting Sample 6 of 6 : [star_W1]
+=======================================================
+Starting in 3...
+Starting in 2...
+Starting in 1...
+GO! (Perform gesture between seconds 3 and 6)
+Recording... 12.0s / 12s
+PASS | Ref: GPS_010 | 5 target(s)
+   Counts -> GPS: 110 | BDS: 110 | NAV: 11
+Saved: star_W1-260626-213414Z.rtcm  (+ star_W1-260626-213414Z.meta.json)
+
+=== Window 2 @ 21:46:05Z ===
+  waiting for 21:46:05Z --    693s   ^C
+Session interrupted. Manifest holds everything captured so far.
