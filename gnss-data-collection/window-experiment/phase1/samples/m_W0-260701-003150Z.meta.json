@@ -1,0 +1,210 @@
+{
+  "label": "m_W0",
+  "capture_start_utc": "2026-07-01T00:31:50.096230+00:00",
+  "rtcm_file": "m_W0-260701-003150Z.rtcm",
+  "rate_hz": 10,
+  "duration_sec": 12,
+  "ref_sat": "GPS_031",
+  "satellites": {
+    "BDS_023": {
+      "elev_deg": 13.0,
+      "azim_deg": 208.0,
+      "los_enu": [
+        -0.457439,
+        -0.860318,
+        0.224951
+      ],
+      "passed_health": false
+    },
+    "BDS_024": {
+      "elev_deg": 51.0,
+      "azim_deg": 57.0,
+      "los_enu": [
+        0.527792,
+        0.342752,
+        0.777146
+      ],
+      "passed_health": false
+    },
+    "BDS_025": {
+      "elev_deg": 59.0,
+      "azim_deg": 187.0,
+      "los_enu": [
+        -0.062767,
+        -0.511199,
+        0.857167
+      ],
+      "passed_health": false
+    },
+    "BDS_026": {
+      "elev_deg": 7.0,
+      "azim_deg": 40.0,
+      "los_enu": [
+        0.637996,
+        0.760334,
+        0.121869
+      ],
+      "passed_health": false
+    },
+    "BDS_027": {
+      "elev_deg": 4.0,
+      "azim_deg": 273.0,
+      "los_enu": [
+        -0.996197,
+        0.052208,
+        0.069756
+      ],
+      "passed_health": false
+    },
+    "BDS_028": {
+      "elev_deg": 3.0,
+      "azim_deg": 234.0,
+      "los_enu": [
+        -0.807908,
+        -0.58698,
+        0.052336
+      ],
+      "passed_health": false
+    },
+    "BDS_033": {
+      "elev_deg": 68.0,
+      "azim_deg": 66.0,
+      "los_enu": [
+        0.34222,
+        0.152366,
+        0.927184
+      ],
+      "passed_health": true
+    },
+    "BDS_041": {
+      "elev_deg": 45.0,
+      "azim_deg": 323.0,
+      "los_enu": [
+        -0.425547,
+        0.564721,
+        0.707107
+      ],
+      "passed_health": false
+    },
+    "BDS_042": {
+      "elev_deg": 20.0,
+      "azim_deg": 113.0,
+      "los_enu": [
+        0.864992,
+        -0.367167,
+        0.34202
+      ],
+      "passed_health": false
+    },
+    "GPS_001": {
+      "elev_deg": 31.0,
+      "azim_deg": 262.0,
+      "los_enu": [
+        -0.848825,
+        -0.119295,
+        0.515038
+      ],
+      "passed_health": false
+    },
+    "GPS_002": {
+      "elev_deg": 22.0,
+      "azim_deg": 236.0,
+      "los_enu": [
+        -0.76867,
+        -0.518475,
+        0.374607
+      ],
+      "passed_health": false
+    },
+    "GPS_003": {
+      "elev_deg": 39.0,
+      "azim_deg": 318.0,
+      "los_enu": [
+        -0.520012,
+        0.577532,
+        0.62932
+      ],
+      "passed_health": false
+    },
+    "GPS_004": {
+      "elev_deg": 10.0,
+      "azim_deg": 288.0,
+      "los_enu": [
+        -0.936608,
+        0.304322,
+        0.173648
+      ],
+      "passed_health": false
+    },
+    "GPS_010": {
+      "elev_deg": 15.417,
+      "azim_deg": 144.0,
+      "los_enu": [
+        0.566636,
+        -0.779907,
+        0.265837
+      ],
+      "passed_health": false
+    },
+    "GPS_016": {
+      "elev_deg": 16.083,
+      "azim_deg": 176.0,
+      "los_enu": [
+        0.067026,
+        -0.958519,
+        0.277035
+      ],
+      "passed_health": false
+    },
+    "GPS_025": {
+      "elev_deg": 17.0,
+      "azim_deg": 46.0,
+      "los_enu": [
+        0.687908,
+        0.664305,
+        0.292372
+      ],
+      "passed_health": false
+    },
+    "GPS_026": {
+      "elev_deg": 43.0,
+      "azim_deg": 159.0,
+      "los_enu": [
+        0.262094,
+        -0.682778,
+        0.681998
+      ],
+      "passed_health": false
+    },
+    "GPS_028": {
+      "elev_deg": 56.0,
+      "azim_deg": 34.0,
+      "los_enu": [
+        0.312697,
+        0.463592,
+        0.829038
+      ],
+      "passed_health": false
+    },
+    "GPS_031": {
+      "elev_deg": 81.0,
+      "azim_deg": 318.0,
+      "los_enu": [
+        -0.104675,
+        0.116253,
+        0.987688
+      ],
+      "passed_health": true
+    },
+    "GPS_032": {
+      "elev_deg": 38.0,
+      "azim_deg": 73.0,
+      "los_enu": [
+        0.753578,
+        0.230392,
+        0.615661
+      ],
+      "passed_health": false
+    }
+  }
+}

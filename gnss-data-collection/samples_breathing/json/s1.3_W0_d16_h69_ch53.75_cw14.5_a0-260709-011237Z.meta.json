@@ -1,0 +1,210 @@
+{
+  "label": "s1.3_W0_d16_h69_ch53.75_cw14.5_a0",
+  "capture_start_utc": "2026-07-09T01:12:37.207623+00:00",
+  "rtcm_file": "s1.3_W0_d16_h69_ch53.75_cw14.5_a0-260709-011237Z.rtcm",
+  "rate_hz": 10,
+  "duration_sec": 30,
+  "ref_sat": "BDS_024",
+  "satellites": {
+    "BDS_014": {
+      "elev_deg": 30.0,
+      "azim_deg": 130.0,
+      "los_enu": [
+        0.663414,
+        -0.55667,
+        0.5
+      ],
+      "passed_health": true
+    },
+    "BDS_021": {
+      "elev_deg": 7.0,
+      "azim_deg": 132.0,
+      "los_enu": [
+        0.737606,
+        -0.664143,
+        0.121869
+      ],
+      "passed_health": false
+    },
+    "BDS_024": {
+      "elev_deg": 88.0,
+      "azim_deg": 78.0,
+      "los_enu": [
+        0.034137,
+        0.007256,
+        0.999391
+      ],
+      "passed_health": true
+    },
+    "BDS_025": {
+      "elev_deg": 30.0,
+      "azim_deg": 224.0,
+      "los_enu": [
+        -0.601592,
+        -0.622967,
+        0.5
+      ],
+      "passed_health": false
+    },
+    "BDS_026": {
+      "elev_deg": 37.667,
+      "azim_deg": 44.0,
+      "los_enu": [
+        0.549877,
+        0.569414,
+        0.611067
+      ],
+      "passed_health": true
+    },
+    "BDS_033": {
+      "elev_deg": 64.0,
+      "azim_deg": 327.0,
+      "los_enu": [
+        -0.238754,
+        0.367649,
+        0.898794
+      ],
+      "passed_health": true
+    },
+    "BDS_041": {
+      "elev_deg": 15.0,
+      "azim_deg": 317.0,
+      "los_enu": [
+        -0.65876,
+        0.706433,
+        0.258819
+      ],
+      "passed_health": false
+    },
+    "BDS_042": {
+      "elev_deg": 55.0,
+      "azim_deg": 125.0,
+      "los_enu": [
+        0.469846,
+        -0.32899,
+        0.819152
+      ],
+      "passed_health": true
+    },
+    "GPS_001": {
+      "elev_deg": 13.0,
+      "azim_deg": 231.2,
+      "los_enu": [
+        -0.759364,
+        -0.610544,
+        0.224951
+      ],
+      "passed_health": true
+    },
+    "GPS_002": {
+      "elev_deg": 1.0,
+      "azim_deg": 212.233,
+      "los_enu": [
+        -0.533287,
+        -0.845754,
+        0.017452
+      ],
+      "passed_health": false
+    },
+    "GPS_003": {
+      "elev_deg": 64.0,
+      "azim_deg": 276.8,
+      "los_enu": [
+        -0.435288,
+        0.051904,
+        0.898794
+      ],
+      "passed_health": true
+    },
+    "GPS_004": {
+      "elev_deg": 31.0,
+      "azim_deg": 310.7,
+      "los_enu": [
+        -0.649848,
+        0.558957,
+        0.515038
+      ],
+      "passed_health": true
+    },
+    "GPS_009": {
+      "elev_deg": 1.0,
+      "azim_deg": 300.533,
+      "los_enu": [
+        -0.861203,
+        0.507962,
+        0.017452
+      ],
+      "passed_health": false
+    },
+    "GPS_016": {
+      "elev_deg": 50.833,
+      "azim_deg": 164.0,
+      "los_enu": [
+        0.174087,
+        -0.607112,
+        0.775312
+      ],
+      "passed_health": false
+    },
+    "GPS_026": {
+      "elev_deg": 68.0,
+      "azim_deg": 105.0,
+      "los_enu": [
+        0.361842,
+        -0.096955,
+        0.927184
+      ],
+      "passed_health": true
+    },
+    "GPS_027": {
+      "elev_deg": 0.0,
+      "azim_deg": 162.0,
+      "los_enu": [
+        0.309017,
+        -0.951057,
+        0.0
+      ],
+      "passed_health": false
+    },
+    "GPS_028": {
+      "elev_deg": 27.0,
+      "azim_deg": 51.0,
+      "los_enu": [
+        0.692442,
+        0.560729,
+        0.45399
+      ],
+      "passed_health": false
+    },
+    "GPS_029": {
+      "elev_deg": 1.0,
+      "azim_deg": 57.0,
+      "los_enu": [
+        0.838543,
+        0.544556,
+        0.017452
+      ],
+      "passed_health": false
+    },
+    "GPS_031": {
+      "elev_deg": 53.0,
+      "azim_deg": 33.0,
+      "los_enu": [
+        0.327772,
+        0.504725,
+        0.798636
+      ],
+      "passed_health": true
+    },
+    "GPS_032": {
+      "elev_deg": 18.0,
+      "azim_deg": 104.0,
+      "los_enu": [
+        0.922806,
+        -0.230081,
+        0.309017
+      ],
+      "passed_health": true
+    }
+  }
+}

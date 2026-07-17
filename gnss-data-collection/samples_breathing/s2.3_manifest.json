@@ -1,0 +1,74 @@
+{
+  "session": "s2.3",
+  "created_utc": "2026-07-15T00:47:05.320682+00:00",
+  "distance_ft": 29,
+  "angle_deg": 0,
+  "person_height": 69,
+  "chest_height": 53.75,
+  "chest_width": 14.5,
+  "condition": "d29_h69_ch53.75_cw14.5_a0",
+  "reps": 20,
+  "mode": "spaced",
+  "entries": [
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 1,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:47:10.755035+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004710Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004710Z.meta.json"
+    },
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 2,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:47:49.827369+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004749Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004749Z.meta.json"
+    },
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 3,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:48:28.910495+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004828Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004828Z.meta.json"
+    },
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 4,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:49:07.977750+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004907Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004907Z.meta.json"
+    },
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 5,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:49:47.086046+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004947Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-004947Z.meta.json"
+    },
+    {
+      "session": "s2.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a0",
+      "window_index": 0,
+      "rep": 6,
+      "target_utc": "2026-07-15T00:47:05.320518+00:00",
+      "actual_utc": "2026-07-15T00:50:26.149365+00:00",
+      "rtcm": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-005026Z.rtcm",
+      "meta": "s2.3_W0_d29_h69_ch53.75_cw14.5_a0-260715-005026Z.meta.json"
+    }
+  ]
+}

@@ -1,0 +1,210 @@
+{
+  "label": "pushpull_W1",
+  "capture_start_utc": "2026-07-01T00:42:38.829359+00:00",
+  "rtcm_file": "pushpull_W1-260701-004238Z.rtcm",
+  "rate_hz": 10,
+  "duration_sec": 12,
+  "ref_sat": "GPS_031",
+  "satellites": {
+    "BDS_023": {
+      "elev_deg": 18.0,
+      "azim_deg": 210.0,
+      "los_enu": [
+        -0.475528,
+        -0.823639,
+        0.309017
+      ],
+      "passed_health": false
+    },
+    "BDS_024": {
+      "elev_deg": 47.0,
+      "azim_deg": 53.0,
+      "los_enu": [
+        0.544668,
+        0.410437,
+        0.731354
+      ],
+      "passed_health": false
+    },
+    "BDS_025": {
+      "elev_deg": 64.0,
+      "azim_deg": 188.0,
+      "los_enu": [
+        -0.061009,
+        -0.434105,
+        0.898794
+      ],
+      "passed_health": false
+    },
+    "BDS_026": {
+      "elev_deg": 3.0,
+      "azim_deg": 40.0,
+      "los_enu": [
+        0.641907,
+        0.764995,
+        0.052336
+      ],
+      "passed_health": false
+    },
+    "BDS_027": {
+      "elev_deg": 2.0,
+      "azim_deg": 269.0,
+      "los_enu": [
+        -0.999239,
+        -0.017442,
+        0.034899
+      ],
+      "passed_health": false
+    },
+    "BDS_028": {
+      "elev_deg": 1.0,
+      "azim_deg": 231.0,
+      "los_enu": [
+        -0.777028,
+        -0.629225,
+        0.017452
+      ],
+      "passed_health": false
+    },
+    "BDS_033": {
+      "elev_deg": 67.0,
+      "azim_deg": 79.0,
+      "los_enu": [
+        0.383552,
+        0.074555,
+        0.920505
+      ],
+      "passed_health": true
+    },
+    "BDS_041": {
+      "elev_deg": 49.0,
+      "azim_deg": 326.0,
+      "los_enu": [
+        -0.366864,
+        0.543898,
+        0.75471
+      ],
+      "passed_health": false
+    },
+    "BDS_042": {
+      "elev_deg": 17.0,
+      "azim_deg": 116.0,
+      "los_enu": [
+        0.859521,
+        -0.419216,
+        0.292372
+      ],
+      "passed_health": false
+    },
+    "GPS_001": {
+      "elev_deg": 29.75,
+      "azim_deg": 257.75,
+      "los_enu": [
+        -0.848431,
+        -0.184212,
+        0.496217
+      ],
+      "passed_health": false
+    },
+    "GPS_002": {
+      "elev_deg": 18.833,
+      "azim_deg": 232.0,
+      "los_enu": [
+        -0.745822,
+        -0.5827,
+        0.322816
+      ],
+      "passed_health": false
+    },
+    "GPS_003": {
+      "elev_deg": 43.083,
+      "azim_deg": 316.917,
+      "los_enu": [
+        -0.498881,
+        0.533427,
+        0.683061
+      ],
+      "passed_health": false
+    },
+    "GPS_004": {
+      "elev_deg": 12.0,
+      "azim_deg": 291.0,
+      "los_enu": [
+        -0.913179,
+        0.350537,
+        0.207912
+      ],
+      "passed_health": false
+    },
+    "GPS_010": {
+      "elev_deg": 12.0,
+      "azim_deg": 146.0,
+      "los_enu": [
+        0.546973,
+        -0.810921,
+        0.207912
+      ],
+      "passed_health": false
+    },
+    "GPS_016": {
+      "elev_deg": 21.0,
+      "azim_deg": 175.0,
+      "los_enu": [
+        0.081367,
+        -0.930028,
+        0.358368
+      ],
+      "passed_health": false
+    },
+    "GPS_025": {
+      "elev_deg": 13.0,
+      "azim_deg": 42.0,
+      "los_enu": [
+        0.651981,
+        0.724098,
+        0.224951
+      ],
+      "passed_health": false
+    },
+    "GPS_026": {
+      "elev_deg": 48.0,
+      "azim_deg": 155.0,
+      "los_enu": [
+        0.282787,
+        -0.606438,
+        0.743145
+      ],
+      "passed_health": false
+    },
+    "GPS_028": {
+      "elev_deg": 52.0,
+      "azim_deg": 36.0,
+      "los_enu": [
+        0.361877,
+        0.498081,
+        0.788011
+      ],
+      "passed_health": false
+    },
+    "GPS_031": {
+      "elev_deg": 78.0,
+      "azim_deg": 346.0,
+      "los_enu": [
+        -0.050298,
+        0.201736,
+        0.978148
+      ],
+      "passed_health": true
+    },
+    "GPS_032": {
+      "elev_deg": 36.0,
+      "azim_deg": 78.0,
+      "los_enu": [
+        0.791338,
+        0.168204,
+        0.587785
+      ],
+      "passed_health": false
+    }
+  }
+}
