@@ -1,0 +1,200 @@
+{
+  "label": "s1.3_W0_d16_h69_ch53.75_cw14.5_a0",
+  "capture_start_utc": "2026-07-09T01:09:21.886460+00:00",
+  "rtcm_file": "s1.3_W0_d16_h69_ch53.75_cw14.5_a0-260709-010921Z.rtcm",
+  "rate_hz": 10,
+  "duration_sec": 30,
+  "ref_sat": "BDS_024",
+  "satellites": {
+    "BDS_014": {
+      "elev_deg": 31.567,
+      "azim_deg": 129.433,
+      "los_enu": [
+        0.658079,
+        -0.541193,
+        0.52349
+      ],
+      "passed_health": true
+    },
+    "BDS_021": {
+      "elev_deg": 8.667,
+      "azim_deg": 131.333,
+      "los_enu": [
+        0.742306,
+        -0.652898,
+        0.150686
+      ],
+      "passed_health": false
+    },
+    "BDS_024": {
+      "elev_deg": 88.0,
+      "azim_deg": 128.574,
+      "los_enu": [
+        0.027284,
+        -0.021761,
+        0.999391
+      ],
+      "passed_health": true
+    },
+    "BDS_025": {
+      "elev_deg": 28.2,
+      "azim_deg": 223.2,
+      "los_enu": [
+        -0.603294,
+        -0.642443,
+        0.472551
+      ],
+      "passed_health": false
+    },
+    "BDS_026": {
+      "elev_deg": 38.833,
+      "azim_deg": 45.0,
+      "los_enu": [
+        0.550817,
+        0.550817,
+        0.627057
+      ],
+      "passed_health": true
+    },
+    "BDS_033": {
+      "elev_deg": 62.0,
+      "azim_deg": 327.0,
+      "los_enu": [
+        -0.255693,
+        0.393732,
+        0.882948
+      ],
+      "passed_health": true
+    },
+    "BDS_041": {
+      "elev_deg": 13.0,
+      "azim_deg": 316.0,
+      "los_enu": [
+        -0.676854,
+        0.700903,
+        0.224951
+      ],
+      "passed_health": false
+    },
+    "BDS_042": {
+      "elev_deg": 56.0,
+      "azim_deg": 122.0,
+      "los_enu": [
+        0.474222,
+        -0.296327,
+        0.829038
+      ],
+      "passed_health": true
+    },
+    "GPS_001": {
+      "elev_deg": 14.0,
+      "azim_deg": 233.0,
+      "los_enu": [
+        -0.774913,
+        -0.583939,
+        0.241922
+      ],
+      "passed_health": true
+    },
+    "GPS_002": {
+      "elev_deg": 2.0,
+      "azim_deg": 213.0,
+      "los_enu": [
+        -0.544307,
+        -0.83816,
+        0.034899
+      ],
+      "passed_health": false
+    },
+    "GPS_003": {
+      "elev_deg": 64.0,
+      "azim_deg": 281.0,
+      "los_enu": [
+        -0.430317,
+        0.083645,
+        0.898794
+      ],
+      "passed_health": true
+    },
+    "GPS_004": {
+      "elev_deg": 30.0,
+      "azim_deg": 310.0,
+      "los_enu": [
+        -0.663414,
+        0.55667,
+        0.5
+      ],
+      "passed_health": true
+    },
+    "GPS_009": {
+      "elev_deg": 0.0,
+      "azim_deg": 300.0,
+      "los_enu": [
+        -0.866025,
+        0.5,
+        0.0
+      ],
+      "passed_health": false
+    },
+    "GPS_016": {
+      "elev_deg": 49.0,
+      "azim_deg": 165.0,
+      "los_enu": [
+        0.169801,
+        -0.633704,
+        0.75471
+      ],
+      "passed_health": false
+    },
+    "GPS_026": {
+      "elev_deg": 68.0,
+      "azim_deg": 108.0,
+      "los_enu": [
+        0.356272,
+        -0.11576,
+        0.927184
+      ],
+      "passed_health": true
+    },
+    "GPS_028": {
+      "elev_deg": 28.0,
+      "azim_deg": 50.0,
+      "los_enu": [
+        0.676377,
+        0.567548,
+        0.469472
+      ],
+      "passed_health": false
+    },
+    "GPS_029": {
+      "elev_deg": 1.0,
+      "azim_deg": 58.0,
+      "los_enu": [
+        0.847919,
+        0.529839,
+        0.017452
+      ],
+      "passed_health": false
+    },
+    "GPS_031": {
+      "elev_deg": 54.0,
+      "azim_deg": 33.0,
+      "los_enu": [
+        0.320131,
+        0.492958,
+        0.809017
+      ],
+      "passed_health": true
+    },
+    "GPS_032": {
+      "elev_deg": 19.0,
+      "azim_deg": 104.0,
+      "los_enu": [
+        0.917433,
+        -0.228742,
+        0.325568
+      ],
+      "passed_health": true
+    }
+  }
+}
