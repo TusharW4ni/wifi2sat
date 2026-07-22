@@ -10,7 +10,7 @@ import serial
 from pyubx2 import UBXMessage
 
 parser = argparse.ArgumentParser(description="Reset u-blox EVK-F9P receiver (Cold Start)")
-parser.add_argument("-p", "--port", default="/dev/cu.usbmodem11301", help="Serial port")
+parser.add_argument("-p", "--port", default="/dev/cu.usbmodem113301", help="Serial port")
 parser.add_argument("-b", "--baud", type=int, default=115200, help="Baud rate (default: 115200)")
 parser.add_argument("-mode", "--resetMode", type=int, default=0x01, 
                     help="Reset Mode: 0x01=Hardware, 0x02=Software (default: 0x01)")

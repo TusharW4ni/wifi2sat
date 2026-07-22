@@ -1,7 +1,7 @@
 import serial
 from pyubx2 import UBXReader
 
-PORT = "/dev/cu.usbmodem11301"
+PORT = "/dev/cu.usbmodem113301"
 BAUD = 115200
 
 def stream_receiver():
