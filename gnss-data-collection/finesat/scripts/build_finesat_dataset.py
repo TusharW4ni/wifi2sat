@@ -22,7 +22,9 @@ MS_TO_METERS = 299_792_458.0 / 1000.0
 MAX_TARGET_SATS = 6
 NUM_FEATURES = 13
 POLY_ORDER = 3  # The FineSat Magic Number
-SAMPLE_DIR = "samples"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SAMPLE_DIR = os.path.join(SCRIPT_DIR, "..", "data", "samples")
+DATASET_DIR = os.path.join(SCRIPT_DIR, "..", "datasets")
 
 CONSTELLATION_MAP = {"1077": "GPS", "1127": "BDS"}
 ACCEPTED_SIGNALS  = {"1077": {"1C"}, "1127": {"2I", "1X"}}
@@ -153,8 +155,9 @@ def main():
     print(f"Feature Matrix (X) Shape: {X.shape}  -> ({len(X)} samples, {MAX_TARGET_SATS} sats * {NUM_FEATURES} features)")
     print(f"Labels Array (Y) Shape:   {Y.shape}")
     
-    np.save("X_finesat.npy", X)
-    np.save("Y_finesat.npy", Y)
+    os.makedirs(DATASET_DIR, exist_ok=True)
+    np.save(os.path.join(DATASET_DIR, "X_finesat.npy"), X)
+    np.save(os.path.join(DATASET_DIR, "Y_finesat.npy"), Y)
     print("Saved as X_finesat.npy and Y_finesat.npy")
 
 if __name__ == "__main__":

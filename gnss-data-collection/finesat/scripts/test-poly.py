@@ -1,9 +1,14 @@
+import os
+import sys
 import numpy as np
 import matplotlib.pyplot as plt
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, SCRIPT_DIR)  # so capture_sample (same dir) imports from any CWD
 from capture_sample import parse_sample # Importing your existing parser
 
 # Load your specific test sample
-with open("samples/push-260430-102415.rtcm", "rb") as f:
+with open(os.path.join(SCRIPT_DIR, "..", "data", "samples", "push-260430-181437.rtcm"), "rb") as f:
     elevations, phases, msg_counts = parse_sample(f)
 
 # Pick one healthy satellite from your sample (e.g., GPS_006 or whatever is valid)

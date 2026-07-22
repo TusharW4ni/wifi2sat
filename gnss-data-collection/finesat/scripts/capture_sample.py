@@ -12,7 +12,7 @@ import numpy as np
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
 
 # ── Config ──
-PORT = "/dev/cu.usbmodem11301"
+PORT = "/dev/cu.usbmodem12301"
 BAUD = 115200
 DURATION_SEC = 10
 RATE_HZ = 10
@@ -28,7 +28,8 @@ CONSTELLATION_MAP = {"1077": "GPS", "1127": "BDS"}
 ACCEPTED_SIGNALS  = {"1077": {"1C"}, "1127": {"2I", "1X"}}
 NAV_GNSS_MAP      = {0: "GPS", 3: "BDS"}
 
-SAMPLE_DIR = "samples"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SAMPLE_DIR = os.path.join(SCRIPT_DIR, "..", "data", "samples", "jn21R")
 
 def _key(constellation, prn):
     return f"{constellation}_{int(prn):03d}"
@@ -192,25 +193,84 @@ def main():
     parser.add_argument("--no-elev", action="store_true", help="Bypass NAV-SAT elevation check if receiver isn't sending it.")
     args = parser.parse_args()
 
-    sample_label = input("Enter gesture label (e.g., 'push', 'swipe_left'): ").strip()
-    if not sample_label:
-        print("Error: Label cannot be empty.")
-        sys.exit(1)
-        
-    try:
-        total_samples = int(input("How many samples do you want to collect? "))
-    except ValueError:
-        print("Please enter a valid number.")
-        sys.exit(1)
+    while True:
+        cont_flag = input("Press any key to continue or press ENTER to exit.")
+        #sample_label = input("Enter gesture label (e.g., 'push', 'swipe_left') or press Enter to exit: ").strip()
+        if not cont_flag:
+            #print("Error: Label cannot be empty.")
+            print("Exiting...")
+            sys.exit(1)
 
-    current_idx = 1
-    while current_idx <= total_samples:
-        # If capture returns True, we move to the next. If False, we retry the current index.
-        success = capture_single_sample(sample_label, current_idx, total_samples, args.port, args.no_elev)
-        if success:
-            current_idx += 1
-            
-    print(f"\nCollected {total_samples} samples for '{sample_label}'.")
+        """
+        try:
+            total_samples = int(input("How many samples do you want to collect? "))
+        except ValueError:
+            print("Please enter a valid number.")
+            sys.exit(1)
+        """
+        try:
+            total_cycles = int(input("How many cycles do you want to collect? "))
+        except ValueError:
+            print("Please enter a valid number.")
+            sys.exit(1)
+
+        current_idx = 1
+        """
+        while current_idx <= total_samples:
+            # If capture returns True, we move to the next. If False, we retry the current index.
+            success = capture_single_sample(sample_label, current_idx, total_samples, args.port, args.no_elev)
+            if success:
+                current_idx += 1
+        """
+        while current_idx <= total_cycles:
+            print(f"\nStarting data collection for cycle {current_idx} of {total_cycles}...")
+            while True:
+                os.system("afplay /System/Library/Sounds/Blow.aiff")
+                s1 = capture_single_sample("push", current_idx, 1, args.port, args.no_elev)
+
+                if s1:
+                    os.system("afplay /System/Library/Sounds/Hero.aiff")
+                    break
+
+            while True:
+                os.system("afplay /System/Library/Sounds/Purr.aiff")
+                s2 = capture_single_sample("pushpull", current_idx, 1, args.port, args.no_elev)
+
+                if s2:
+                    os.system("afplay /System/Library/Sounds/Hero.aiff")
+                    break
+
+            while True:
+                os.system("afplay /System/Library/Sounds/Sosumi.aiff")
+                s3 = capture_single_sample("triangle", current_idx, 1, args.port, args.no_elev)
+
+                if s3:
+                    os.system("afplay /System/Library/Sounds/Hero.aiff")
+                    break
+
+            while True:
+                os.system("afplay /System/Library/Sounds/Submarine.aiff")
+                s4 = capture_single_sample("m", current_idx, 1, args.port, args.no_elev)
+
+                if s4:
+                    os.system("afplay /System/Library/Sounds/Hero.aiff")
+                    break
+
+            while True:
+                os.system("afplay /System/Library/Sounds/Glass.aiff")
+                s5 = capture_single_sample("star", current_idx, 1, args.port, args.no_elev)
+
+                if s5:
+                    os.system("afplay /System/Library/Sounds/Hero.aiff")
+                    current_idx += 1
+                    break
+
+            os.system("afplay /System/Library/Sounds/Morse.aiff")
+
+            print(f"Finished collecting data for cycle {current_idx} of {total_cycles}")
+
+        #print(f"\nCollected {total_samples} samples for '{sample_label}'.")
+        print(f"\nCollected {total_cycles} cycles.")
 
 if __name__ == "__main__":
     try:
