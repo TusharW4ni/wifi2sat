@@ -13,7 +13,7 @@ import numpy as np
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
 
 # ── Config ──
-PORT = "/dev/cu.usbmodem11301"
+PORT = "/dev/cu.usbmodem113301"
 BAUD = 115200
 DURATION_SEC = 12
 RATE_HZ = 10

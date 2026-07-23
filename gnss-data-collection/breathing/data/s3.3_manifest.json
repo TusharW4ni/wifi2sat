@@ -1,0 +1,214 @@
+{
+  "session": "s3.3",
+  "created_utc": "2026-07-22T00:10:40.941868+00:00",
+  "distance_ft": 29,
+  "angle_deg": 90.0,
+  "person_height": 69,
+  "chest_height": 53.75,
+  "chest_width": 14.5,
+  "condition": "d29_h69_ch53.75_cw14.5_a90",
+  "reps": 20,
+  "mode": "spaced",
+  "entries": [
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 1,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:10:46.385909+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001046Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001046Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 2,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:11:25.550847+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001125Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001125Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 3,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:12:04.693966+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001204Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001204Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 4,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:12:44.341380+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001244Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001244Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 5,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:13:23.989467+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001323Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001323Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 6,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:14:03.647777+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001403Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001403Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 7,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:14:42.801117+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001442Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001442Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 8,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:15:22.452290+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001522Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001522Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 9,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:16:02.108607+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001602Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001602Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 10,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:16:41.768893+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001641Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001641Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 11,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:17:21.458023+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001721Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001721Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 12,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:18:01.145205+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001801Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001801Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 13,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:18:40.775754+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001840Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001840Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 14,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:19:19.965915+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001919Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001919Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 15,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:19:59.646905+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001959Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-001959Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 16,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:20:39.303040+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002039Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002039Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 17,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:21:18.442448+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002118Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002118Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 18,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:21:58.090789+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002158Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002158Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 19,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:22:37.745048+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002237Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002237Z.meta.json"
+    },
+    {
+      "session": "s3.3",
+      "condition": "d29_h69_ch53.75_cw14.5_a90",
+      "window_index": 0,
+      "rep": 20,
+      "target_utc": "2026-07-22T00:10:40.941671+00:00",
+      "actual_utc": "2026-07-22T00:23:16.889113+00:00",
+      "rtcm": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002316Z.rtcm",
+      "meta": "s3.3_W0_d29_h69_ch53.75_cw14.5_a90-260722-002316Z.meta.json"
+    }
+  ]
+}

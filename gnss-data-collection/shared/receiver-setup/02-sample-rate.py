@@ -3,7 +3,7 @@ import serial
 from pyubx2 import UBXMessage, SET
 
 parser = argparse.ArgumentParser(description="Configure u-blox Navigation/Measurement Rate")
-parser.add_argument("-p", "--port", default="/dev/cu.usbmodem11301", help="Serial port")
+parser.add_argument("-p", "--port", default="/dev/cu.usbmodem113301", help="Serial port")
 parser.add_argument("-b", "--baud", type=int, default=115200, help="Baud rate (default: 115200)")
 parser.add_argument("-m", "--measRate", type=int, default=100, 
                     help="Measurement rate in ms (e.g., 100 for 10Hz)")

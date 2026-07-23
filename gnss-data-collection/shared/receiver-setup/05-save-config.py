@@ -3,7 +3,7 @@ import serial
 from pyubx2 import UBXMessage, SET
 
 parser = argparse.ArgumentParser(description="Save configuration to flash")
-parser.add_argument("-p", "--port", default="/dev/cu.usbmodem11301")
+parser.add_argument("-p", "--port", default="/dev/cu.usbmodem113301")
 parser.add_argument("-b", "--baud", type=int, default=115200)
 
 args = parser.parse_args()

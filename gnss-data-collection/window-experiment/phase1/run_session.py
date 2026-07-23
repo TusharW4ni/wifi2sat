@@ -123,18 +123,20 @@ def main():
     print(f"Session '{args.session}': {len(windows)} window(s), "
           f"gestures={args.gestures}, reps={args.reps}")
     for w_idx, target, gestures in windows:
-        print(f"\n=== Window {w_idx} "
+        print(f"\n=== Window {w_idx + 2} "
               f"@ {target.strftime('%H:%M:%S')+'Z' if target else 'now'} ===")
         if target:
             wait_until(target)
             print()
         for g in gestures:
             for r in range(1, args.reps + 1):
-                entry = collect_one(g, w_idx, r, target, args.port, args.no_elev)
+                os.system("afplay /System/Library/Sounds/Glass.aiff")
+                entry = collect_one(g, w_idx + 2, r, target, args.port, args.no_elev)
                 manifest["entries"].append(entry)
                 # write incrementally so a crash mid-session doesn't lose the log
                 with open(man_path, "w") as f:
                     json.dump(manifest, f, indent=2)
+                os.system("afplay /System/Library/Sounds/Hero.aiff")
 
     print(f"\nDone. {len(manifest['entries'])} samples -> {man_path}")
 
