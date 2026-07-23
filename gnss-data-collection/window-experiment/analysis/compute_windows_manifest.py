@@ -9,15 +9,21 @@ accurate geometric drift direction, and evaluates the decorrelation time limits.
 
 import os
 import io
+import sys
 import json
 import glob
 import numpy as np
+
+# Make sibling code dirs importable regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
 
 # Import the parser from your existing script
 from capture_sample import parse_sample, RATE_HZ
 
 # --- Configuration ---
-SAMPLE_DIR = "samples"
+SAMPLE_DIR = os.path.join(_ROOT, "data", "samples")
 GESTURE_START_SEC = 3.0
 GESTURE_END_SEC = 6.0
 R_MIN = 0.95  # Minimum acceptable correlation threshold

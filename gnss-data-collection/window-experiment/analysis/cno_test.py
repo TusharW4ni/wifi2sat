@@ -10,10 +10,16 @@ Two forms, same onset-alignment + null as everything else, GPS only:
   CN0 common   -- across-satellite mean detrended CN0 (broadband block/reflect)
 Also reports the typical gesture-time CN0 swing (dB) as an SNR gauge.
 """
-import os, json
+import os, json, sys
 import numpy as np
 from collections import defaultdict
-import sys; sys.path.insert(0, '.')
+
+# Make sibling code dirs importable and locate the data dir, regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
+SAMPLES = os.path.join(_ROOT, "data", "samples")
+
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
 from geomlib import WL_RAWX
 from onset_align import align_group, envelope, aligned_corr, _z, _seg
@@ -73,8 +79,8 @@ def build(rtcm):
 
 
 def mi(m):
-    d = json.load(open(f'samples/{m}'))
-    return {(e['gesture'], e['window_index'], e['rep']): 'samples/' + e['rtcm'] for e in d['entries']}
+    d = json.load(open(os.path.join(SAMPLES, m)))
+    return {(e['gesture'], e['window_index'], e['rep']): os.path.join(SAMPLES, e['rtcm']) for e in d['entries']}
 
 
 def cm_corr(a, b, la, lb):

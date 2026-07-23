@@ -18,10 +18,16 @@ common-mode and SD is throwing it away (a processing fix, revisit alpha).
 If all three are low/near-null -> not hiding in common-mode; free-hand signal is
 genuinely low-SNR (confirms the earlier conclusion, no processing rescue).
 """
-import os, json
+import os, json, sys
 import numpy as np
 from collections import defaultdict
-import sys; sys.path.insert(0, '.')
+
+# Make sibling code dirs importable and locate the data dir, regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
+SAMPLES = os.path.join(_ROOT, "data", "samples")
+
 from geomlib import parse_rawx_ph, clean_locktime
 from onset_align import envelope, align_group, aligned_corr, _z, _seg
 
@@ -41,8 +47,8 @@ def _detr(x):
 
 
 def mi(m):
-    d = json.load(open(f'samples/{m}'))
-    return {(e['gesture'], e['window_index'], e['rep']): 'samples/' + e['rtcm'] for e in d['entries']}
+    d = json.load(open(os.path.join(SAMPLES, m)))
+    return {(e['gesture'], e['window_index'], e['rep']): os.path.join(SAMPLES, e['rtcm']) for e in d['entries']}
 
 
 def meta_los_elev(rtcm):

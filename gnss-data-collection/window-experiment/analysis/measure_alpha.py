@@ -22,9 +22,16 @@ Usage:  uv run measure_alpha.py            # defaults to ref_day1 <-> repeat_day
         uv run measure_alpha.py --ref ref_day1 --rep repeat_day2
 """
 import argparse
+import os, sys
 import json
 import numpy as np
 from collections import defaultdict
+
+# Make sibling code dirs importable and locate the data dir, regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
+SAMPLES = os.path.join(_ROOT, "data", "samples")
 
 from geomlib import parse_rawx_ph, clean_locktime
 from onset_align import envelope, align_group, aligned_corr
@@ -52,8 +59,8 @@ def _sd(ph, s, ref):
 
 
 def _manifest(name):
-    m = json.load(open(f"samples/{name}_manifest.json"))
-    return {(e["gesture"], e["window_index"], e["rep"]): "samples/" + e["rtcm"]
+    m = json.load(open(os.path.join(SAMPLES, f"{name}_manifest.json")))
+    return {(e["gesture"], e["window_index"], e["rep"]): os.path.join(SAMPLES, e["rtcm"])
             for e in m["entries"]}
 
 

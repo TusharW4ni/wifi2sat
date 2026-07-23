@@ -13,6 +13,7 @@ NAV-SAT supplies az/el for the elevation mask.
   Live:    python field_monitor.py [--port ...] [--refresh 1.0] [--no-color]
   Replay:  python field_monitor.py --replay samples/foo.rtcm
 """
+import os
 import sys
 import time
 import argparse
@@ -22,6 +23,11 @@ from collections import defaultdict, deque
 import numpy as np
 import serial
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
+
+# Make sibling code dirs importable regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
 
 from capture_sample import PORT, BAUD, DURATION_SEC, TARGET_EPOCHS, NAV_GNSS_MAP, _key
 from parse_rawx import WAVELENGTH, GNSS_NAME, DEFAULT_ACCEPT, _trkbits

@@ -30,6 +30,11 @@ import time
 import argparse
 from datetime import datetime, timezone, timedelta
 
+# Make sibling code dirs importable regardless of CWD
+_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+for _d in ("lib", "capture", "analysis"):
+    sys.path.insert(0, os.path.join(_ROOT, _d))
+
 from capture_sample import capture_single_sample, SAMPLE_DIR, PORT
 
 

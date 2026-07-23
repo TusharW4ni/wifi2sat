@@ -21,10 +21,13 @@ IMPORTANT CAVEATS (see README.md "Current status"):
     not this code.
 """
 
+import os, sys
 import json
 import numpy as np
 from collections import defaultdict
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))  # find sibling parse_rawx
 from parse_rawx import _trkbits
 
 C = 299_792_458.0

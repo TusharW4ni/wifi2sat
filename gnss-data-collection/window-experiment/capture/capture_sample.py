@@ -29,7 +29,8 @@ CONSTELLATION_MAP = {"1077": "GPS", "1127": "BDS"}
 ACCEPTED_SIGNALS  = {"1077": {"1C"}, "1127": {"2I", "1X"}}
 NAV_GNSS_MAP      = {0: "GPS", 3: "BDS"}
 
-SAMPLE_DIR = "samples"
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SAMPLE_DIR = os.path.join(SCRIPT_DIR, "..", "data", "samples")
 
 
 def _key(constellation, prn):
