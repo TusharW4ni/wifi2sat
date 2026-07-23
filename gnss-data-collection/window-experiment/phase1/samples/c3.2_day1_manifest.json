@@ -120,16 +120,16 @@
       "meta": "pushpull_W0-260701-002923Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 1,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:29:44.453494+00:00",
-      "rtcm": "traingle_W0-260701-002944Z.rtcm",
-      "meta": "traingle_W0-260701-002944Z.meta.json"
+      "rtcm": "triangle_W0-260701-002944Z.rtcm",
+      "meta": "triangle_W0-260701-002944Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 2,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
@@ -138,40 +138,40 @@
       "meta": "traingle_W0-260701-003005Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 3,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:30:26.468739+00:00",
-      "rtcm": "traingle_W0-260701-003026Z.rtcm",
-      "meta": "traingle_W0-260701-003026Z.meta.json"
+      "rtcm": "triangle_W0-260701-003026Z.rtcm",
+      "meta": "triangle_W0-260701-003026Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 4,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:30:47.439972+00:00",
-      "rtcm": "traingle_W0-260701-003047Z.rtcm",
-      "meta": "traingle_W0-260701-003047Z.meta.json"
+      "rtcm": "triangle_W0-260701-003047Z.rtcm",
+      "meta": "triangle_W0-260701-003047Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 5,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:31:07.956939+00:00",
-      "rtcm": "traingle_W0-260701-003107Z.rtcm",
-      "meta": "traingle_W0-260701-003107Z.meta.json"
+      "rtcm": "triangle_W0-260701-003107Z.rtcm",
+      "meta": "triangle_W0-260701-003107Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 6,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:31:29.008173+00:00",
-      "rtcm": "traingle_W0-260701-003129Z.rtcm",
-      "meta": "traingle_W0-260701-003129Z.meta.json"
+      "rtcm": "triangle_W0-260701-003129Z.rtcm",
+      "meta": "triangle_W0-260701-003129Z.meta.json"
     },
     {
       "gesture": "m",
@@ -390,58 +390,58 @@
       "meta": "pushpull_W1-260701-004423Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 1,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:44:44.477259+00:00",
-      "rtcm": "traingle_W1-260701-004444Z.rtcm",
-      "meta": "traingle_W1-260701-004444Z.meta.json"
+      "rtcm": "triangle_W1-260701-004444Z.rtcm",
+      "meta": "triangle_W1-260701-004444Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 2,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:45:05.524538+00:00",
-      "rtcm": "traingle_W1-260701-004505Z.rtcm",
-      "meta": "traingle_W1-260701-004505Z.meta.json"
+      "rtcm": "triangle_W1-260701-004505Z.rtcm",
+      "meta": "triangle_W1-260701-004505Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 3,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:45:26.564226+00:00",
-      "rtcm": "traingle_W1-260701-004526Z.rtcm",
-      "meta": "traingle_W1-260701-004526Z.meta.json"
+      "rtcm": "triangle_W1-260701-004526Z.rtcm",
+      "meta": "triangle_W1-260701-004526Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 4,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:45:47.562561+00:00",
-      "rtcm": "traingle_W1-260701-004547Z.rtcm",
-      "meta": "traingle_W1-260701-004547Z.meta.json"
+      "rtcm": "triangle_W1-260701-004547Z.rtcm",
+      "meta": "triangle_W1-260701-004547Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 5,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:46:08.562641+00:00",
-      "rtcm": "traingle_W1-260701-004608Z.rtcm",
-      "meta": "traingle_W1-260701-004608Z.meta.json"
+      "rtcm": "triangle_W1-260701-004608Z.rtcm",
+      "meta": "triangle_W1-260701-004608Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 6,
       "target_utc": "2026-07-01T00:40:27.784123+00:00",
       "actual_utc": "2026-07-01T00:46:29.564790+00:00",
-      "rtcm": "traingle_W1-260701-004629Z.rtcm",
-      "meta": "traingle_W1-260701-004629Z.meta.json"
+      "rtcm": "triangle_W1-260701-004629Z.rtcm",
+      "meta": "triangle_W1-260701-004629Z.meta.json"
     },
     {
       "gesture": "m",
@@ -660,58 +660,58 @@
       "meta": "pushpull_W2-260701-005923Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 1,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T00:59:44.509643+00:00",
-      "rtcm": "traingle_W2-260701-005944Z.rtcm",
-      "meta": "traingle_W2-260701-005944Z.meta.json"
+      "rtcm": "triangle_W2-260701-005944Z.rtcm",
+      "meta": "triangle_W2-260701-005944Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 2,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T01:00:05.514779+00:00",
-      "rtcm": "traingle_W2-260701-010005Z.rtcm",
-      "meta": "traingle_W2-260701-010005Z.meta.json"
+      "rtcm": "triangle_W2-260701-010005Z.rtcm",
+      "meta": "triangle_W2-260701-010005Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 3,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T01:00:26.520010+00:00",
-      "rtcm": "traingle_W2-260701-010026Z.rtcm",
-      "meta": "traingle_W2-260701-010026Z.meta.json"
+      "rtcm": "triangle_W2-260701-010026Z.rtcm",
+      "meta": "triangle_W2-260701-010026Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 4,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T01:00:47.553985+00:00",
-      "rtcm": "traingle_W2-260701-010047Z.rtcm",
-      "meta": "traingle_W2-260701-010047Z.meta.json"
+      "rtcm": "triangle_W2-260701-010047Z.rtcm",
+      "meta": "triangle_W2-260701-010047Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 5,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T01:01:08.550244+00:00",
-      "rtcm": "traingle_W2-260701-010108Z.rtcm",
-      "meta": "traingle_W2-260701-010108Z.meta.json"
+      "rtcm": "triangle_W2-260701-010108Z.rtcm",
+      "meta": "triangle_W2-260701-010108Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 6,
       "target_utc": "2026-07-01T00:55:27.784123+00:00",
       "actual_utc": "2026-07-01T01:01:29.564375+00:00",
-      "rtcm": "traingle_W2-260701-010129Z.rtcm",
-      "meta": "traingle_W2-260701-010129Z.meta.json"
+      "rtcm": "triangle_W2-260701-010129Z.rtcm",
+      "meta": "triangle_W2-260701-010129Z.meta.json"
     },
     {
       "gesture": "m",
@@ -930,58 +930,58 @@
       "meta": "pushpull_W3-260701-011424Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 1,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:14:44.804162+00:00",
-      "rtcm": "traingle_W3-260701-011444Z.rtcm",
-      "meta": "traingle_W3-260701-011444Z.meta.json"
+      "rtcm": "triangle_W3-260701-011444Z.rtcm",
+      "meta": "triangle_W3-260701-011444Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 2,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:15:05.807354+00:00",
-      "rtcm": "traingle_W3-260701-011505Z.rtcm",
-      "meta": "traingle_W3-260701-011505Z.meta.json"
+      "rtcm": "triangle_W3-260701-011505Z.rtcm",
+      "meta": "triangle_W3-260701-011505Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 3,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:15:26.292563+00:00",
-      "rtcm": "traingle_W3-260701-011526Z.rtcm",
-      "meta": "traingle_W3-260701-011526Z.meta.json"
+      "rtcm": "triangle_W3-260701-011526Z.rtcm",
+      "meta": "triangle_W3-260701-011526Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 4,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:15:46.799648+00:00",
-      "rtcm": "traingle_W3-260701-011546Z.rtcm",
-      "meta": "traingle_W3-260701-011546Z.meta.json"
+      "rtcm": "triangle_W3-260701-011546Z.rtcm",
+      "meta": "triangle_W3-260701-011546Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 5,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:16:07.801811+00:00",
-      "rtcm": "traingle_W3-260701-011607Z.rtcm",
-      "meta": "traingle_W3-260701-011607Z.meta.json"
+      "rtcm": "triangle_W3-260701-011607Z.rtcm",
+      "meta": "triangle_W3-260701-011607Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 6,
       "target_utc": "2026-07-01T01:10:27.784123+00:00",
       "actual_utc": "2026-07-01T01:16:28.808960+00:00",
-      "rtcm": "traingle_W3-260701-011628Z.rtcm",
-      "meta": "traingle_W3-260701-011628Z.meta.json"
+      "rtcm": "triangle_W3-260701-011628Z.rtcm",
+      "meta": "triangle_W3-260701-011628Z.meta.json"
     }
   ]
 }
