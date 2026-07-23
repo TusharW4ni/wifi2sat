@@ -1,8 +1,11 @@
 # Data Inventory
 
-All data is on `main` under the four strands. Everything is **MSM7-only** (GPS +
-BeiDou). Gesture set (c-series): push, pushpull, triangle, m, star — 6 reps each =
-30 samples per full window.
+All data is on `main` under the four strands. Observable format is **mixed**:
+`c1.1_day1`, `c3.2_day1`, `c3.2_day2` are **MSM7-only** (GPS + BeiDou, phase
+reconstructed from DF fields); `ref_day1`, `repeat_day2`, `c3.2_day3` also carry
+**RAWX + SFRBX** (clean carrier phase + lock-time + ephemeris). Gesture set
+(c-series): push, pushpull, triangle, m, star — 6 reps each = 30 samples per full
+window.
 
 ## Key concept: geometry granularity
 

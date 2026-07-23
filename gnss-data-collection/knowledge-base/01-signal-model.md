@@ -8,10 +8,17 @@
   - **RTCM 1077** — GPS MSM7 carrier-phase observables
   - **RTCM 1127** — BeiDou MSM7 carrier-phase observables
   - **UBX-NAV-SAT** — per-satellite elevation/azimuth (1° resolution)
+  - **UBX-RXM-RAWX** + **UBX-RXM-SFRBX** — present in the *later* sessions (clean
+    `cpMes·λ` carrier phase + lock-time + broadcast ephemeris)
   - NMEA (GNVTG/GNGLL) position/velocity is sometimes present but unused
 
-> **Critical fact:** all committed capture data is **MSM7-only** — GPS + BeiDou.
-> No RAWX, no SFRBX, no Galileo/GLONASS. See [04-data-quality.md](04-data-quality.md).
+> **Critical fact:** the observable format is **not uniform across sessions**.
+> - **MSM7-only** (GPS + BeiDou, phase reconstructed from DF fields): `c1.1_day1`,
+>   `c3.2_day1`, `c3.2_day2`.
+> - **RAWX + SFRBX** (clean carrier phase + lock-time + ephemeris): `ref_day1`,
+>   `repeat_day2`, `c3.2_day3`.
+>
+> See [04-data-quality.md](04-data-quality.md). Never silently pool RAWX and MSM.
 
 ## The observable
 

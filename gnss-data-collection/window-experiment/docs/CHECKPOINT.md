@@ -67,9 +67,12 @@ window-experiment/
 
 ## 2. Data inventory & clean-sat yield (for analysis)
 
-Everything is **MSM7-only** (RTCM 1077 GPS + 1127 BeiDou) — no RAWX/SFRBX, no
-Galileo/GLONASS. 6 reps/gesture = 30/full window (c-series); 3 reps = 12/window
-(ref/repeat). Yield = % of captures with ≥3 clean satellites (from meta
+Observable format is **mixed** (do not pool): `c1.1_day1`, `c3.2_day1`,
+`c3.2_day2` are **MSM7-only** (RTCM 1077 GPS + 1127 BeiDou, phase reconstructed
+from DF fields); `ref_day1`, `repeat_day2`, `c3.2_day3` also carry **RAWX + SFRBX**
+(clean carrier phase + lock-time + ephemeris — the cleaner source). 6 reps/gesture
+= 30/full window (c-series); 3 reps = 12/window (ref/repeat). Yield = % of captures
+with ≥3 clean satellites (from meta
 `passed_health`, which used the old 50 m gate → a **floor**; `DF407` lock-time can
 raise it).
 
@@ -124,8 +127,9 @@ In brief — test that **geometry/window coherence matters** for classification:
 
 ## 4. Constraints & traps (must honor in the pipeline)
 
-- **MSM-only**; reconstruct phase from DF397/398 + DF405/406; gate slips on
-  **`DF407` lock-time**, not the buggy 50 m distance gate.
+- **Mixed observable** — MSM sessions: reconstruct phase from DF397/398 + DF405/406;
+  RAWX sessions (`ref_day1`, `repeat_day2`, `c3.2_day3`): use `cpMes·λ` directly. Gate
+  slips on **`DF407`/`locktime`**, not the buggy 50 m distance gate.
 - **Gesture is NOT guaranteed in the nominal 3–6 s slice** — detect onset
   (`analysis/onset_align.py`), don't hardcode a window.
 - **`ref_sat` varies across captures** — re-single-difference to a common reference.

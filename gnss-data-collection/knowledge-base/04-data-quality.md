@@ -4,9 +4,13 @@ The traps. Read before analyzing.
 
 ## Observable & reconstruction
 
-- **MSM7-only.** All committed captures are RTCM 1077 (GPS) + 1127 (BeiDou). No
-  RAWX, no SFRBX, no Galileo/GLONASS. Fewer satellites than a RAWX evening capture
-  would give (which reached median ~20 clean sats).
+- **Observable format is mixed across sessions** (do not silently pool):
+  - **MSM7-only** (RTCM 1077 GPS + 1127 BeiDou, phase reconstructed from DF fields):
+    `c1.1_day1`, `c3.2_day1`, `c3.2_day2`.
+  - **RAWX + SFRBX** (clean `cpMes·λ` carrier phase + lock-time + ephemeris):
+    `ref_day1`, `repeat_day2`, `c3.2_day3`.
+  The RAWX sessions are the cleaner carrier-phase source; the MSM sessions need
+  reconstruction and are the ones the slip-reconstruction caveats below apply to.
 - **Naïve phase reconstruction injects false slips.** `(DF398 + DF406) × c/1000`
   steps at rough-range LSB boundaries trip the 50 m slip gate. The MSM phase
   *observable* is sound (0.05 mm RMS vs RAWX); the reconstruction + gate were the bug.

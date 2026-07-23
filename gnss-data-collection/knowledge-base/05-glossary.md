@@ -37,10 +37,12 @@ decorrelates with geometry drift. κ→0 for single-axis gestures (robust); larg
 multi-axis gestures (decorrelate quadratically).
 
 **MSM7** — RTCM Multiple Signal Message type 7, full-resolution GNSS observables.
-`1077` = GPS, `1127` = BeiDou. The only observable format in our data.
+`1077` = GPS, `1127` = BeiDou. The only observable in the earlier sessions
+(`c1.1_day1`, `c3.2_day1`, `c3.2_day2`); the later sessions also carry RAWX.
 
 **RAWX** — UBX-RXM-RAWX, u-blox raw carrier-phase message (with `locktime`/slip
-flags, all constellations). **Not present** in our captures — MSM7 only.
+flags). Present (with SFRBX ephemeris) in the later sessions `ref_day1`,
+`repeat_day2`, `c3.2_day3` — the cleaner carrier-phase source.
 
 **DF398 / DF406 / DF407** — RTCM MSM data fields: rough range (mod 1 ms, ~293 m
 LSB) / fine phase-range / phase lock-time indicator. `DF407` is the correct
