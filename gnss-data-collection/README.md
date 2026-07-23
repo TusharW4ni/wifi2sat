@@ -48,11 +48,17 @@ gnss-data-collection/
 │   ├── capture/             Breathing capture scripts
 │   └── data/                Breathing sessions (json/ + rtcm/)
 │
+├── knowledge-base/          Consolidated "everything we know" reference
+│
 ├── pyproject.toml, uv.lock  Project environment (uv)
 └── README.md                (this file)
 ```
 
-Each strand has (or will have) its own `README.md` with details:
+**Start here for the full picture:** [knowledge-base/](knowledge-base/) — signal
+model & theory, complete data inventory, the coherence experiment, data-quality
+traps, and a glossary.
+
+Each strand also has its own docs:
 - **[finesat/README.md](finesat/README.md)** — capture → dataset → classify pipeline
 - **window-experiment/phase1/** — see `THEORY.md` and `PROJECT_LOG.md`
 
