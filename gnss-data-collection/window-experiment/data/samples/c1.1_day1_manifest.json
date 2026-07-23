@@ -4,7 +4,7 @@
   "gestures": [
     "push",
     "pushpull",
-    "traingle",
+    "triangle",
     "m",
     "star"
   ],
@@ -120,58 +120,58 @@
       "meta": "pushpull_W0-260629-164359Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 1,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:44:20.617827+00:00",
-      "rtcm": "traingle_W0-260629-164420Z.rtcm",
-      "meta": "traingle_W0-260629-164420Z.meta.json"
+      "rtcm": "triangle_W0-260629-164420Z.rtcm",
+      "meta": "triangle_W0-260629-164420Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 2,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:44:41.194931+00:00",
-      "rtcm": "traingle_W0-260629-164441Z.rtcm",
-      "meta": "traingle_W0-260629-164441Z.meta.json"
+      "rtcm": "triangle_W0-260629-164441Z.rtcm",
+      "meta": "triangle_W0-260629-164441Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 3,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:45:02.273082+00:00",
-      "rtcm": "traingle_W0-260629-164502Z.rtcm",
-      "meta": "traingle_W0-260629-164502Z.meta.json"
+      "rtcm": "triangle_W0-260629-164502Z.rtcm",
+      "meta": "triangle_W0-260629-164502Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 4,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:45:22.834104+00:00",
-      "rtcm": "traingle_W0-260629-164522Z.rtcm",
-      "meta": "traingle_W0-260629-164522Z.meta.json"
+      "rtcm": "triangle_W0-260629-164522Z.rtcm",
+      "meta": "triangle_W0-260629-164522Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 5,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:45:43.913206+00:00",
-      "rtcm": "traingle_W0-260629-164543Z.rtcm",
-      "meta": "traingle_W0-260629-164543Z.meta.json"
+      "rtcm": "triangle_W0-260629-164543Z.rtcm",
+      "meta": "triangle_W0-260629-164543Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 0,
       "rep": 6,
       "target_utc": "2026-06-29T16:40:02.821080+00:00",
       "actual_utc": "2026-06-29T16:46:04.946181+00:00",
-      "rtcm": "traingle_W0-260629-164604Z.rtcm",
-      "meta": "traingle_W0-260629-164604Z.meta.json"
+      "rtcm": "triangle_W0-260629-164604Z.rtcm",
+      "meta": "triangle_W0-260629-164604Z.meta.json"
     },
     {
       "gesture": "m",
@@ -390,58 +390,58 @@
       "meta": "pushpull_W1-260629-165858Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 1,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T16:59:19.217686+00:00",
-      "rtcm": "traingle_W1-260629-165919Z.rtcm",
-      "meta": "traingle_W1-260629-165919Z.meta.json"
+      "rtcm": "triangle_W1-260629-165919Z.rtcm",
+      "meta": "triangle_W1-260629-165919Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 2,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T16:59:40.332017+00:00",
-      "rtcm": "traingle_W1-260629-165940Z.rtcm",
-      "meta": "traingle_W1-260629-165940Z.meta.json"
+      "rtcm": "triangle_W1-260629-165940Z.rtcm",
+      "meta": "triangle_W1-260629-165940Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 3,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T17:00:01.436815+00:00",
-      "rtcm": "traingle_W1-260629-170001Z.rtcm",
-      "meta": "traingle_W1-260629-170001Z.meta.json"
+      "rtcm": "triangle_W1-260629-170001Z.rtcm",
+      "meta": "triangle_W1-260629-170001Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 4,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T17:00:22.482851+00:00",
-      "rtcm": "traingle_W1-260629-170022Z.rtcm",
-      "meta": "traingle_W1-260629-170022Z.meta.json"
+      "rtcm": "triangle_W1-260629-170022Z.rtcm",
+      "meta": "triangle_W1-260629-170022Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 5,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T17:00:43.499125+00:00",
-      "rtcm": "traingle_W1-260629-170043Z.rtcm",
-      "meta": "traingle_W1-260629-170043Z.meta.json"
+      "rtcm": "triangle_W1-260629-170043Z.rtcm",
+      "meta": "triangle_W1-260629-170043Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 1,
       "rep": 6,
       "target_utc": "2026-06-29T16:55:02.821080+00:00",
       "actual_utc": "2026-06-29T17:01:04.529160+00:00",
-      "rtcm": "traingle_W1-260629-170104Z.rtcm",
-      "meta": "traingle_W1-260629-170104Z.meta.json"
+      "rtcm": "triangle_W1-260629-170104Z.rtcm",
+      "meta": "triangle_W1-260629-170104Z.meta.json"
     },
     {
       "gesture": "m",
@@ -660,58 +660,58 @@
       "meta": "pushpull_W2-260629-171359Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 1,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:14:20.652038+00:00",
-      "rtcm": "traingle_W2-260629-171420Z.rtcm",
-      "meta": "traingle_W2-260629-171420Z.meta.json"
+      "rtcm": "triangle_W2-260629-171420Z.rtcm",
+      "meta": "triangle_W2-260629-171420Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 2,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:14:41.992155+00:00",
-      "rtcm": "traingle_W2-260629-171441Z.rtcm",
-      "meta": "traingle_W2-260629-171441Z.meta.json"
+      "rtcm": "triangle_W2-260629-171441Z.rtcm",
+      "meta": "triangle_W2-260629-171441Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 3,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:15:03.049169+00:00",
-      "rtcm": "traingle_W2-260629-171503Z.rtcm",
-      "meta": "traingle_W2-260629-171503Z.meta.json"
+      "rtcm": "triangle_W2-260629-171503Z.rtcm",
+      "meta": "triangle_W2-260629-171503Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 4,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:15:24.110203+00:00",
-      "rtcm": "traingle_W2-260629-171524Z.rtcm",
-      "meta": "traingle_W2-260629-171524Z.meta.json"
+      "rtcm": "triangle_W2-260629-171524Z.rtcm",
+      "meta": "triangle_W2-260629-171524Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 5,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:15:44.645412+00:00",
-      "rtcm": "traingle_W2-260629-171544Z.rtcm",
-      "meta": "traingle_W2-260629-171544Z.meta.json"
+      "rtcm": "triangle_W2-260629-171544Z.rtcm",
+      "meta": "triangle_W2-260629-171544Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 2,
       "rep": 6,
       "target_utc": "2026-06-29T17:10:02.821080+00:00",
       "actual_utc": "2026-06-29T17:16:05.217810+00:00",
-      "rtcm": "traingle_W2-260629-171605Z.rtcm",
-      "meta": "traingle_W2-260629-171605Z.meta.json"
+      "rtcm": "triangle_W2-260629-171605Z.rtcm",
+      "meta": "triangle_W2-260629-171605Z.meta.json"
     },
     {
       "gesture": "m",
@@ -930,58 +930,58 @@
       "meta": "pushpull_W3-260629-172858Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 1,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:29:19.381170+00:00",
-      "rtcm": "traingle_W3-260629-172919Z.rtcm",
-      "meta": "traingle_W3-260629-172919Z.meta.json"
+      "rtcm": "triangle_W3-260629-172919Z.rtcm",
+      "meta": "triangle_W3-260629-172919Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 2,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:29:40.748356+00:00",
-      "rtcm": "traingle_W3-260629-172940Z.rtcm",
-      "meta": "traingle_W3-260629-172940Z.meta.json"
+      "rtcm": "triangle_W3-260629-172940Z.rtcm",
+      "meta": "triangle_W3-260629-172940Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 3,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:30:02.028299+00:00",
-      "rtcm": "traingle_W3-260629-173002Z.rtcm",
-      "meta": "traingle_W3-260629-173002Z.meta.json"
+      "rtcm": "triangle_W3-260629-173002Z.rtcm",
+      "meta": "triangle_W3-260629-173002Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 4,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:30:23.313393+00:00",
-      "rtcm": "traingle_W3-260629-173023Z.rtcm",
-      "meta": "traingle_W3-260629-173023Z.meta.json"
+      "rtcm": "triangle_W3-260629-173023Z.rtcm",
+      "meta": "triangle_W3-260629-173023Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 5,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:31:04.914574+00:00",
-      "rtcm": "traingle_W3-260629-173104Z.rtcm",
-      "meta": "traingle_W3-260629-173104Z.meta.json"
+      "rtcm": "triangle_W3-260629-173104Z.rtcm",
+      "meta": "triangle_W3-260629-173104Z.meta.json"
     },
     {
-      "gesture": "traingle",
+      "gesture": "triangle",
       "window_index": 3,
       "rep": 6,
       "target_utc": "2026-06-29T17:25:02.821080+00:00",
       "actual_utc": "2026-06-29T17:31:26.191516+00:00",
-      "rtcm": "traingle_W3-260629-173126Z.rtcm",
-      "meta": "traingle_W3-260629-173126Z.meta.json"
+      "rtcm": "triangle_W3-260629-173126Z.rtcm",
+      "meta": "triangle_W3-260629-173126Z.meta.json"
     },
     {
       "gesture": "m",
