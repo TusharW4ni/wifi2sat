@@ -2,6 +2,12 @@
 
 Master index for the project. Start here, then read in the order below.
 
+> **📍 Latest checkpoint: [`docs/CHECKPOINT.md`](docs/CHECKPOINT.md)** (2026-07-23) —
+> current state of everything: where all the data lives, the strand reorganization,
+> the data/yield inventory, and the lead-in to the classification analysis. The
+> code/file map in the sections below predates the role-based reorg (`lib/`,
+> `capture/`, `analysis/`, `data/`) — see the checkpoint §1 for the current layout.
+
 **One-line summary.** Recognize hand gestures from the carrier-phase perturbations a hand (acting as a multipath reflector) induces on GNSS signals from a fixed u-blox EVK-F9P antenna — and, as the immediate scientific target, measure the *geometry-decorrelation window* over which a gesture's signal stays reproducible as the satellite geometry drifts.
 
 ---
