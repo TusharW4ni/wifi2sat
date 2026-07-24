@@ -92,8 +92,9 @@ def build_channels(cap, gps_only=True, elev_mask=20.0):
                 CM=CM, CMR=CMR, CN0ps=cno, CN0cm=CN0cm, N=N)
 
 
-def _lags(built, group, channel):
-    """Onset lags for a channel over a group, sized to the shortest capture."""
+def _lags(built, group, channel, align=True):
+    """Onset lags for a channel over a group, sized to the shortest capture.
+    align=False forces zero-lag (onset alignment off) for the onset-help test."""
     if channel in SERIES:
         envs = [built[c][channel] for c in group if built[c][channel] is not None]
         keys = [c for c in group if built[c][channel] is not None]
@@ -102,6 +103,8 @@ def _lags(built, group, channel):
         envs = [envelope(built[c][channel], built[c]["N"]) for c in keys]
     if not envs:
         return {}
+    if not align:
+        return {c: 0 for c in keys}
     N = min(len(e) for e in envs)
     L = min(LEN, N - BASE - MAXLAG)
     if L < 40:
@@ -120,12 +123,12 @@ def _corr(built, a, b, channel, La, Lb):
     return aligned_corr(built[a][channel], built[b][channel], La, Lb, sats) if sats else None
 
 
-def _pairs_corr(built, groupA, groupB, channel, cross):
+def _pairs_corr(built, groupA, groupB, channel, cross, align=True):
     """Correlations for every cross-group pair (cross=True: A×B) or within-group
     pair (cross=False: unordered pairs of A), each capture pre-aligned within its
     own group and channel."""
-    LA = _lags(built, groupA, channel)
-    LB = _lags(built, groupB, channel) if cross else LA
+    LA = _lags(built, groupA, channel, align)
+    LB = _lags(built, groupB, channel, align) if cross else LA
     if cross:
         pairs = [(a, b) for a in groupA for b in groupB]
     else:
@@ -140,7 +143,7 @@ def _pairs_corr(built, groupA, groupB, channel, cross):
     return out
 
 
-def _sd_pairs(built, A, B, cross):
+def _sd_pairs(built, A, B, cross, align=True):
     """SD correlations for A vs B using a COMMON reference (highest mean-elevation
     sat present in every capture). SD_k = perdetr_k - perdetr_ref (exact, since
     detrend is linear). Each group aligned independently, then pairs correlated."""
@@ -160,6 +163,8 @@ def _sd_pairs(built, A, B, cross):
         keys = [c for c in group if sd[c]]
         if not keys:
             return {}
+        if not align:
+            return {c: 0 for c in keys}
         N = min(built[c]["N"] for c in keys)
         L = min(LEN, N - BASE - MAXLAG)
         if L < 40:
@@ -181,9 +186,10 @@ def _sd_pairs(built, A, B, cross):
     return out
 
 
-def _corr_pairs(built, A, B, ch, cross):
+def _corr_pairs(built, A, B, ch, cross, align=True):
     """Route SD through the common-reference path; other channels are ref-free."""
-    return _sd_pairs(built, A, B, cross) if ch == "SD" else _pairs_corr(built, A, B, ch, cross)
+    return (_sd_pairs(built, A, B, cross, align) if ch == "SD"
+            else _pairs_corr(built, A, B, ch, cross, align))
 
 
 def _ci(vals, nboot=2000):
@@ -198,19 +204,13 @@ def _ci(vals, nboot=2000):
                 hi=float(np.percentile(meds, 97.5)), n=len(a))
 
 
-def study(sessions, gestures=GESTURES, gps_only=True):
-    """alpha matrix for one session (within-session split-half) or a two-session
-    sidereal pair (across-day). Grouping is per (gesture, WINDOW) so every
-    correlation is at MATCHED geometry (same window index = same sidereal sky);
-    correlations are pooled over windows. Returns
-    {mode, sessions, observable, channels:{ch:{gesture:{alpha,null,passed}}}}."""
-    cross = len(sessions) == 2
+def _build_index(sessions, gestures, gps_only):
+    """Parse + build every capture ONCE. Returns (built, idx, observable), where
+    idx is session -> gesture -> window -> [rtcm_path]."""
     recs = {s: ds.load_session(s) for s in sessions}
     obs = {ds.get_session(s).observable for s in sessions}
     if len(obs) > 1:
         raise ValueError(f"sessions span observables {obs} -- alpha must not pool MSM7+RAWX")
-
-    # build every capture once; index by session -> gesture -> window -> [rtcm]
     idx = defaultdict(lambda: defaultdict(lambda: defaultdict(list)))
     built = {}
     for s in sessions:
@@ -221,37 +221,40 @@ def study(sessions, gestures=GESTURES, gps_only=True):
             if b is not None:
                 built[r["rtcm_path"]] = b
                 idx[s][r["gesture"]][r["window"]].append(r["rtcm_path"])
+    return built, idx, obs.pop()
 
+
+def _matrix(built, idx, sessions, gestures, align=True):
+    """Channels dict {ch:{gesture:{alpha,null,passed}}} from a prebuilt index.
+    Grouping is per (gesture, WINDOW) → matched geometry, pooled over windows.
+    align=False forces zero-lag (onset alignment off) — for the onset-help test."""
+    cross = len(sessions) == 2
     s0 = sessions[0]
 
     def alpha_pairs(gA, gB, ch):
-        """Matched-geometry correlations for gesture gA vs gB (gA==gB → alpha;
-        else null), pooled over shared windows. Within-session mode splits a
-        window's reps into independent halves; across-day pairs the two sessions."""
         vals = []
         if cross:
             s1 = sessions[1]
             for w in set(idx[s0][gA]) & set(idx[s1][gB]):
                 A, B = idx[s0][gA][w], idx[s1][gB][w]
                 if A and B:
-                    vals += _corr_pairs(built, A, B, ch, cross=True)
+                    vals += _corr_pairs(built, A, B, ch, cross=True, align=align)
         else:
             for w in (set(idx[s0][gA]) & set(idx[s0][gB])) if gA != gB else idx[s0][gA]:
                 if gA == gB:                              # split-half, independent templates
                     p = idx[s0][gA][w]
                     h = len(p) // 2
                     if h >= 1 and len(p) - h >= 1:
-                        vals += _corr_pairs(built, p[:h], p[h:], ch, cross=True)
+                        vals += _corr_pairs(built, p[:h], p[h:], ch, cross=True, align=align)
                 else:                                     # null: different gestures, same window
                     A, B = idx[s0][gA][w], idx[s0][gB][w]
                     if A and B:
-                        vals += _corr_pairs(built, A, B, ch, cross=True)
+                        vals += _corr_pairs(built, A, B, ch, cross=True, align=align)
         return vals
 
-    out = {"mode": "across-day" if cross else "within-session",
-           "sessions": sessions, "observable": obs.pop(), "channels": {}}
+    channels = {}
     for ch in CHANNELS:
-        out["channels"][ch] = {}
+        channels[ch] = {}
         for g in gestures:
             alpha = alpha_pairs(g, g, ch)
             null = []
@@ -260,8 +263,49 @@ def study(sessions, gestures=GESTURES, gps_only=True):
                     null += alpha_pairs(g, g2, ch)
             aci, nci = _ci(alpha), _ci(null)
             passed = aci["n"] > 0 and nci["n"] > 0 and aci["lo"] > nci["hi"]
-            out["channels"][ch][g] = dict(alpha=aci, null=nci, passed=bool(passed))
-    return out
+            channels[ch][g] = dict(alpha=aci, null=nci, passed=bool(passed))
+    return channels
+
+
+def study(sessions, gestures=GESTURES, gps_only=True):
+    """alpha matrix for one session (within-session split-half) or a two-session
+    sidereal pair (across-day). Returns {mode, sessions, observable, channels}."""
+    built, idx, obs = _build_index(sessions, gestures, gps_only)
+    return {"mode": "across-day" if len(sessions) == 2 else "within-session",
+            "sessions": sessions, "observable": obs,
+            "channels": _matrix(built, idx, sessions, gestures, align=True)}
+
+
+def onset_help(sessions, gps_only=True):
+    """Secondary #1: does onset alignment help? Median α over gestures with
+    alignment ON vs OFF (zero-lag), per channel, from a single build."""
+    built, idx, obs = _build_index(sessions, GESTURES, gps_only)
+    on = _matrix(built, idx, sessions, GESTURES, align=True)
+    off = _matrix(built, idx, sessions, GESTURES, align=False)
+    rows = {}
+    for ch in CHANNELS:
+        av = [on[ch][g]["alpha"]["median"] for g in GESTURES if on[ch][g]["alpha"]["n"]]
+        zv = [off[ch][g]["alpha"]["median"] for g in GESTURES if off[ch][g]["alpha"]["n"]]
+        if av and zv:
+            rows[ch] = dict(aligned=float(np.median(av)), zerolag=float(np.median(zv)))
+    return dict(mode="across-day" if len(sessions) == 2 else "within-session",
+                sessions=sessions, observable=obs, onset_help=rows)
+
+
+def rawx_vs_msm():
+    """Secondary #2: aggregate the saved α matrix into median within-session α per
+    channel, MSM7 vs RAWX (all gestures pooled). Needs results/alpha_matrix.json."""
+    matrix = json.load(open(os.path.join(RESULTS, "alpha_matrix.json")))
+    agg = {ch: {"MSM7": [], "RAWX": []} for ch in CHANNELS}
+    for res in matrix:
+        if res["mode"] != "within-session":     # don't double-count the across-day pair
+            continue
+        for ch in CHANNELS:
+            for d in res["channels"][ch].values():
+                if d["alpha"]["n"]:
+                    agg[ch][res["observable"]].append(d["alpha"]["median"])
+    return {ch: {o: (float(np.median(v)) if v else None) for o, v in d.items()}
+            for ch, d in agg.items()}
 
 
 def _cell(d):
@@ -287,9 +331,35 @@ def main():
     ap.add_argument("sessions", nargs="*", default=["c1.1_day1"],
                     help="one session (within-split) or two (across-day pair)")
     ap.add_argument("--all", action="store_true", help="run the standard set -> results/alpha_matrix.json")
+    ap.add_argument("--secondaries", action="store_true",
+                    help="onset-help + RAWX-vs-MSM diagnostics -> results/alpha_secondaries.json")
     ap.add_argument("--all-constellations", action="store_true", help="don't restrict to GPS")
     a = ap.parse_args()
     gps = not a.all_constellations
+
+    if a.secondaries:
+        # onset-help on a representative MSM 5-gesture session + the RAWX pair
+        oh_jobs = [["c3.2_day1"], ["ref_day1", "repeat_day2"]]
+        oh = []
+        print("=== Secondary 1: onset-alignment help (median α over gestures) ===")
+        for j in oh_jobs:
+            r = onset_help(j, gps_only=gps)
+            oh.append(r)
+            print(f"\n[{r['mode']}] {' <-> '.join(j)} ({r['observable']})")
+            print(f"  {'channel':8}{'aligned':>9}{'zero-lag':>10}{'Δ':>8}")
+            for ch, d in r["onset_help"].items():
+                print(f"  {ch:8}{d['aligned']:>9.3f}{d['zerolag']:>10.3f}{d['aligned']-d['zerolag']:>+8.3f}")
+        print("\n=== Secondary 2: RAWX vs MSM7 (median within-session α per channel) ===")
+        rvm = rawx_vs_msm()
+        print(f"  {'channel':8}{'MSM7':>9}{'RAWX':>9}")
+        for ch, d in rvm.items():
+            fmt = lambda x: f"{x:>9.3f}" if x is not None else f"{'-':>9}"
+            print(f"  {ch:8}{fmt(d['MSM7'])}{fmt(d['RAWX'])}")
+        os.makedirs(RESULTS, exist_ok=True)
+        path = os.path.join(RESULTS, "alpha_secondaries.json")
+        json.dump(dict(onset_help=oh, rawx_vs_msm=rvm), open(path, "w"), indent=2)
+        print(f"\nwrote {path}")
+        return
 
     if a.all:
         jobs = [["c1.1_day1"], ["c3.2_day1"], ["c3.2_day2"], ["c3.2_day3"],

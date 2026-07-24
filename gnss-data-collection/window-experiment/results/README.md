@@ -6,4 +6,7 @@ script + session produced it. Regenerate rather than hand-edit.
 
 - `alpha_matrix*.json` — Phase 1 (#3): reproducibility (α) per observable-channel ×
   gesture × session, with bootstrap CIs and matched null. Produced by
-  `analysis/alpha_study.py`.
+  `analysis/alpha_study.py --all`.
+- `alpha_secondaries.json` — Phase 1 secondaries: onset-alignment help (aligned vs
+  zero-lag) and RAWX-vs-MSM α comparison. Produced by
+  `analysis/alpha_study.py --secondaries`.

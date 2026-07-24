@@ -74,6 +74,16 @@ the gap is alpha_study's 20° elevation mask) and extends the verdict:
 carry no reproducible free-hand signal. Amplitude (CN0) dominating over phase is
 itself a caveat for the geometry thesis (Phase 3).
 
+**Secondary diagnostics** (`analysis/alpha_study.py --secondaries` →
+[`../results/alpha_secondaries.json`](../results/alpha_secondaries.json)):
+- **Onset alignment helps** modestly and only where there is signal — across-day
+  RAWX SD +0.03, CN0cm +0.10, CM +0.08; MSM CN0cm +0.13; near-null channels (CMR)
+  gain nothing. Keep onset alignment on.
+- **RAWX vs MSM7** (median within-session α): RAWX gives cleaner *phase*
+  (SD 0.095 vs 0.026; CMR 0.116 vs 0.002 — MSM reconstruction adds noise), but
+  **CN0-common is strong and observable-independent** (0.35 vs 0.33). So phase
+  claims are safest on RAWX; CN0 is robust on both.
+
 ---
 
 ## 1. Data → role assignment (all relevant data)
