@@ -261,8 +261,10 @@ mask) and extends them:
 - **CN0-common** the strongest channel across sessions (0.2–0.74); **CN0-per-sat**
   broad; both confirm §10's amplitude story at scale.
 - **SD-phase** reproduces for **push** across most sessions (0.13–0.23), but is
-  near-null in `c1.1_day1` and anomalously **negative** in `c3.2_day2` (suspected
-  W1-starved contamination — to investigate).
+  near-null in `c1.1_day1` and weak-negative in `c3.2_day2`. That −0.18 was
+  checked per-window (W1 −0.01 / W2 −0.22 / W3 +0.32): it is small-N (3v3
+  split-half, ~9 pairs/window) noise around null in a marginal channel — **not**
+  the starved W1 nor a real anti-correlation, and the cell never clears null.
 - **CMR / CM** at null bar scattered cells → no reproducible free-hand signal.
 
 **Gate:** downstream (Phase 2/3) proceeds on **CN0 (primary) + push-SD

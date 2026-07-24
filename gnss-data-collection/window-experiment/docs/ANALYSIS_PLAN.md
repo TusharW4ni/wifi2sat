@@ -63,8 +63,10 @@ the gap is alpha_study's 20° elevation mask) and extends the verdict:
 - **CN0-common ✅ strongest** — clears null in nearly every session (0.2–0.74).
 - **CN0-per-sat ✅** — broad (push, pushpull, m; some triangle/star).
 - **SD-phase ✅ push only** — 0.13–0.23 across most sessions incl. across-day;
-  marginal/absent for other gestures; **near-null in c1.1, and anomalously
-  *negative* in c3.2_day2** (suspected W1-starved contamination — flagged, #3).
+  marginal/absent for other gestures; near-null in c1.1 and weak-negative in
+  c3.2_day2. (The c3.2_day2 −0.18 is per-window W1 −0.01 / W2 −0.22 / W3 +0.32 —
+  small-N (3v3 split) noise around null in a marginal channel, **not** a W1
+  artifact or real anti-correlation; the cell doesn't clear null. See #3.)
 - **CMR ❌ / CM ❌** — at null bar scattered cells (c3.2_day1 push CMR +0.22,
   c3.2_day3 pushpull SD/CMR ~+0.4).
 

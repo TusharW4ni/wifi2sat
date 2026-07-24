@@ -167,8 +167,9 @@ bootstrapped study (per-cell 95% CI + pass/fail vs matched null, per gesture×wi
 over all 6 sessions × 5 channels × 5 gestures → `results/alpha_matrix.json`.
 **Gate verdict: CN0 ✅ (strongest, 0.2–0.74) + push-SD ✅ (0.13–0.23); CMR/CM ❌.**
 Reproduces measure_alpha (push-SD across-day +0.14 vs 0.17, modulo the 20° elev
-mask). Open secondaries (#3): onset-help quantification, RAWX-vs-MSM, and the
-anomalous *negative* c3.2_day2 push-SD.
+mask). The c3.2_day2 weak-negative push-SD was checked and is small-N split-half
+noise (per-window W2 −0.22 / W3 +0.32), not a W1 artifact. Open secondaries (#3):
+onset-help quantification and an explicit RAWX-vs-MSM comparison.
 
 Next: finish Phase 1 secondaries / **Phase 2 (#4)** — within-geometry separability
 on the passing channels (CN0 + push-SD).
