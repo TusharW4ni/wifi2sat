@@ -63,8 +63,13 @@ Master index for the project. Start here, then read in the order below.
 
 | session | when (UTC) | captures | observable | windows | clean sats (median) |
 |---|---|---|---|---|---|
-| morning `ref_day1` | ~15:00–15:55 | 48 (push,star × 6 × 4) | MSM7 only | W0–W3 (4) | 6 (recovered via `DF407`) |
-| evening `ref_day1.1` | ~21:16–21:34 | 24 (push,star × 6 × 2) | RAWX+SFRBX+MSM+NAV | W0–W1 (2) | 20 (RAWX) |
+| `ref_jun26` (Jun 26 AM) | ~15:00–15:55 | 48 (push,star × 6 × 4) | MSM7 only | W0–W3 (4) | 6 (recovered via `DF407`) |
+| `ref_jun26_pm` (Jun 26 PM) | ~21:16–21:34 | 24 (push,star × 6 × 2) | RAWX+SFRBX+MSM+NAV | W0–W1 (2) | 20 (RAWX) |
+
+> These are the original **Jun-26** reference-day sessions, now **archived** under
+> `data/archive/` and renamed to the `ref_jun26*` family (2026-07-24) so they no
+> longer collide with the *active* Jul-14 `ref_day1` / Jul-15 `repeat_day2` RAWX
+> pair in `data/samples/`. Browse all gesture data via `uv run lib/dataset.py`.
 
 Collection design: 4 windows × 15-min spacing × 2 gestures × 6 reps. 15 min is the *spacing between* windows (so the ±5–8 min usable windows don't overlap on the repeat day), not the duration.
 

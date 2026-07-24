@@ -15,7 +15,7 @@ Post-reorganization locations:
 | Data | Location | What |
 |---|---|---|
 | **Geometry gesture sessions** | `window-experiment/data/samples/` | c1.1, c3.2 day1/2/3, ref_day1, repeat_day2 — **flat** dir; each `<session>_manifest.json` maps its files |
-| **Archived / older window captures** | `window-experiment/data/archive/` | `samples-old` (7), `samples-not-rawx-but-good` (48), `samples-not-07-14` (24) |
+| **Archived / older window captures** | `window-experiment/data/archive/` | Jun-26 `ref_jun26*` family: `samples-not-rawx-but-good`=`ref_jun26` (48, MSM), `samples-not-07-14`=`ref_jun26_pm` (24, RAWX), `samples-old`=`ref_jun26_frag` (7, MSM) |
 | **Breathing sessions** | `breathing/data/` | `rtcm/` + `json/` (s1.3.x Jul 9, s3.3 Jul 22); manifests alongside |
 | **FineSat gesture captures** | `finesat/data/samples/` | Apr/May flat + `jn18L1/L2/L3` (Jun 18) |
 | **FineSat archived micro-sets** | `finesat/data/archive/` | early Apr 28 / Apr 30-morning push captures |

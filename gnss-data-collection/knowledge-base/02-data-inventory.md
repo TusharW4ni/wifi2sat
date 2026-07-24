@@ -29,11 +29,18 @@ Cross-day sessions are collected at the **sidereally-aligned** clock time (each 
 | `ref_day1` | Jul 14 22:17 | (aligned pair) | W0–W3 (12 each) | RAWX; push+star only, 100% yield |
 | `repeat_day2` | Jul 15 22:09 | (aligned pair) | W0–W3 (12 each) | RAWX; push+star only, 100%; sidereal repeat of `ref_day1` |
 
-An earlier **Jun 26** push+star session also exists but is archived, not in
-`samples/`: `data/archive/samples-not-rawx-but-good/` (session `ref_jun26`, MSM,
-W0–W3 ×12, good yield) — a *distinct* session that formerly shared the `ref_day1`
-name (see [04-data-quality.md](04-data-quality.md)). A fragmentary earlier Jun 26 W0
-set is in `data/archive/samples-old/`.
+Three earlier **Jun 26** push+star sessions exist but are archived, not in
+`samples/` — a `ref_jun26*` family (renamed 2026-07-24 to stop them colliding with
+the active Jul-14 `ref_day1`; see [04-data-quality.md](04-data-quality.md)):
+
+| Archived session | Dir | Obs | Windows | Note |
+|---|---|---|---|---|
+| `ref_jun26` | `samples-not-rawx-but-good/` | MSM7 | W0–W3 ×12 | the complete Jun-26 AM ref session, good yield |
+| `ref_jun26_pm` | `samples-not-07-14/` | **RAWX** | W0–W1 ×12 | Jun-26 evening (21:16); earliest RAWX capture |
+| `ref_jun26_frag` | `samples-old/` | MSM7 | W0 ×~4 | fragmentary early-AM W0; low value |
+
+Observable is **detected from the data** (presence of UBX-RXM-RAWX), not the name
+or date — RAWX appeared as early as Jun-26 evening.
 
 ### c3.2 cross-day coverage (the sidereal-aligned repeats)
 

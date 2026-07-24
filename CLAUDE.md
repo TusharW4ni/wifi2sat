@@ -54,6 +54,24 @@ uv run window-experiment/analysis/measure_alpha.py   # run any analysis script
 scripts resolve their data/import paths relative to their own location, so they run
 from any working directory.
 
+**Unified data access — use this instead of globbing files.** `window-experiment/lib/dataset.py`
+is the one catalog + loader for *all* gesture data (window-experiment + finesat),
+normalizing the three on-disk naming schemes behind one API:
+
+```bash
+uv run window-experiment/lib/dataset.py            # print the catalog (all sessions)
+```
+```python
+import dataset as ds                    # from window-experiment/lib on sys.path
+ds.catalog()                            # every session: observable, campaign, windows, …
+ds.load_session("c3.2_day2")            # uniform per-capture records
+ds.load(observable="RAWX")              # filtered; RAISES if a selection mixes MSM7+RAWX
+ds.parse(cap, with_geometry=True)       # phases (+los/elev) via geomlib dispatch
+```
+Observable (MSM7/RAWX) is **detected from the data** (RXM-RAWX presence), not the
+name/date. The loader enforces the no-silent-pool rule. Breathing data is a
+separate task and is intentionally not in this catalog.
+
 ## Critical facts (don't relearn these the hard way)
 
 - **Observable format is mixed** — never silently pool:
