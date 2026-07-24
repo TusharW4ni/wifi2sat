@@ -196,7 +196,7 @@ Collected a fresh full 4-window RAWX reference on **07/14** (`samples/ref_day1`,
 | onset-aligned, within-session (honest, split templates) | **0.24** | 0.04 | — |
 | onset-aligned, across-day (sidereal repeat, honest) | **0.17** | 0.07 | **−0.07** |
 
-(Reproduce: `uv run measure_alpha.py`.)
+(Reproduce: `uv run analysis/measure_alpha.py` from `window-experiment/`.)
 
 - **push carries a genuine reproducible component** (+0.24 above null); **star barely** (+0.13) — consistent with `THEORY.md §4` (single-axis reproduces; multi-axis doesn't).
 - **across-day keeps most of the within-session correlation** (push 0.17 vs 0.24; null −0.07 — ~70% retained) → the full-sidereal-day matched-geometry repeat preserves the reproducible signal. **The repeat is validated at the signal level**, not just LOS.
