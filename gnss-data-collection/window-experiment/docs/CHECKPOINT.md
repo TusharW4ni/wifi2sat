@@ -161,5 +161,14 @@ adaptive onset alignment, CMR trajectory, g-vectors, CN0). Emits the per-capture
 feature object for all 6 active sessions (MSM7 + RAWX), verified. DF407 gate
 rescues yield dramatically (c3.2_day1 W1 13%→100%).
 
-Next: **Phase 1 — the α study (the gate)** — generalize the α scripts over the
-feature object across all sessions × observables × gestures, with CIs.
+**Phase 1 (α study, the gate, issue #3) — first full matrix 2026-07-24** on branch
+`phase1-alpha-study`. `analysis/alpha_study.py` unifies the three α scripts into one
+bootstrapped study (per-cell 95% CI + pass/fail vs matched null, per gesture×window)
+over all 6 sessions × 5 channels × 5 gestures → `results/alpha_matrix.json`.
+**Gate verdict: CN0 ✅ (strongest, 0.2–0.74) + push-SD ✅ (0.13–0.23); CMR/CM ❌.**
+Reproduces measure_alpha (push-SD across-day +0.14 vs 0.17, modulo the 20° elev
+mask). Open secondaries (#3): onset-help quantification, RAWX-vs-MSM, and the
+anomalous *negative* c3.2_day2 push-SD.
+
+Next: finish Phase 1 secondaries / **Phase 2 (#4)** — within-geometry separability
+on the passing channels (CN0 + push-SD).

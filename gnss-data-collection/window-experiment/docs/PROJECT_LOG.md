@@ -237,3 +237,34 @@ The §9 result — honest free-hand α ≈ 0.17 (push) — begged the question t
 **10.3 Coherent story + recommendation.** The hand's dominant effect on a single fixed GNSS antenna is a **common-mode (broadband) perturbation** of both phase and power. In *phase* it is confounded with the receiver clock, so single-differencing kills it → the low SD α. In *CN0* there is no clock, so it survives → **CN0 common-mode is the best observable found, and it is software-only on existing hardware.** Still free-hand-limited (0.44 < ~0.85 ceiling), but ~4× the phase pipeline and a clean null.
 
 **Next:** (a) build CN0 (per-sat + common-mode) features into the dataset/classifier path — this is the free SNR upgrade; (b) if phase common-mode is ever wanted, it needs a **reference antenna** (dual-antenna common-clock → between-antenna difference removes the clock while keeping the hand signal) — hardware, but not a mechanical rig.
+
+## 11. Phase 0 pipeline + Phase 1 α study (2026-07-24)
+
+Built the plan's shared infrastructure and ran the gate.
+
+**Phase 0 (issue #2, merged).** `lib/dataset.py` — one catalog + loader for all
+gesture data (window-experiment + finesat), observable auto-detected from the
+stream (RXM-RAWX), with a guard that refuses to silently pool MSM7 + RAWX.
+`analysis/preprocess.py` — the per-capture feature object {SD, CM, CMR, CN0,
+g-vectors, onset lag} via DF407/locktime cleaning, common-reference
+single-differencing, and adaptive onset alignment (MSM 118 vs RAWX 120 epochs).
+The DF407 gate rescues clean-sat yield hugely vs the `passed_health` floor
+(c3.2_day1 W1 13 % → 100 %).
+
+**Phase 1 (issue #3).** `analysis/alpha_study.py` generalizes §9/§10's three
+scripts into one bootstrapped study (per-cell 95 % CI + pass/fail vs matched null,
+per gesture × window = matched geometry) over **all 6 active sessions** × 5
+channels × 5 gestures → `results/alpha_matrix.json`. It reproduces §0/§10
+(push-SD across-day +0.14 vs measure_alpha's 0.17 — the gap is the 20° elevation
+mask) and extends them:
+
+- **CN0-common** the strongest channel across sessions (0.2–0.74); **CN0-per-sat**
+  broad; both confirm §10's amplitude story at scale.
+- **SD-phase** reproduces for **push** across most sessions (0.13–0.23), but is
+  near-null in `c1.1_day1` and anomalously **negative** in `c3.2_day2` (suspected
+  W1-starved contamination — to investigate).
+- **CMR / CM** at null bar scattered cells → no reproducible free-hand signal.
+
+**Gate:** downstream (Phase 2/3) proceeds on **CN0 (primary) + push-SD
+(secondary)**. **Next:** Phase 1 secondaries (onset-help, RAWX-vs-MSM, the
+c3.2_day2 anomaly), then Phase 2 within-geometry separability on those channels.

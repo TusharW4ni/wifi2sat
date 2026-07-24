@@ -51,6 +51,27 @@ discards it).
 The plan therefore leads with signal characterization, gates hard, and is explicit
 about which channel/gesture each downstream claim is allowed to use.
 
+### Cross-session confirmation — full α matrix (2026-07-24, Phase 1)
+
+The three ad-hoc scripts above are now generalized into one bootstrapped study,
+`analysis/alpha_study.py` (per-cell 95% CI + pass/fail vs matched null, per
+gesture × window = matched geometry), run over **all 6 active sessions** × 5
+channels × 5 gestures → [`../results/alpha_matrix.json`](../results/alpha_matrix.json).
+It reproduces the table above (push-SD across-day +0.14 vs measure_alpha's 0.17 —
+the gap is alpha_study's 20° elevation mask) and extends the verdict:
+
+- **CN0-common ✅ strongest** — clears null in nearly every session (0.2–0.74).
+- **CN0-per-sat ✅** — broad (push, pushpull, m; some triangle/star).
+- **SD-phase ✅ push only** — 0.13–0.23 across most sessions incl. across-day;
+  marginal/absent for other gestures; **near-null in c1.1, and anomalously
+  *negative* in c3.2_day2** (suspected W1-starved contamination — flagged, #3).
+- **CMR ❌ / CM ❌** — at null bar scattered cells (c3.2_day1 push CMR +0.22,
+  c3.2_day3 pushpull SD/CMR ~+0.4).
+
+**Gate:** Phase 2/3 proceed on **CN0 (primary) + push-SD (secondary)**; CMR/CM
+carry no reproducible free-hand signal. Amplitude (CN0) dominating over phase is
+itself a caveat for the geometry thesis (Phase 3).
+
 ---
 
 ## 1. Data → role assignment (all relevant data)
