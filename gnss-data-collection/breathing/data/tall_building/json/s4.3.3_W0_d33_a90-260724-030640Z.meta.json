@@ -1,0 +1,230 @@
+{
+  "label": "s4.3.3_W0_d33_h69_ch53.75_cw14.5_a90",
+  "capture_start_utc": "2026-07-24T03:06:40.486425+00:00",
+  "rtcm_file": "s4.3.3_W0_d33_h69_ch53.75_cw14.5_a90-260724-030640Z.rtcm",
+  "rate_hz": 10,
+  "duration_sec": 30,
+  "ref_sat": "GPS_004",
+  "satellites": {
+    "BDS_014": {
+      "elev_deg": 17.333,
+      "azim_deg": 171.0,
+      "los_enu": [
+        0.14933,
+        -0.942835,
+        0.29793
+      ],
+      "passed_health": false
+    },
+    "BDS_024": {
+      "elev_deg": 66.0,
+      "azim_deg": 342.0,
+      "los_enu": [
+        -0.125689,
+        0.38683,
+        0.913545
+      ],
+      "passed_health": true
+    },
+    "BDS_025": {
+      "elev_deg": 25.0,
+      "azim_deg": 269.0,
+      "los_enu": [
+        -0.90617,
+        -0.015817,
+        0.422618
+      ],
+      "passed_health": true
+    },
+    "BDS_026": {
+      "elev_deg": 36.0,
+      "azim_deg": 53.0,
+      "los_enu": [
+        0.64611,
+        0.486879,
+        0.587785
+      ],
+      "passed_health": true
+    },
+    "BDS_031": {
+      "elev_deg": 22.0,
+      "azim_deg": 120.0,
+      "los_enu": [
+        0.802965,
+        -0.463592,
+        0.374607
+      ],
+      "passed_health": false
+    },
+    "BDS_033": {
+      "elev_deg": 55.0,
+      "azim_deg": 271.0,
+      "los_enu": [
+        -0.573489,
+        0.01001,
+        0.819152
+      ],
+      "passed_health": true
+    },
+    "BDS_034": {
+      "elev_deg": 6.0,
+      "azim_deg": 167.0,
+      "los_enu": [
+        0.223719,
+        -0.969032,
+        0.104528
+      ],
+      "passed_health": false
+    },
+    "BDS_035": {
+      "elev_deg": 17.0,
+      "azim_deg": 70.0,
+      "los_enu": [
+        0.898633,
+        0.327075,
+        0.292372
+      ],
+      "passed_health": true
+    },
+    "BDS_041": {
+      "elev_deg": 20.0,
+      "azim_deg": 318.0,
+      "los_enu": [
+        -0.628777,
+        0.698328,
+        0.34202
+      ],
+      "passed_health": true
+    },
+    "BDS_042": {
+      "elev_deg": 37.0,
+      "azim_deg": 186.0,
+      "los_enu": [
+        -0.08348,
+        -0.794261,
+        0.601815
+      ],
+      "passed_health": false
+    },
+    "GPS_003": {
+      "elev_deg": 5.0,
+      "azim_deg": 191.0,
+      "los_enu": [
+        -0.190083,
+        -0.977892,
+        0.087156
+      ],
+      "passed_health": false
+    },
+    "GPS_004": {
+      "elev_deg": 70.0,
+      "azim_deg": 159.0,
+      "los_enu": [
+        0.122569,
+        -0.319303,
+        0.939693
+      ],
+      "passed_health": true
+    },
+    "GPS_007": {
+      "elev_deg": 43.0,
+      "azim_deg": 310.0,
+      "los_enu": [
+        -0.560249,
+        0.470105,
+        0.681998
+      ],
+      "passed_health": false
+    },
+    "GPS_008": {
+      "elev_deg": 49.0,
+      "azim_deg": 142.0,
+      "los_enu": [
+        0.40391,
+        -0.516982,
+        0.75471
+      ],
+      "passed_health": true
+    },
+    "GPS_009": {
+      "elev_deg": 69.0,
+      "azim_deg": 296.0,
+      "los_enu": [
+        -0.322099,
+        0.157098,
+        0.93358
+      ],
+      "passed_health": true
+    },
+    "GPS_014": {
+      "elev_deg": 2.0,
+      "azim_deg": 235.0,
+      "los_enu": [
+        -0.818653,
+        -0.573227,
+        0.034899
+      ],
+      "passed_health": false
+    },
+    "GPS_016": {
+      "elev_deg": 32.0,
+      "azim_deg": 44.0,
+      "los_enu": [
+        0.589104,
+        0.610035,
+        0.529919
+      ],
+      "passed_health": false
+    },
+    "GPS_021": {
+      "elev_deg": 4.0,
+      "azim_deg": 321.0,
+      "los_enu": [
+        -0.627787,
+        0.775253,
+        0.069756
+      ],
+      "passed_health": false
+    },
+    "GPS_026": {
+      "elev_deg": 7.0,
+      "azim_deg": 54.0,
+      "los_enu": [
+        0.802987,
+        0.583404,
+        0.121869
+      ],
+      "passed_health": false
+    },
+    "GPS_027": {
+      "elev_deg": 46.0,
+      "azim_deg": 84.0,
+      "los_enu": [
+        0.690853,
+        0.072612,
+        0.71934
+      ],
+      "passed_health": true
+    },
+    "GPS_030": {
+      "elev_deg": 8.0,
+      "azim_deg": 290.0,
+      "los_enu": [
+        -0.930548,
+        0.338692,
+        0.139173
+      ],
+      "passed_health": true
+    },
+    "GPS_031": {
+      "elev_deg": 0.0,
+      "azim_deg": 95.0,
+      "los_enu": [
+        0.996195,
+        -0.087156,
+        0.0
+      ],
+      "passed_health": false
+    }
+  }
+}

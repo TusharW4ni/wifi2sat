@@ -13,7 +13,7 @@ import numpy as np
 from pyubx2 import UBXReader, UBX_PROTOCOL, NMEA_PROTOCOL, RTCM3_PROTOCOL
 
 # ── Config ──
-PORT = "/dev/cu.usbmodem113301"
+PORT = "/dev/cu.usbmodem13301"
 BAUD = 115200
 DURATION_SEC = 30     # full breathing sample length
 RATE_HZ = 10
@@ -32,13 +32,13 @@ CONSTELLATION_MAP = {"1077": "GPS", "1127": "BDS"}
 ACCEPTED_SIGNALS  = {"1077": {"1C"}, "1127": {"2I", "1X"}}
 NAV_GNSS_MAP      = {0: "GPS", 3: "BDS"}
 
-SAMPLE_DIR = "../samples_breathing"
+SAMPLE_DIR = "../data/tall_building"
 RTCM_DIR = os.path.join(SAMPLE_DIR, "rtcm")
 JSON_DIR = os.path.join(SAMPLE_DIR, "json")
 
 # ── Subject / geometry constants (edit these by hand per setup) ──
 # in inches
-DIST_FROM_RECEIVER = 29   # feet, subject distance from receiver
+DIST_FROM_RECEIVER = 33   # feet, subject distance from receiver
 PERSON_HEIGHT = 69        # subject height
 CHEST_HEIGHT = 53.75         # subject chest height off the ground
 CHEST_WIDTH = 14.5          # subject chest width
