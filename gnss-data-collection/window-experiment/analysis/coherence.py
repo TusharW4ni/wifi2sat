@@ -69,9 +69,10 @@ def _win_sats(recs, built, w, key):
     return s
 
 
-def _feat_window(recs, built, w, feats, sats):
+def _feat_window(recs, built, w, feats, sats, baseline=False):
     """Feature matrix for one window over an explicit sat list (so train/test
-    windows share feature columns). Onset-aligned within the window."""
+    windows share feature columns). Onset-aligned within the window.
+    baseline=True uses the pre-onset segment [0:base] (gesture-free control)."""
     caps = _win(recs, w)
     paths = [r["rtcm_path"] for r in caps]
     Ncm = min(len(built[p]["CN0cm"]) for p in paths)
@@ -80,30 +81,34 @@ def _feat_window(recs, built, w, feats, sats):
         lags = dict(zip(paths, align_group([built[p]["CN0cm"][:Ncm] for p in paths], base=base, L=L)))
     else:
         base, L, lags = 0, Ncm, {p: 0 for p in paths}
+    seg = lambda lag: (0, base) if baseline else (base + lag, L)
     X, y = [], []
     for r in caps:
         b, lag = built[r["rtcm_path"]], lags[r["rtcm_path"]]
+        st, sl = seg(lag)
         feat = []
         if "cn0" in feats:
             for s in sats:
-                feat += _stats(b["CN0ps"][s], lag, base, L)
-            feat += _stats(b["CN0cm"], lag, base, L)
+                feat += _stats(b["CN0ps"][s], st, sl)
+            feat += _stats(b["CN0cm"], st, sl)
         if "sd" in feats:
             ref = max(sats, key=lambda k: b["elev"].get(k, -91))
             for s in sats:
                 if s != ref:
-                    feat += _stats(b["perdetr"][s] - b["perdetr"][ref], lag, base, L)
+                    feat += _stats(b["perdetr"][s] - b["perdetr"][ref], st, sl)
         X.append(feat)
         y.append(r["gesture"])
     return np.array(X), np.array(y)
 
 
-def ramp(session, gestures=GESTURES):
-    """Cross-window train→test accuracy per channel, all ordered window pairs."""
+def ramp(session, gestures=GESTURES, baseline=False):
+    """Cross-window train→test accuracy per channel, all ordered window pairs.
+    baseline=True runs the pre-onset (gesture-free) control."""
     recs, built = _build(session, gestures)
     windows = sorted({r["window"] for r in recs})
     chance = 1.0 / len(set(g for g in gestures))
-    out = {"session": session, "windows": windows, "chance": chance, "channels": {}}
+    out = {"session": session, "windows": windows, "chance": chance,
+           "baseline": baseline, "channels": {}}
     for chan, feats in CHANNELS.items():
         key = "CN0ps" if "cn0" in feats else "perdetr"
         pairs = []
@@ -114,8 +119,8 @@ def ramp(session, gestures=GESTURES):
                 shared = sorted(_win_sats(recs, built, wtr, key) & _win_sats(recs, built, wte, key))
                 if len(shared) < 3:
                     continue
-                Xtr, ytr = _feat_window(recs, built, wtr, feats, shared)
-                Xte, yte = _feat_window(recs, built, wte, feats, shared)
+                Xtr, ytr = _feat_window(recs, built, wtr, feats, shared, baseline)
+                Xte, yte = _feat_window(recs, built, wte, feats, shared, baseline)
                 if len(set(ytr)) < 2 or len(Xte) == 0:
                     continue
                 pipe = make_pipeline(StandardScaler(), SVC(kernel="linear"))
@@ -134,7 +139,8 @@ def ramp(session, gestures=GESTURES):
 
 
 def _print(out):
-    print(f"\nPhase 3 arm-1 coherence ramp — {out['session']}  "
+    tag = " [PRE-ONSET BASELINE control]" if out.get("baseline") else ""
+    print(f"\nPhase 3 arm-1 coherence ramp — {out['session']}{tag}  "
           f"(cross-window train→test, chance {out['chance']:.0%})")
     seps = sorted({int(s) for ch in out["channels"].values() for s in ch["by_sep"]})
     print(f"  {'channel':7}" + "".join(f"{'sep '+str(s):>9}" for s in seps))
@@ -151,21 +157,24 @@ def main():
     ap = argparse.ArgumentParser(description="Phase 3 arm-1: within-day window coherence ramp")
     ap.add_argument("session", nargs="?", default="c1.1_day1")
     ap.add_argument("--best", action="store_true", help="c1.1_day1 (+ c3.2_day1) -> results/coherence_ramp.json")
+    ap.add_argument("--baseline", action="store_true",
+                    help="pre-onset (gesture-free) control: reproduces the decay? -> time/env confound")
     a = ap.parse_args()
     if a.best:
         out = []
         for s in ("c1.1_day1", "c3.2_day1"):
-            try:
-                r = ramp(s)
-                out.append(r)
-                _print(r)
-            except Exception as e:
-                print(f"skip {s}: {e}")
+            for bl in (False, True):          # gesture window + pre-onset control side by side
+                try:
+                    r = ramp(s, baseline=bl)
+                    out.append(r)
+                    _print(r)
+                except Exception as e:
+                    print(f"skip {s} baseline={bl}: {e}")
         os.makedirs(RESULTS, exist_ok=True)
         json.dump(out, open(os.path.join(RESULTS, "coherence_ramp.json"), "w"), indent=2)
         print(f"\nwrote {os.path.join(RESULTS, 'coherence_ramp.json')}")
     else:
-        _print(ramp(a.session))
+        _print(ramp(a.session, baseline=a.baseline))
 
 
 if __name__ == "__main__":

@@ -35,7 +35,7 @@ RESULTS = os.path.join(_ROOT, "results")
 
 import dataset as ds
 from alpha_study import build_channels, GESTURES
-from onset_align import align_group, _seg, BASE, LEN, MAXLAG
+from onset_align import align_group, BASE, LEN, MAXLAG
 
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
@@ -45,15 +45,19 @@ from sklearn.svm import SVC
 from sklearn.model_selection import RepeatedStratifiedKFold, cross_val_score, permutation_test_score
 
 
-def _stats(x, lag, base, L):
-    """Onset-aligned segment summary stats: std, peak-to-peak, energy."""
-    s = _seg(x, lag, base, L)
+def _stats(x, start, L):
+    """Summary stats [std, peak-to-peak, energy] of the length-L segment at start."""
+    s = np.asarray(x[start:start + L], float)
     return [float(np.std(s)), float(np.ptp(s)), float(np.mean(s ** 2))]
 
 
-def featurize(session, window, gestures=GESTURES, feats=("cn0",)):
+def featurize(session, window, gestures=GESTURES, feats=("cn0",), baseline=False):
     """Feature matrix X, labels y for one (session, window). Features are
-    onset-aligned CN0 stats over the window's common clean-sat set."""
+    onset-aligned CN0 stats over the window's common clean-sat set.
+
+    baseline=True uses the PRE-ONSET segment [0:base] (before any hand motion)
+    instead of the gesture window — the control for the acquisition-time confound:
+    any above-chance accuracy here is time/environment leakage, not gesture."""
     recs = [r for r in ds.load_session(session)
             if r["window"] == window and r["gesture"] in gestures]
     built = {}
@@ -82,19 +86,24 @@ def featurize(session, window, gestures=GESTURES, feats=("cn0",)):
     else:
         base, L, lags = 0, Ncm, {p: 0 for p in paths}
 
+    # segment: gesture window [base+lag : +L], or pre-onset baseline [0 : base]
+    def seg(lag):
+        return (0, base) if baseline else (base + lag, L)
+
     X, y = [], []
     for r in caps:
         b, lag = built[r["rtcm_path"]], lags[r["rtcm_path"]]
+        st, sl = seg(lag)
         feat = []
         if "cn0" in feats:
             for sat in common:
-                feat += _stats(b["CN0ps"][sat], lag, base, L)
-            feat += _stats(b["CN0cm"], lag, base, L)
+                feat += _stats(b["CN0ps"][sat], st, sl)
+            feat += _stats(b["CN0cm"], st, sl)
         if "sd" in feats and sdcommon:
             ref = max(sdcommon, key=lambda k: b["elev"].get(k, -91))
             for sat in sdcommon:
                 if sat != ref:
-                    feat += _stats(b["perdetr"][sat] - b["perdetr"][ref], lag, base, L)
+                    feat += _stats(b["perdetr"][sat] - b["perdetr"][ref], st, sl)
         X.append(feat)
         y.append(r["gesture"])
     return np.array(X), np.array(y), dict(feats=list(feats), n_common_cn0=len(common),
@@ -132,13 +141,14 @@ def confusion(X, y, seed=0):
     return labels, M
 
 
-def run(session, window, two=False):
+def run(session, window, two=False, baseline=False):
     gestures = ("push", "star") if two else GESTURES
     X, y, info = featurize(session, window, gestures=gestures,
-                           feats=("cn0", "sd") if two else ("cn0",))
+                           feats=("cn0", "sd") if two else ("cn0",), baseline=baseline)
     res = classify(X, y)
     labels, M = confusion(X, y)
-    print(f"\n{session} W{window}  ({len(res['classes'])}-class: {res['classes']})  "
+    tag = " [PRE-ONSET BASELINE control]" if baseline else ""
+    print(f"\n{session} W{window}{tag}  ({len(res['classes'])}-class: {res['classes']})  "
           f"n={res['n']}, features={info['n_feat']} ({info['n_common_cn0']} common CN0 sats), "
           f"chance={res['chance']:.0%}")
     print(f"  {'model':8}{'acc':>8}{'95% CI':>16}{'perm-p':>9}")
@@ -175,6 +185,8 @@ def main():
     ap.add_argument("--best", action="store_true", help="standard best-case set -> results/separability.json")
     ap.add_argument("--ablate", action="store_true",
                     help="SD-vs-CN0 feature ablation on c1.1 W0/W1 -> results/separability_ablation.json")
+    ap.add_argument("--baseline", action="store_true",
+                    help="pre-onset (gesture-free) control: any above-chance acc = time/environment confound")
     a = ap.parse_args()
     if a.ablate:
         out = {}
@@ -205,7 +217,7 @@ def main():
         json.dump(out, open(os.path.join(RESULTS, "separability.json"), "w"), indent=2)
         print(f"\nwrote {os.path.join(RESULTS, 'separability.json')}")
     else:
-        run(a.session, a.window, two=a.two)
+        run(a.session, a.window, two=a.two, baseline=a.baseline)
 
 
 if __name__ == "__main__":

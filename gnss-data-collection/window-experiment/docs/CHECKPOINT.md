@@ -176,30 +176,32 @@ RAWX-vs-MSM) done.
 
 **Phase 2 (within-geometry separability, #4) — done + merged 2026-07-24.**
 `analysis/separability.py` classifies gestures within one window on onset-aligned
-CN0 (+push-SD) features (LDA/kNN/linSVM, repeated stratified CV, permutation null)
-→ `results/separability.json`. **Gate passed:** c1.1_day1 W0/W1 5-class (chance 20%)
-→ linSVM 64%/69%, p=0.005.
-**Key ablation** (`--ablate`, `results/separability_ablation.json`): CN0-only 64/69%,
-**SD-only 24/18% = at chance**, CN0+SD ≈ CN0-only. → the entire discriminative
-signal is **CN0 amplitude, not carrier-phase geometry**. Sensing works, but not via
-the mechanism the project set out to demonstrate.
+CN0 (+push-SD) features → `results/separability.json`. c1.1_day1 W0/W1 5-class
+(chance 20%) → linSVM 64%/69%, p=0.005; **ablation** (`--ablate`): CN0-only 64/69%,
+**SD-only at chance (24/18%)** → the discriminative signal is CN0 amplitude, not phase.
 
-**This reframes Phase 3 (#5, the headline):** the working channel (CN0) is
-geometry-*invariant* amplitude, so a flat CN0-accuracy vs geometry drift would
-support proximity/amplitude sensing, NOT the geometry thesis. Phase 3 must run the
-coherence 2×2 per-channel: only push-SD accuracy decaying with drift (tracking κ)
-while CN0 stays flat cleanly isolates the geometry mechanism.
+⚠ **ACQUISITION-TIME CONFOUND (found 2026-07-24 in review).** Reps are recorded in
+contiguous per-gesture time-blocks, so gesture label is confounded with recording
+time/environment. The **pre-onset (gesture-free) baseline control** (`--baseline`)
+classifies at **linSVM 42%** on c1.1 W0 (chance 20%, p=0.01) — so most of the "64%"
+is time/environment leakage; the genuine gesture increment is only ~22pp
+(64 − 42). Gate is *still* passed (real signal above the confound floor), but the
+headline number was inflated. **Future collections must interleave gestures.**
 
-**Phase 3 (geometry/window coherence, #5) — started 2026-07-24** on branch
-`phase3-coherence`. `analysis/coherence.py` arm 1 (different geometry, same day):
-train on one window → test on another, accuracy vs window separation, per channel
-→ `results/coherence_ramp.json`. **First result (both c1.1_day1 & c3.2_day1):**
-CN0 cross-window accuracy decays monotonically with drift (c1.1 38→27→25%,
-c3.2_day1 40→29→19%, chance 20%) toward chance; SD at chance throughout. And
-cross-geometry ≪ within-geometry (Phase 2 was 64–69%; cross-window sep-1 only
-~38–40%). So the coherence effect is real, carried by **directional per-sat CN0**
-(not carrier phase). ⚠ point estimates, no CIs yet — first cut.
+**Phase 3 (geometry/window coherence, #5) — arm 1, CONFOUNDED (2026-07-24)** on
+branch `phase3-coherence`. `analysis/coherence.py` arm 1: cross-window train→test
+accuracy vs window separation, per channel → `results/coherence_ramp.json`. CN0
+appears to decay with drift (c1.1 38→27→25%, c3.2_day1 40→29→19%). **BUT** window
+separation = elapsed time = geometry drift are collinear here, and the pre-onset
+baseline control **reproduces the above-chance-then-decay pattern** (c1.1 28→32→17%,
+c3.2_day1 26→26→20%). So the "coherence decay" is largely **elapsed-time/environment
+confound, NOT geometry** — cannot be attributed to geometry in this within-day design.
+(A modest gesture increment at sep-1, ~12pp, sits within the noise: point estimates
+over 6/4/2 window pairs, no CIs.)
 
-Next (Phase 3, ongoing): add bootstrap/permutation CIs; arm 2 (same geometry,
-different day — ref↔repeat, c3.2 W2 3-timepoint); tie to κ / r(Δθ); per-gesture
-breakdown.
+**Next (Phase 3): the confound forces arm 2** — same geometry, different day
+(ref↔repeat, c3.2 W2 3-timepoint), the only arm that dissociates geometry from
+elapsed time. Plus: bootstrap/permutation CIs; move onset/sat-selection inside CV
+(leakage); drop the degenerate ref/repeat 2-class cells (n=6–9, 78 feats). κ tie-in:
+only testable on the phase channel (at chance), so report low power — do NOT read
+CN0-amplitude decay as κ.

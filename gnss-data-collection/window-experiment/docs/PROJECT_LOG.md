@@ -270,3 +270,28 @@ mask) and extends them:
 **Gate:** downstream (Phase 2/3) proceeds on **CN0 (primary) + push-SD
 (secondary)**. **Next:** Phase 1 secondaries (onset-help, RAWX-vs-MSM, the
 c3.2_day2 anomaly), then Phase 2 within-geometry separability on those channels.
+
+## 12. Phase 2 + Phase 3 + the acquisition-time confound (2026-07-24)
+
+**Phase 2 (#4, merged).** `analysis/separability.py` — within-window gesture
+classification (LDA/kNN/linSVM, repeated stratified CV, permutation null). c1.1_day1
+W0/W1 5-class → linSVM 64/69 % (chance 20 %, p=0.005). Ablation (`--ablate`):
+CN0-only ≈ CN0+SD ≫ SD-only (at chance) → the signal is CN0 amplitude, not phase.
+
+**Phase 3 (#5, arm 1).** `analysis/coherence.py` — cross-window train→test accuracy
+vs window separation. CN0 appeared to decay with drift (c1.1 38→25 %, c3.2_day1
+40→19 %); SD at chance.
+
+**⚠ Review found an acquisition-time confound (the important finding).** Reps are
+recorded in contiguous per-gesture time-blocks, so gesture ≡ recording-time block,
+and window index ≡ elapsed time ≡ geometry drift (collinear). Verified with a
+**pre-onset (gesture-free) baseline control** (`--baseline`): within-window it
+classifies at linSVM **42 %** (chance 20 %, p=0.01) vs 64 % on the gesture window
+→ most of Phase 2's accuracy is time/environment leakage (genuine gesture increment
+≈22 pp). Cross-window, the baseline **reproduces the "coherence decay"** (c1.1
+28→17 %, c3.2 26→20 %) → Phase 3 arm-1's decay is **not attributable to geometry**.
+
+**Consequence:** Phase 2 gate still passes (real signal above the confound floor)
+but the headline was inflated; Phase 3 needs the **same-geometry/different-day arm**
+(arm 2) to dissociate geometry from time, plus CIs and a CV-leakage fix. Future
+captures must **interleave gesture order** within a window to break the confound.
