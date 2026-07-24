@@ -84,6 +84,24 @@ itself a caveat for the geometry thesis (Phase 3).
   **CN0-common is strong and observable-independent** (0.35 vs 0.33). So phase
   claims are safest on RAWX; CN0 is robust on both.
 
+### ⚠ Acquisition-time confound (found 2026-07-24, review of Phases 2–3)
+
+**Reps are recorded in contiguous per-gesture time-blocks**, so gesture label is
+confounded with recording time/environment. This inflates the classification
+results and blocks the geometry interpretation:
+- **Phase 2:** the pre-onset (gesture-free) baseline control classifies at linSVM
+  **42%** on c1.1 W0 (chance 20%, p=0.01) vs 64% on the gesture window — most of the
+  accuracy is time/environment leakage; genuine gesture increment ≈ 22 pp.
+- **Phase 3:** window separation ≡ elapsed time ≡ geometry drift are **collinear**;
+  the gesture-free baseline **reproduces** the cross-window "decay", so the apparent
+  coherence cannot be attributed to geometry in the within-day design.
+
+Consequences: (a) always report the pre-onset baseline as the confound floor
+(`separability.py --baseline`, `coherence.py --baseline`); (b) the only clean
+geometry test is the **same-geometry / different-day** arm (Phase 3 arm 2), which
+holds geometry fixed while time varies; (c) **future collections must interleave
+gestures** (randomize gesture order within a window) to break the confound.
+
 ---
 
 ## 1. Data → role assignment (all relevant data)

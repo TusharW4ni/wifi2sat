@@ -8,6 +8,7 @@
       3
     ],
     "chance": 0.2,
+    "baseline": false,
     "channels": {
       "CN0": {
         "pairs": [
@@ -222,6 +223,229 @@
     }
   },
   {
+    "session": "c1.1_day1",
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "chance": 0.2,
+    "baseline": true,
+    "channels": {
+      "CN0": {
+        "pairs": [
+          {
+            "train": 0,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.26666666666666666,
+            "n_shared": 8,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 2,
+            "sep": 2,
+            "acc": 0.3333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 3,
+            "sep": 3,
+            "acc": 0.2,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 0,
+            "sep": 1,
+            "acc": 0.23333333333333334,
+            "n_shared": 8,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.26666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 3,
+            "sep": 2,
+            "acc": 0.26666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 0,
+            "sep": 2,
+            "acc": 0.43333333333333335,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.3,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 3,
+            "sep": 1,
+            "acc": 0.36666666666666664,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 0,
+            "sep": 3,
+            "acc": 0.13333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 1,
+            "sep": 2,
+            "acc": 0.26666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.26666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          }
+        ],
+        "by_sep": {
+          "1": 0.2833333333333333,
+          "2": 0.32499999999999996,
+          "3": 0.16666666666666669
+        }
+      },
+      "SD": {
+        "pairs": [
+          {
+            "train": 0,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.3,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 2,
+            "sep": 2,
+            "acc": 0.13333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 3,
+            "sep": 3,
+            "acc": 0.1,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 0,
+            "sep": 1,
+            "acc": 0.23333333333333334,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.16666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 3,
+            "sep": 2,
+            "acc": 0.1,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 0,
+            "sep": 2,
+            "acc": 0.2,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.16666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 3,
+            "sep": 1,
+            "acc": 0.16666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 0,
+            "sep": 3,
+            "acc": 0.13333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 1,
+            "sep": 2,
+            "acc": 0.16666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.3,
+            "n_shared": 6,
+            "n_test": 30
+          }
+        ],
+        "by_sep": {
+          "1": 0.2222222222222222,
+          "2": 0.15,
+          "3": 0.11666666666666667
+        }
+      }
+    }
+  },
+  {
     "session": "c3.2_day1",
     "windows": [
       0,
@@ -230,6 +454,7 @@
       3
     ],
     "chance": 0.2,
+    "baseline": false,
     "channels": {
       "CN0": {
         "pairs": [
@@ -438,6 +663,229 @@
         "by_sep": {
           "1": 0.1537037037037037,
           "2": 0.2611111111111111,
+          "3": 0.08333333333333333
+        }
+      }
+    }
+  },
+  {
+    "session": "c3.2_day1",
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "chance": 0.2,
+    "baseline": true,
+    "channels": {
+      "CN0": {
+        "pairs": [
+          {
+            "train": 0,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.06666666666666667,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 2,
+            "sep": 2,
+            "acc": 0.1,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 3,
+            "sep": 3,
+            "acc": 0.16666666666666666,
+            "n_shared": 6,
+            "n_test": 18
+          },
+          {
+            "train": 1,
+            "test": 0,
+            "sep": 1,
+            "acc": 0.13333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.26666666666666666,
+            "n_shared": 7,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 3,
+            "sep": 2,
+            "acc": 0.5,
+            "n_shared": 6,
+            "n_test": 18
+          },
+          {
+            "train": 2,
+            "test": 0,
+            "sep": 2,
+            "acc": 0.13333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.26666666666666666,
+            "n_shared": 7,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 3,
+            "sep": 1,
+            "acc": 0.5,
+            "n_shared": 6,
+            "n_test": 18
+          },
+          {
+            "train": 3,
+            "test": 0,
+            "sep": 3,
+            "acc": 0.23333333333333334,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 1,
+            "sep": 2,
+            "acc": 0.3,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.3333333333333333,
+            "n_shared": 6,
+            "n_test": 30
+          }
+        ],
+        "by_sep": {
+          "1": 0.2611111111111111,
+          "2": 0.2583333333333333,
+          "3": 0.2
+        }
+      },
+      "SD": {
+        "pairs": [
+          {
+            "train": 0,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.23333333333333334,
+            "n_shared": 5,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 2,
+            "sep": 2,
+            "acc": 0.23333333333333334,
+            "n_shared": 5,
+            "n_test": 30
+          },
+          {
+            "train": 0,
+            "test": 3,
+            "sep": 3,
+            "acc": 0.0,
+            "n_shared": 5,
+            "n_test": 18
+          },
+          {
+            "train": 1,
+            "test": 0,
+            "sep": 1,
+            "acc": 0.23333333333333334,
+            "n_shared": 5,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.2,
+            "n_shared": 7,
+            "n_test": 30
+          },
+          {
+            "train": 1,
+            "test": 3,
+            "sep": 2,
+            "acc": 0.3333333333333333,
+            "n_shared": 6,
+            "n_test": 18
+          },
+          {
+            "train": 2,
+            "test": 0,
+            "sep": 2,
+            "acc": 0.16666666666666666,
+            "n_shared": 5,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 1,
+            "sep": 1,
+            "acc": 0.23333333333333334,
+            "n_shared": 7,
+            "n_test": 30
+          },
+          {
+            "train": 2,
+            "test": 3,
+            "sep": 1,
+            "acc": 0.2222222222222222,
+            "n_shared": 6,
+            "n_test": 18
+          },
+          {
+            "train": 3,
+            "test": 0,
+            "sep": 3,
+            "acc": 0.16666666666666666,
+            "n_shared": 5,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 1,
+            "sep": 2,
+            "acc": 0.26666666666666666,
+            "n_shared": 6,
+            "n_test": 30
+          },
+          {
+            "train": 3,
+            "test": 2,
+            "sep": 1,
+            "acc": 0.1,
+            "n_shared": 6,
+            "n_test": 30
+          }
+        ],
+        "by_sep": {
+          "1": 0.20370370370370372,
+          "2": 0.25,
           "3": 0.08333333333333333
         }
       }
