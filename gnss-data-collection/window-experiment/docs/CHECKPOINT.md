@@ -153,4 +153,13 @@ In brief — test that **geometry/window coherence matters** for classification:
 Data merged, reorganized, cleaned, pushed. Structure verified runnable. **Data-quality
 issues (#7–#10) reconciled 2026-07-23** — labels normalized, c3.2_day2 W3 recovered,
 split pairs repaired, `ref_jun26` disambiguated; audit shows 0 dangling manifest refs.
-Ready to build the classification pipeline (Exp 1: c1.1 within-day ramp) as the next step.
+
+**Phase 0 (shared preprocessing, issue #2) built 2026-07-24** — `lib/dataset.py`
+(unified catalog + loader, no-silent-pool guard, observable auto-detected) and
+`analysis/preprocess.py` (DF407 cleaning + yield report, common-reference SD,
+adaptive onset alignment, CMR trajectory, g-vectors, CN0). Emits the per-capture
+feature object for all 6 active sessions (MSM7 + RAWX), verified. DF407 gate
+rescues yield dramatically (c3.2_day1 W1 13%→100%).
+
+Next: **Phase 1 — the α study (the gate)** — generalize the α scripts over the
+feature object across all sessions × observables × gestures, with CIs.

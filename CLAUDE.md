@@ -72,6 +72,25 @@ Observable (MSM7/RAWX) is **detected from the data** (RXM-RAWX presence), not th
 name/date. The loader enforces the no-silent-pool rule. Breathing data is a
 separate task and is intentionally not in this catalog.
 
+**Preprocessing (Phase 0 pipeline).** `window-experiment/analysis/preprocess.py`
+turns captures into the tidy per-capture feature object all analysis consumes —
+built on `dataset.py` + `geomlib` + `onset_align`:
+
+```bash
+uv run window-experiment/analysis/preprocess.py <session>          # feature summary
+uv run window-experiment/analysis/preprocess.py --yield <session>  # DF407 vs passed_health yield
+```
+```python
+import preprocess as pp
+out = pp.preprocess_group(caps)   # caps = one gesture×window group from ds.load_session
+# out.features[i] = {sd (common-ref SD+detrend), envelope, onset_lag, g, cmr, cn0, …}
+```
+It does DF407/locktime slip-cleaning, **common-reference** single-differencing
+(fixes varying `ref_sat`), onset alignment (adaptive to MSM's 118 vs RAWX's 120
+epochs), CMR trajectory `d(t)=pinv(G)S`, g-vectors, and per-sat CN0. The `--yield`
+report shows the DF407 rescue vs the `passed_health` floor (e.g. c3.2_day1 W1
+13%→100%).
+
 ## Critical facts (don't relearn these the hard way)
 
 - **Observable format is mixed** — never silently pool:
