@@ -174,13 +174,20 @@ onset-help quantification and an explicit RAWX-vs-MSM comparison.
 Phase 1 done + merged (#3 closed): gate = **CN0 + push-SD**; secondaries (onset-help,
 RAWX-vs-MSM) done.
 
-**Phase 2 (within-geometry separability, #4) — baseline 2026-07-24** on branch
-`phase2-separability`. `analysis/separability.py` classifies gestures within one
-window on onset-aligned CN0 (+push-SD) features (LDA/kNN/linSVM, repeated stratified
-CV, permutation null) → `results/separability.json`. **Gate passed:** c1.1_day1
-W0/W1 5-class (chance 20%) → linSVM 64%/69%, p=0.005. ref/repeat push-vs-star is
-suggestive (100%/82%) but small-N (n=9/6). Gestures are separable at matched
-geometry → the geometry question (Phase 3) is live, not moot.
+**Phase 2 (within-geometry separability, #4) — done + merged 2026-07-24.**
+`analysis/separability.py` classifies gestures within one window on onset-aligned
+CN0 (+push-SD) features (LDA/kNN/linSVM, repeated stratified CV, permutation null)
+→ `results/separability.json`. **Gate passed:** c1.1_day1 W0/W1 5-class (chance 20%)
+→ linSVM 64%/69%, p=0.005.
+**Key ablation** (`--ablate`, `results/separability_ablation.json`): CN0-only 64/69%,
+**SD-only 24/18% = at chance**, CN0+SD ≈ CN0-only. → the entire discriminative
+signal is **CN0 amplitude, not carrier-phase geometry**. Sensing works, but not via
+the mechanism the project set out to demonstrate.
 
-Next: extend Phase 2 (more windows, feature ablation SD-vs-CN0) then **Phase 3 (#5)**
-— geometry/window coherence (the headline).
+**This reframes Phase 3 (#5, the headline):** the working channel (CN0) is
+geometry-*invariant* amplitude, so a flat CN0-accuracy vs geometry drift would
+support proximity/amplitude sensing, NOT the geometry thesis. Phase 3 must run the
+coherence 2×2 per-channel: only push-SD accuracy decaying with drift (tracking κ)
+while CN0 stays flat cleanly isolates the geometry mechanism.
+
+Next: **Phase 3 (#5)** — geometry/window coherence.

@@ -13,3 +13,6 @@ script + session produced it. Regenerate rather than hand-edit.
 - `separability.json` — Phase 2 (#4): within-window gesture classification accuracy
   (LDA/kNN/linSVM), CV CIs, permutation p, and confusion, on CN0 (+push-SD)
   features. Produced by `analysis/separability.py --best`.
+- `separability_ablation.json` — Phase 2 SD-vs-CN0 feature ablation (linSVM):
+  CN0-only ≈ CN0+SD ≫ SD-only (at chance). The discriminative signal is CN0
+  amplitude, not phase. Produced by `analysis/separability.py --ablate`.

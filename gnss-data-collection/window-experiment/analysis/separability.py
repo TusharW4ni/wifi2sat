@@ -51,7 +51,7 @@ def _stats(x, lag, base, L):
     return [float(np.std(s)), float(np.ptp(s)), float(np.mean(s ** 2))]
 
 
-def featurize(session, window, gestures=GESTURES, with_sd=False):
+def featurize(session, window, gestures=GESTURES, feats=("cn0",)):
     """Feature matrix X, labels y for one (session, window). Features are
     onset-aligned CN0 stats over the window's common clean-sat set."""
     recs = [r for r in ds.load_session(session)
@@ -66,15 +66,13 @@ def featurize(session, window, gestures=GESTURES, with_sd=False):
         raise ValueError(f"{session} W{window}: only {len(caps)} usable captures")
     paths = [r["rtcm_path"] for r in caps]
 
-    common = set(built[paths[0]]["CN0ps"])
-    for p in paths[1:]:
-        common &= set(built[p]["CN0ps"])
-    common = sorted(common)
-    if with_sd:
-        sdcommon = set(built[paths[0]]["perdetr"])
+    def _common(key):
+        s = set(built[paths[0]][key])
         for p in paths[1:]:
-            sdcommon &= set(built[p]["perdetr"])
-        sdcommon = sorted(sdcommon)
+            s &= set(built[p][key])
+        return sorted(s)
+    common = _common("CN0ps") if "cn0" in feats else []
+    sdcommon = _common("perdetr") if "sd" in feats else []
 
     # onset lag from the CN0-common series (the strongest, most reproducible channel)
     Ncm = min(len(built[p]["CN0cm"]) for p in paths)
@@ -88,17 +86,19 @@ def featurize(session, window, gestures=GESTURES, with_sd=False):
     for r in caps:
         b, lag = built[r["rtcm_path"]], lags[r["rtcm_path"]]
         feat = []
-        for sat in common:
-            feat += _stats(b["CN0ps"][sat], lag, base, L)
-        feat += _stats(b["CN0cm"], lag, base, L)
-        if with_sd:
+        if "cn0" in feats:
+            for sat in common:
+                feat += _stats(b["CN0ps"][sat], lag, base, L)
+            feat += _stats(b["CN0cm"], lag, base, L)
+        if "sd" in feats and sdcommon:
             ref = max(sdcommon, key=lambda k: b["elev"].get(k, -91))
             for sat in sdcommon:
                 if sat != ref:
                     feat += _stats(b["perdetr"][sat] - b["perdetr"][ref], lag, base, L)
         X.append(feat)
         y.append(r["gesture"])
-    return np.array(X), np.array(y), dict(n_common_cn0=len(common), n_feat=len(X[0]))
+    return np.array(X), np.array(y), dict(feats=list(feats), n_common_cn0=len(common),
+                                          n_common_sd=len(sdcommon), n_feat=len(X[0]))
 
 
 def classify(X, y, n_perm=200, seed=0):
@@ -134,7 +134,8 @@ def confusion(X, y, seed=0):
 
 def run(session, window, two=False):
     gestures = ("push", "star") if two else GESTURES
-    X, y, info = featurize(session, window, gestures=gestures, with_sd=two)
+    X, y, info = featurize(session, window, gestures=gestures,
+                           feats=("cn0", "sd") if two else ("cn0",))
     res = classify(X, y)
     labels, M = confusion(X, y)
     print(f"\n{session} W{window}  ({len(res['classes'])}-class: {res['classes']})  "
@@ -150,13 +151,47 @@ def run(session, window, two=False):
                 confusion=dict(labels=labels, matrix=M.tolist()), features=info)
 
 
+def ablate(session, window, gestures=GESTURES):
+    """SD-vs-CN0 feature ablation: is the classifier riding on amplitude (CN0) or
+    the geometry-dependent phase (SD)? linSVM accuracy per feature set."""
+    out = {}
+    for name, feats in (("CN0-only", ("cn0",)), ("SD-only", ("sd",)), ("CN0+SD", ("cn0", "sd"))):
+        try:
+            X, y, info = featurize(session, window, gestures=gestures, feats=feats)
+            r = classify(X, y, n_perm=100)
+            m = r["models"]["linSVM"]
+            out[name] = dict(acc=m["acc"], lo=m["lo"], hi=m["hi"], p=m["p"],
+                             n_feat=info["n_feat"], chance=r["chance"])
+        except Exception as e:
+            out[name] = dict(error=str(e))
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser(description="Phase 2 within-window gesture separability")
     ap.add_argument("session", nargs="?", default="c1.1_day1")
     ap.add_argument("window", nargs="?", type=int, default=0)
     ap.add_argument("--two", action="store_true", help="push-vs-star (2-class) + append SD features")
     ap.add_argument("--best", action="store_true", help="standard best-case set -> results/separability.json")
+    ap.add_argument("--ablate", action="store_true",
+                    help="SD-vs-CN0 feature ablation on c1.1 W0/W1 -> results/separability_ablation.json")
     a = ap.parse_args()
+    if a.ablate:
+        out = {}
+        for s, w in (("c1.1_day1", 0), ("c1.1_day1", 1)):
+            res = ablate(s, w)
+            out[f"{s}_W{w}"] = res
+            print(f"\n{s} W{w}  (5-class, chance 20%) -- linSVM accuracy by feature set:")
+            print(f"  {'features':10}{'acc':>7}{'95% CI':>15}{'perm-p':>9}{'n_feat':>8}")
+            for name, d in res.items():
+                if "error" in d:
+                    print(f"  {name:10} error: {d['error']}")
+                else:
+                    print(f"  {name:10}{d['acc']:>7.0%}   [{d['lo']:.0%}, {d['hi']:.0%}]{d['p']:>9.3f}{d['n_feat']:>8}")
+        os.makedirs(RESULTS, exist_ok=True)
+        json.dump(out, open(os.path.join(RESULTS, "separability_ablation.json"), "w"), indent=2)
+        print(f"\nwrote {os.path.join(RESULTS, 'separability_ablation.json')}")
+        return
     if a.best:
         jobs = [("c1.1_day1", 0, False), ("c1.1_day1", 1, False),
                 ("ref_day1", 0, True), ("repeat_day2", 0, True)]
