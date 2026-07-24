@@ -171,5 +171,16 @@ mask). The c3.2_day2 weak-negative push-SD was checked and is small-N split-half
 noise (per-window W2 −0.22 / W3 +0.32), not a W1 artifact. Open secondaries (#3):
 onset-help quantification and an explicit RAWX-vs-MSM comparison.
 
-Next: finish Phase 1 secondaries / **Phase 2 (#4)** — within-geometry separability
-on the passing channels (CN0 + push-SD).
+Phase 1 done + merged (#3 closed): gate = **CN0 + push-SD**; secondaries (onset-help,
+RAWX-vs-MSM) done.
+
+**Phase 2 (within-geometry separability, #4) — baseline 2026-07-24** on branch
+`phase2-separability`. `analysis/separability.py` classifies gestures within one
+window on onset-aligned CN0 (+push-SD) features (LDA/kNN/linSVM, repeated stratified
+CV, permutation null) → `results/separability.json`. **Gate passed:** c1.1_day1
+W0/W1 5-class (chance 20%) → linSVM 64%/69%, p=0.005. ref/repeat push-vs-star is
+suggestive (100%/82%) but small-N (n=9/6). Gestures are separable at matched
+geometry → the geometry question (Phase 3) is live, not moot.
+
+Next: extend Phase 2 (more windows, feature ablation SD-vs-CN0) then **Phase 3 (#5)**
+— geometry/window coherence (the headline).

@@ -10,3 +10,6 @@ script + session produced it. Regenerate rather than hand-edit.
 - `alpha_secondaries.json` — Phase 1 secondaries: onset-alignment help (aligned vs
   zero-lag) and RAWX-vs-MSM α comparison. Produced by
   `analysis/alpha_study.py --secondaries`.
+- `separability.json` — Phase 2 (#4): within-window gesture classification accuracy
+  (LDA/kNN/linSVM), CV CIs, permutation p, and confusion, on CN0 (+push-SD)
+  features. Produced by `analysis/separability.py --best`.
