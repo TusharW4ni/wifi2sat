@@ -80,7 +80,7 @@ raise it).
 |---|---|---|---|
 | `c1.1_day1` | Jun 29 16:40 | 5 | W0–W3: 30 each, **all 100%** |
 | `c3.2_day1` | Jul 1 00:25 | 5 | W0:30(70%) W1:30(13%) W2:30(100%) W3:18(67%) |
-| `c3.2_day2` | Jul 14 23:46 | 5 | W1:30(48%) W2:30(100%) |
+| `c3.2_day2` | Jul 14 23:46 | 5 | W1:30(48%) W2:30(100%) W3:30(97%) |
 | `c3.2_day3` | Jul 21 23:40 | 5 | W2:30(53%) W3:30(100%) |
 | `ref_day1` | Jul 14 22:17 | push,star | W0–W3: 12 each, **all 100%** |
 | `repeat_day2` | Jul 15 22:09 | push,star | W0–W3: 12 each, **all 100%** |
@@ -94,7 +94,8 @@ geometry at the same window index.
   day1 & day2 100% clean; day3 ~53%. Best multi-week same-geometry series.
 - **★ ref_day1 ↔ repeat_day2 — full W0–W3 ramp on consecutive days** (Jul 14/15),
   push+star only, **100% yield throughout**. Cleanest cross-day pair, 2 gestures.
-- c3.2 W3 — 2 timepoints (day1 + day3). c3.2 W1 — starved (13%/48%), avoid.
+- c3.2 W3 — **3 timepoints** (day1 + day2 + day3) after the day2-W3 recovery
+  (2026-07-23); day2 W3 is 97% clean. c3.2 W1 — starved (13%/48%), avoid.
 
 ### The within-day, different-geometry ramps (same hardware, geometry drifts)
 
@@ -135,7 +136,8 @@ In brief — test that **geometry/window coherence matters** for classification:
 - **`ref_sat` varies across captures** — re-single-difference to a common reference.
 - **Satellite correspondence**: cross-regime the visible PRNs differ → per-sat
   feature vectors can't align → that's why the trajectory arm is needed there.
-- **Label typo**: `traingle` (c1.1, c3.2_day1) vs `triangle` (day2, day3) — normalize.
+- **Label typo**: normalized 2026-07-23 — all manifests now use `triangle`
+  consistently; 96 duplicate `traingle_*` files removed. No longer a live trap.
 - **Small N** (~6 reps/gesture/window) — simple classifiers, repeated stratified CV,
   permutation tests, chance = 20%.
 - **Known model caveat** (`geomlib.py` header, `THEORY.md`): on current free-hand
@@ -148,5 +150,7 @@ In brief — test that **geometry/window coherence matters** for classification:
 
 ## 5. Status line
 
-Data merged, reorganized, cleaned, pushed. Structure verified runnable. Ready to
-build the classification pipeline (Exp 1: c1.1 within-day ramp) as the next step.
+Data merged, reorganized, cleaned, pushed. Structure verified runnable. **Data-quality
+issues (#7–#10) reconciled 2026-07-23** — labels normalized, c3.2_day2 W3 recovered,
+split pairs repaired, `ref_jun26` disambiguated; audit shows 0 dangling manifest refs.
+Ready to build the classification pipeline (Exp 1: c1.1 within-day ramp) as the next step.

@@ -1,7 +1,7 @@
 {
-  "label": "traingle_W3",
+  "label": "triangle_W3",
   "capture_start_utc": "2026-07-01T01:16:07.801811+00:00",
-  "rtcm_file": "traingle_W3-260701-011607Z.rtcm",
+  "rtcm_file": "triangle_W3-260701-011607Z.rtcm",
   "rate_hz": 10,
   "duration_sec": 12,
   "ref_sat": "BDS_025",

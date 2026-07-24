@@ -69,7 +69,9 @@ from any working directory.
 - **Signal is marginal.** Free-hand phase reproduces weakly and only for push
   (α≈0.17–0.24; star≈noise); CN0 (amplitude) is the most reproducible channel; ~88%
   of energy is common-mode (clock/environment, not gesture). See ANALYSIS_PLAN §0.
-- **Label typo:** `traingle` (c1.1, c3.2_day1) vs `triangle` (later) — normalize.
+- **Label typo — now normalized (2026-07-23):** all manifests use `triangle`
+  consistently; the 96 duplicate `traingle_*` files were deleted. No shim needed.
+  (Only excluded retry captures still carry the typo internally.)
 
 ## Workflow
 

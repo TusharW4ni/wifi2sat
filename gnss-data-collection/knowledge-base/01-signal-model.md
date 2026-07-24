@@ -56,7 +56,7 @@ Carrier phase is rebuilt from MSM7 fields per satellite/signal cell:
 | `DF407` | **phase lock-time indicator** — the correct cycle-slip detector |
 
 The current scripts reconstruct phase as `(DF398 + DF406) × c/1000`. **Caveat**
-(from `window-experiment/phase1/PROJECT_LOG.md`): this naïve rough+fine sum injects
+(from `window-experiment/docs/PROJECT_LOG.md`): this naïve rough+fine sum injects
 periodic **false cycle slips** at LSB boundaries, which the old 50 m slip gate then
 rejected — starving clean-sat yield to a median of ~2. The fix is to gate on
 **`DF407` lock-time decreases** instead of a distance threshold. The MSM phase
@@ -82,7 +82,7 @@ A small-drift expansion gives a decorrelation governed by a single dimensionless
 This is the theoretical basis for the coherence experiment
 ([03-coherence-experiment.md](03-coherence-experiment.md)) and predicts that
 cross-geometry classification should fail in a **gesture-shape-dependent** way, not
-uniformly. Full derivation: `window-experiment/phase1/THEORY.md`.
+uniformly. Full derivation: `window-experiment/docs/THEORY.md`.
 
 **Model caveat (empirical):** the pure LOS-projection model explained ~69 % of the
 push variance but only ~39 % of the star variance — real specular reflection and

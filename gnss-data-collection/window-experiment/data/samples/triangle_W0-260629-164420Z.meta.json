@@ -1,7 +1,7 @@
 {
-  "label": "traingle_W0",
+  "label": "triangle_W0",
   "capture_start_utc": "2026-06-29T16:44:20.617827+00:00",
-  "rtcm_file": "traingle_W0-260629-164420Z.rtcm",
+  "rtcm_file": "triangle_W0-260629-164420Z.rtcm",
   "rate_hz": 10,
   "duration_sec": 12,
   "ref_sat": "GPS_029",

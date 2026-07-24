@@ -4,7 +4,7 @@
   "gestures": [
     "push",
     "pushpull",
-    "traingle",
+    "triangle",
     "m",
     "star"
   ],
@@ -134,8 +134,8 @@
       "rep": 2,
       "target_utc": "2026-07-01T00:25:27.784123+00:00",
       "actual_utc": "2026-07-01T00:30:05.461649+00:00",
-      "rtcm": "traingle_W0-260701-003005Z.rtcm",
-      "meta": "traingle_W0-260701-003005Z.meta.json"
+      "rtcm": "triangle_W0-260701-003005Z.rtcm",
+      "meta": "triangle_W0-260701-003005Z.meta.json"
     },
     {
       "gesture": "triangle",
