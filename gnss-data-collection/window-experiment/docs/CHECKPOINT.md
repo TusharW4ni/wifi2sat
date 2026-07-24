@@ -190,4 +190,16 @@ support proximity/amplitude sensing, NOT the geometry thesis. Phase 3 must run t
 coherence 2×2 per-channel: only push-SD accuracy decaying with drift (tracking κ)
 while CN0 stays flat cleanly isolates the geometry mechanism.
 
-Next: **Phase 3 (#5)** — geometry/window coherence.
+**Phase 3 (geometry/window coherence, #5) — started 2026-07-24** on branch
+`phase3-coherence`. `analysis/coherence.py` arm 1 (different geometry, same day):
+train on one window → test on another, accuracy vs window separation, per channel
+→ `results/coherence_ramp.json`. **First result (both c1.1_day1 & c3.2_day1):**
+CN0 cross-window accuracy decays monotonically with drift (c1.1 38→27→25%,
+c3.2_day1 40→29→19%, chance 20%) toward chance; SD at chance throughout. And
+cross-geometry ≪ within-geometry (Phase 2 was 64–69%; cross-window sep-1 only
+~38–40%). So the coherence effect is real, carried by **directional per-sat CN0**
+(not carrier phase). ⚠ point estimates, no CIs yet — first cut.
+
+Next (Phase 3, ongoing): add bootstrap/permutation CIs; arm 2 (same geometry,
+different day — ref↔repeat, c3.2 W2 3-timepoint); tie to κ / r(Δθ); per-gesture
+breakdown.

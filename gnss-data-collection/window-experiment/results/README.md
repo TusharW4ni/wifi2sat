@@ -16,3 +16,7 @@ script + session produced it. Regenerate rather than hand-edit.
 - `separability_ablation.json` — Phase 2 SD-vs-CN0 feature ablation (linSVM):
   CN0-only ≈ CN0+SD ≫ SD-only (at chance). The discriminative signal is CN0
   amplitude, not phase. Produced by `analysis/separability.py --ablate`.
+- `coherence_ramp.json` — Phase 3 (#5) arm 1: within-day cross-window train→test
+  accuracy vs geometry drift, per channel. CN0 decays monotonically toward chance
+  as window separation grows; SD at chance. First-cut (point estimates, no CIs
+  yet). Produced by `analysis/coherence.py --best`.
