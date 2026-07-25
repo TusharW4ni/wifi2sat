@@ -6,6 +6,8 @@
   "person_height": 69,
   "chest_height": 53.75,
   "chest_width": 14.5,
+  "upper_chest_height": 57,
+  "lower_chest_height": 51,
   "condition": "d33_h69_ch53.75_cw14.5_a90",
   "reps": 20,
   "mode": "spaced",
