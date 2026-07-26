@@ -112,7 +112,7 @@ def parse_sample(buf):
     return elevations, azimuths, dict(phases), dict(msg_counts)
 
 
-def capture_single_sample(sample_label, current_idx, total_samples, port, no_elev=False):
+def capture_single_sample(session_id, sample_label, current_idx, total_samples, port, no_elev=False):
     print(f"\n=======================================================")
     print(f"  Collecting Sample {current_idx} of {total_samples} : [{sample_label}]")
     print(f"=======================================================")
@@ -216,6 +216,7 @@ def capture_single_sample(sample_label, current_idx, total_samples, port, no_ele
         # analysis never has to re-parse the raw stream for geometry.
         good_set = {k for k, _ in good_sats}
         meta = {
+            "session": session_id,
             "label": sample_label,
             "capture_start_utc": start_dt.isoformat(),
             "rtcm_file": filename,

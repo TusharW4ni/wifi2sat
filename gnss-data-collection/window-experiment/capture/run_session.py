@@ -67,12 +67,12 @@ def _read_meta_time(rtcm_path):
         return None, None
 
 
-def collect_one(gesture, window_idx, rep, target_utc, port, no_elev):
+def collect_one(session_id, gesture, window_idx, rep, target_utc, port, no_elev):
     """Capture a single rep, retrying until healthy. Returns a manifest entry."""
     label = f"{gesture}_W{window_idx}"
     path = None
     while not path:
-        path = capture_single_sample(label, rep, rep, port, no_elev)  # retries on None
+        path = capture_single_sample(session_id, label, rep, rep, port, no_elev)  # retries on None
     actual_utc, meta_path = _read_meta_time(path)
     return {
         "gesture": gesture,
@@ -115,8 +115,9 @@ def main():
 
     windows = build_windows(args)
     os.makedirs(SAMPLE_DIR, exist_ok=True)
+    session_id = args.session
     manifest = {
-        "session": args.session,
+        "session": session_id,
         "created_utc": _now().isoformat(),
         "gestures": args.gestures,
         "reps": args.reps,
@@ -128,7 +129,7 @@ def main():
     print(f"Session '{args.session}': {len(windows)} window(s), "
           f"gestures={args.gestures}, reps={args.reps}")
     for w_idx, target, gestures in windows:
-        print(f"\n=== Window {w_idx + 2} "
+        print(f"\n=== Window {w_idx} "
               f"@ {target.strftime('%H:%M:%S')+'Z' if target else 'now'} ===")
         if target:
             wait_until(target)
@@ -136,7 +137,7 @@ def main():
         for g in gestures:
             for r in range(1, args.reps + 1):
                 os.system("afplay /System/Library/Sounds/Glass.aiff")
-                entry = collect_one(g, w_idx + 2, r, target, args.port, args.no_elev)
+                entry = collect_one(session_id, g, w_idx, r, target, args.port, args.no_elev)
                 manifest["entries"].append(entry)
                 # write incrementally so a crash mid-session doesn't lose the log
                 with open(man_path, "w") as f:

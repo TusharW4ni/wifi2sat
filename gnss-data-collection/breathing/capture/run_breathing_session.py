@@ -33,7 +33,8 @@ from datetime import datetime, timezone, timedelta
 
 from capture_breathing_sample import (
     capture_single_sample, SAMPLE_DIR, RTCM_DIR, JSON_DIR, PORT, fmt_num,
-    DIST_FROM_RECEIVER, PERSON_HEIGHT, CHEST_HEIGHT, CHEST_WIDTH, ANGLE_FROM_EAST,
+    DIST_FROM_RECEIVER, PERSON_HEIGHT, CHEST_HEIGHT, CHEST_WIDTH,
+    LOWER_CHEST_HEIGHT, UPPER_CHEST_HEIGHT, ANGLE_FROM_EAST
 )
 
 
@@ -83,16 +84,13 @@ def collect_one(session, condition, window_idx, rep, target_utc, port, no_elev):
     while not path:
         path = capture_single_sample(tag, rep, rep, port, no_elev) # retries on None
 
-    actual_utc, meta_path = _read_meta_time(path)
+    start_utc, meta_path = _read_meta_time(path)
     return {
-        "session": session,
-        "condition": condition,
         "window_index": window_idx,
         "rep": rep,
-        "target_utc": target_utc.isoformat() if target_utc else None,
-        "actual_utc": actual_utc,
         "rtcm": os.path.basename(path),
         "meta": os.path.basename(meta_path) if meta_path else None,
+        "start_utc": start_utc
     }
 
 
@@ -140,6 +138,8 @@ def main():
         "person_height": PERSON_HEIGHT,
         "chest_height": CHEST_HEIGHT,
         "chest_width": CHEST_WIDTH,
+        "upper_chest_height": UPPER_CHEST_HEIGHT,
+        "lower_chest_height": LOWER_CHEST_HEIGHT,
         "condition": condition,
         "reps": args.reps,
         "mode": "targets" if args.targets else "spaced",

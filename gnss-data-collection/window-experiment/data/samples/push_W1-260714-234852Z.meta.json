@@ -1,7 +1,8 @@
 {
-  "label": "pushpull_W1",
+  "session": "c3.2_day2",
+  "label": "push_W1",
   "capture_start_utc": "2026-07-14T23:48:52.976280+00:00",
-  "rtcm_file": "pushpull_W1-260714-234852Z.rtcm",
+  "rtcm_file": "push_W1-260714-234852Z.rtcm",
   "rate_hz": 10,
   "duration_sec": 12,
   "ref_sat": "GPS_031",
