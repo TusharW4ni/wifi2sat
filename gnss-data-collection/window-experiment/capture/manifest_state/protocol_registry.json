@@ -1,0 +1,152 @@
+{
+  "entries": [
+    {
+      "period": "morning",
+      "iteration": 1,
+      "gestures": [
+        "push"
+      ],
+      "reps": 2,
+      "mode": "spaced"
+    },
+    {
+      "period": "morning",
+      "iteration": 1,
+      "gestures": [
+        "push",
+        "pushpull",
+        "traingle"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "morning",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "traingle"
+      ],
+      "reps": 1,
+      "mode": "spaced"
+    },
+    {
+      "period": "morning",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "m",
+        "star",
+        "push",
+        "pushpull",
+        "traingle"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "afternoon",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "traingle"
+      ],
+      "reps": 1,
+      "mode": "spaced"
+    },
+    {
+      "period": "afternoon",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "m",
+        "star",
+        "push",
+        "pushpull",
+        "traingle"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "afternoon",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "m",
+        "star"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "push",
+        "pushpull",
+        "m",
+        "traingle"
+      ],
+      "reps": 12,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "traingle"
+      ],
+      "reps": 1,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "m",
+        "star",
+        "push",
+        "pushpull",
+        "traingle"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "triangle",
+        "push"
+      ],
+      "reps": 1,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "push",
+        "star"
+      ],
+      "reps": 6,
+      "mode": "spaced"
+    },
+    {
+      "period": "evening",
+      "iteration": 1,
+      "gestures": [
+        "push",
+        "pushpull",
+        "triangle",
+        "m",
+        "star"
+      ],
+      "reps": 7,
+      "mode": "spaced"
+    }
+  ]
+}

@@ -41,6 +41,8 @@ JSON_DIR = os.path.join(SAMPLE_DIR, "json")
 DIST_FROM_RECEIVER = 33   # feet, subject distance from receiver
 PERSON_HEIGHT = 69        # subject height
 CHEST_HEIGHT = 53.75         # subject chest height off the ground
+LOWER_CHEST_HEIGHT = 51
+UPPER_CHEST_HEIGHT = 57
 CHEST_WIDTH = 14.5          # subject chest width
 ANGLE_FROM_EAST = 0      # degrees, subject angle from east
 
