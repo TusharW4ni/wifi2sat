@@ -1,8 +1,11 @@
 # Data Inventory
 
-All data is on `main` under the four strands. Everything is **MSM7-only** (GPS +
-BeiDou). Gesture set (c-series): push, pushpull, triangle, m, star — 6 reps each =
-30 samples per full window.
+All data is on `main` under the four strands. Observable format is **mixed**:
+`c1.1_day1`, `c3.2_day1`, `c3.2_day2` are **MSM7-only** (GPS + BeiDou, phase
+reconstructed from DF fields); `ref_day1`, `repeat_day2`, `c3.2_day3` also carry
+**RAWX + SFRBX** (clean carrier phase + lock-time + ephemeris). Gesture set
+(c-series): push, pushpull, triangle, m, star — 6 reps each = 30 samples per full
+window.
 
 ## Key concept: geometry granularity
 
@@ -15,16 +18,29 @@ BeiDou). Gesture set (c-series): push, pushpull, triangle, m, star — 6 reps ea
 Cross-day sessions are collected at the **sidereally-aligned** clock time (each day
 ~4 min earlier) so the *same window index* reproduces the *same geometry*.
 
-## Window-experiment: c-series gesture sessions (`window-experiment/phase1/samples/`)
+## Window-experiment: c-series gesture sessions (`window-experiment/data/samples/`)
 
 | Session | Date (UTC) | Sidereal TOD | Windows present | Notes |
 |---|---|---|---|---|
 | `c1.1_day1` | Jun 29 16:40 | ~04:3x | W0,W1,W2,W3 (30 each) | **Flagship** — 100% clean yield all windows |
 | `c3.2_day1` | Jul 1 00:25 | ~12:4x | W0,W1,W2 (30), W3 (18) | evening sky |
-| `c3.2_day2` | Jul 14–15 | ~12:4x | W1,W2 (30 each) | W1 starved |
+| `c3.2_day2` | Jul 14–15 | ~12:4x | W1,W2,W3 (30 each) | W1 starved; W3 recovered 2026-07-23 (97%) |
 | `c3.2_day3` | Jul 22 23:40 | ~12:4x | W2,W3 (30 each) | day3 |
-| `ref_day1` | Jun 26 | ~08–09 | W0–W3 (12 each) | push+star only, 100% yield |
-| `ref_day1.1` | Jun 26 21:16 | ~08:5x | W0,W1 (12 each) | push+star only |
+| `ref_day1` | Jul 14 22:17 | (aligned pair) | W0–W3 (12 each) | RAWX; push+star only, 100% yield |
+| `repeat_day2` | Jul 15 22:09 | (aligned pair) | W0–W3 (12 each) | RAWX; push+star only, 100%; sidereal repeat of `ref_day1` |
+
+Three earlier **Jun 26** push+star sessions exist but are archived, not in
+`samples/` — a `ref_jun26*` family (renamed 2026-07-24 to stop them colliding with
+the active Jul-14 `ref_day1`; see [04-data-quality.md](04-data-quality.md)):
+
+| Archived session | Dir | Obs | Windows | Note |
+|---|---|---|---|---|
+| `ref_jun26` | `samples-not-rawx-but-good/` | MSM7 | W0–W3 ×12 | the complete Jun-26 AM ref session, good yield |
+| `ref_jun26_pm` | `samples-not-07-14/` | **RAWX** | W0–W1 ×12 | Jun-26 evening (21:16); earliest RAWX capture |
+| `ref_jun26_frag` | `samples-old/` | MSM7 | W0 ×~4 | fragmentary early-AM W0; low value |
+
+Observable is **detected from the data** (presence of UBX-RXM-RAWX), not the name
+or date — RAWX appeared as early as Jun-26 evening.
 
 ### c3.2 cross-day coverage (the sidereal-aligned repeats)
 
@@ -33,7 +49,7 @@ Cross-day sessions are collected at the **sidereally-aligned** clock time (each 
 | W0 | day1 only | single-shot |
 | W1 | day1 + day2 | **both starved** (13% / 48% ≥3 clean) — avoid for inversion |
 | **W2** | **day1 + day2 + day3** (Jul 1 / 15 / 22) | **★ best cross-day series — 3 timepoints, 90 samples** |
-| W3 | day1 + day3 | 2-timepoint pair |
+| W3 | day1 + day2 + day3 | **3 timepoints** after the day2-W3 recovery (2026-07-23) |
 
 ## Clean-sat yield map (from meta `passed_health`; a floor — DF407 can raise it)
 
@@ -43,9 +59,9 @@ Cross-day sessions are collected at the **sidereally-aligned** clock time (each 
 | c3.2_day1 W2 | 11 | 100% |
 | c3.2_day1 W0 / W3 | 3 / 11 | 70% / 67% |
 | c3.2_day1 W1 | 2 | **13%** |
-| c3.2_day2 W1 / W2 | 2 / 10 | 48% / 100% |
+| c3.2_day2 W1 / W2 / W3 | 2 / 10 / 10 | 48% / 100% / 97% |
 | c3.2_day3 W2 / W3 | 3 / 4 | 53% / 100% |
-| ref_day1 W0–W3 | 5–6 | 100% |
+| ref_day1 / repeat_day2 W0–W3 | 5–6 | 100% |
 
 ≥3 non-coplanar clean satellites are needed to invert for the 3-D hand trajectory.
 

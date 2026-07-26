@@ -63,8 +63,13 @@ Master index for the project. Start here, then read in the order below.
 
 | session | when (UTC) | captures | observable | windows | clean sats (median) |
 |---|---|---|---|---|---|
-| morning `ref_day1` | ~15:00–15:55 | 48 (push,star × 6 × 4) | MSM7 only | W0–W3 (4) | 6 (recovered via `DF407`) |
-| evening `ref_day1.1` | ~21:16–21:34 | 24 (push,star × 6 × 2) | RAWX+SFRBX+MSM+NAV | W0–W1 (2) | 20 (RAWX) |
+| `ref_jun26` (Jun 26 AM) | ~15:00–15:55 | 48 (push,star × 6 × 4) | MSM7 only | W0–W3 (4) | 6 (recovered via `DF407`) |
+| `ref_jun26_pm` (Jun 26 PM) | ~21:16–21:34 | 24 (push,star × 6 × 2) | RAWX+SFRBX+MSM+NAV | W0–W1 (2) | 20 (RAWX) |
+
+> These are the original **Jun-26** reference-day sessions, now **archived** under
+> `data/archive/` and renamed to the `ref_jun26*` family (2026-07-24) so they no
+> longer collide with the *active* Jul-14 `ref_day1` / Jul-15 `repeat_day2` RAWX
+> pair in `data/samples/`. Browse all gesture data via `uv run lib/dataset.py`.
 
 Collection design: 4 windows × 15-min spacing × 2 gestures × 6 reps. 15 min is the *spacing between* windows (so the ±5–8 min usable windows don't overlap on the repeat day), not the duration.
 
@@ -86,7 +91,7 @@ Collected a fresh full 4-window RAWX reference on **07/14** (`ref_day1`, push,st
   | onset-aligned, **within-session** (honest) | **0.24** | 0.04 | — |
   | onset-aligned, **across-day** (sidereal repeat, honest) | **0.17** | 0.07 | **−0.07** |
 
-  So: **push carries a genuine reproducible signal** (+0.24 above the null), **star barely** (+0.13), and — the clean result — **across-day keeps most of the within-session correlation** (push 0.17 vs 0.24; null −0.07), i.e. a full-sidereal-day matched-geometry repeat preserves ~70% of the reproducible signal. **The geometry repeat is validated at the signal level.** (Reproduce: `uv run measure_alpha.py`.)
+  So: **push carries a genuine reproducible signal** (+0.24 above the null), **star barely** (+0.13), and — the clean result — **across-day keeps most of the within-session correlation** (push 0.17 vs 0.24; null −0.07), i.e. a full-sidereal-day matched-geometry repeat preserves ~70% of the reproducible signal. **The geometry repeat is validated at the signal level.** (Reproduce: `uv run analysis/measure_alpha.py` from `window-experiment/`.)
 
 - **Correction / caveat.** Onset alignment is a worthwhile pipeline fix (a real ~1 s jitter, and it roughly doubles within-session correlation), but it does **not** rescue free-hand reproducibility to κ-measurable levels — honest α stays far below the ~0.85 ceiling, and star is near noise. The **mechanical-reproduction requirement stands.** (Intermediate per-pair *best-lag* α ≈ 0.39 for push, reported mid-analysis, was inflated by per-pair lag-fishing against a 0.14 null; the honest independent-template number is ~0.17. The *effect size above null* is stable across methods: push ≈ +0.24, star ≈ +0.13.)
 

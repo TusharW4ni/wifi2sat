@@ -1,0 +1,348 @@
+[
+  {
+    "name": "c1.1_day1",
+    "campaign": "window-experiment",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_captures": 120,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/c1.1_day1_manifest.json"
+  },
+  {
+    "name": "c3.2_day1",
+    "campaign": "window-experiment",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_captures": 108,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/c3.2_day1_manifest.json"
+  },
+  {
+    "name": "c3.2_day2",
+    "campaign": "window-experiment",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [
+      1,
+      2,
+      3
+    ],
+    "n_captures": 90,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/c3.2_day2_manifest.json"
+  },
+  {
+    "name": "c3.2_day3",
+    "campaign": "window-experiment",
+    "observable": "RAWX",
+    "source_key": "rawx",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [
+      2,
+      3
+    ],
+    "n_captures": 60,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/c3.2_day3_manifest.json"
+  },
+  {
+    "name": "ref_day1",
+    "campaign": "window-experiment",
+    "observable": "RAWX",
+    "source_key": "rawx",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "push",
+      "star"
+    ],
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_captures": 48,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/ref_day1_manifest.json"
+  },
+  {
+    "name": "repeat_day2",
+    "campaign": "window-experiment",
+    "observable": "RAWX",
+    "source_key": "rawx",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": false,
+    "gestures": [
+      "push",
+      "star"
+    ],
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_captures": 48,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/samples/repeat_day2_manifest.json"
+  },
+  {
+    "name": "ref_jun26_pm",
+    "campaign": "window-experiment",
+    "observable": "RAWX",
+    "source_key": "rawx",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": true,
+    "gestures": [
+      "push",
+      "star"
+    ],
+    "windows": [
+      0,
+      1
+    ],
+    "n_captures": 24,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-not-07-14",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-not-07-14/ref_jun26_pm_manifest.json"
+  },
+  {
+    "name": "ref_jun26",
+    "campaign": "window-experiment",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": true,
+    "gestures": [
+      "push",
+      "star"
+    ],
+    "windows": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "n_captures": 48,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-not-rawx-but-good",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-not-rawx-but-good/ref_jun26_manifest.json"
+  },
+  {
+    "name": "ref_jun26_frag",
+    "campaign": "window-experiment",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": true,
+    "has_meta": true,
+    "has_manifest": true,
+    "archived": true,
+    "gestures": [
+      "push",
+      "star"
+    ],
+    "windows": [
+      0
+    ],
+    "n_captures": 7,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-old",
+    "manifest_path": "/Users/tushar/s/wifi2sat/gnss-data-collection/window-experiment/data/archive/samples-old/ref_jun26_frag_manifest.json"
+  },
+  {
+    "name": "finesat_main",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [],
+    "n_captures": 109,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/samples",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_jn18L1",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [],
+    "n_captures": 15,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/samples/jn18L1/",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_jn18L2",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [],
+    "n_captures": 11,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/samples/jn18L2/",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_jn18L3",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": false,
+    "gestures": [
+      "m",
+      "push",
+      "pushpull",
+      "star",
+      "triangle"
+    ],
+    "windows": [],
+    "n_captures": 13,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/samples/jn18L3/",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_good-4-30-morning",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": true,
+    "gestures": [
+      "push"
+    ],
+    "windows": [],
+    "n_captures": 3,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/archive/samples-good-4-30-morning/",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_old",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": true,
+    "gestures": [
+      "push"
+    ],
+    "windows": [],
+    "n_captures": 2,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/archive/samples-old/",
+    "manifest_path": null
+  },
+  {
+    "name": "finesat_wo_sec",
+    "campaign": "finesat",
+    "observable": "MSM7",
+    "source_key": "msm",
+    "windowed": false,
+    "has_meta": false,
+    "has_manifest": false,
+    "archived": true,
+    "gestures": [
+      "push"
+    ],
+    "windows": [],
+    "n_captures": 5,
+    "sample_dir": "/Users/tushar/s/wifi2sat/gnss-data-collection/finesat/data/archive/samples-wo_sec/",
+    "manifest_path": null
+  }
+]

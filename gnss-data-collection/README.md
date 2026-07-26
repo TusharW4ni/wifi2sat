@@ -41,8 +41,9 @@ gnss-data-collection/
 │   └── docs/                Pipeline explanation
 │
 ├── window-experiment/       Geometry/window-coherence experiment (self-contained)
-│   ├── phase0/, phase1/      THEORY.md, PROJECT_LOG.md, capture + analysis code,
-│   │                         c1.1 / c3.2 / ref session data + manifests
+│   ├── docs/                 THEORY.md, PROJECT_LOG.md, CHECKPOINT.md, ANALYSIS_PLAN.md
+│   ├── lib/ capture/ analysis/   parsing+geometry, collection, offline analysis code
+│   └── data/                 c1.1 / c3.2 / ref session data + manifests, + archive/
 │
 ├── breathing/               Breathing-detection strand
 │   ├── capture/             Breathing capture scripts
@@ -60,7 +61,7 @@ traps, and a glossary.
 
 Each strand also has its own docs:
 - **[finesat/README.md](finesat/README.md)** — capture → dataset → classify pipeline
-- **window-experiment/phase1/** — see `THEORY.md` and `PROJECT_LOG.md`
+- **window-experiment/** — see `docs/THEORY.md` and `docs/PROJECT_LOG.md`
 
 ## Receiver Configuration (shared)
 

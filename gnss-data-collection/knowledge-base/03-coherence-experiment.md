@@ -65,13 +65,14 @@ re-gating on `DF407` lock-time instead of the old 50 m gate.
 ## Constraints to honor in the pipeline
 
 - **Do not assume the gesture is in a fixed 3–6 s slice** — detect onset (see
-  `window-experiment/phase1/onset_align.py`).
+  `window-experiment/analysis/onset_align.py`).
 - **Re-single-difference to a common reference** — `ref_sat` varies across captures.
 - **Handle satellite correspondence** — cross-geometry the visible PRNs differ; a
   PRN-indexed feature vector misaligns (a trivial cause of the drop, not the geometric one).
 - **Small N** (~6 reps/gesture/window) — use simple classifiers, repeated stratified
   CV, permutation tests, report mean±std vs 20% chance.
-- **Normalize `traingle`/`triangle`** label typo across days.
+- **Labels are already normalized** — all manifests use `triangle` (fixed
+  2026-07-23); no per-loader shim needed.
 
 ## Aside: the jn18 / early ad-hoc data
 

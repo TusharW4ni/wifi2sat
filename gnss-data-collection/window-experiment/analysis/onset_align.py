@@ -49,17 +49,21 @@ def envelope(sd_by_sat, n):
     return np.sqrt(np.mean(M ** 2, axis=0))
 
 
-def align_group(envs, maxlag=MAXLAG, iters=10):
+def align_group(envs, maxlag=MAXLAG, iters=10, base=BASE, L=LEN):
     """Iterative template alignment. Returns an integer onset lag per envelope
-    (median-centred so there is no global drift). envs: list of 1-D arrays."""
+    (median-centred so there is no global drift). envs: list of 1-D arrays.
+
+    base/L size the evaluation window; defaults suit 120-epoch (RAWX) captures.
+    For shorter captures (MSM ~115-118) pass a window that fits -- the search
+    needs base >= maxlag and base + maxlag + L <= len(envelope)."""
     lags = [0] * len(envs)
     for _ in range(iters):
-        tmpl = _z(np.mean([_z(_seg(e, lags[i])) for i, e in enumerate(envs)], axis=0))
+        tmpl = _z(np.mean([_z(_seg(e, lags[i], base, L)) for i, e in enumerate(envs)], axis=0))
         new = []
         for e in envs:
             best, bl = -2.0, 0
             for lag in range(-maxlag, maxlag + 1):
-                c = float(np.mean(_z(_seg(e, lag)) * tmpl))
+                c = float(np.mean(_z(_seg(e, lag, base, L)) * tmpl))
                 if c > best:
                     best, bl = c, lag
             new.append(bl)

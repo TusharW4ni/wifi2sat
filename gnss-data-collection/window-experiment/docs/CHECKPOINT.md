@@ -15,7 +15,7 @@ Post-reorganization locations:
 | Data | Location | What |
 |---|---|---|
 | **Geometry gesture sessions** | `window-experiment/data/samples/` | c1.1, c3.2 day1/2/3, ref_day1, repeat_day2 — **flat** dir; each `<session>_manifest.json` maps its files |
-| **Archived / older window captures** | `window-experiment/data/archive/` | `samples-old` (7), `samples-not-rawx-but-good` (48), `samples-not-07-14` (24) |
+| **Archived / older window captures** | `window-experiment/data/archive/` | Jun-26 `ref_jun26*` family: `samples-not-rawx-but-good`=`ref_jun26` (48, MSM), `samples-not-07-14`=`ref_jun26_pm` (24, RAWX), `samples-old`=`ref_jun26_frag` (7, MSM) |
 | **Breathing sessions** | `breathing/data/` | `rtcm/` + `json/` (s1.3.x Jul 9, s3.3 Jul 22); manifests alongside |
 | **FineSat gesture captures** | `finesat/data/samples/` | Apr/May flat + `jn18L1/L2/L3` (Jun 18) |
 | **FineSat archived micro-sets** | `finesat/data/archive/` | early Apr 28 / Apr 30-morning push captures |
@@ -67,9 +67,12 @@ window-experiment/
 
 ## 2. Data inventory & clean-sat yield (for analysis)
 
-Everything is **MSM7-only** (RTCM 1077 GPS + 1127 BeiDou) — no RAWX/SFRBX, no
-Galileo/GLONASS. 6 reps/gesture = 30/full window (c-series); 3 reps = 12/window
-(ref/repeat). Yield = % of captures with ≥3 clean satellites (from meta
+Observable format is **mixed** (do not pool): `c1.1_day1`, `c3.2_day1`,
+`c3.2_day2` are **MSM7-only** (RTCM 1077 GPS + 1127 BeiDou, phase reconstructed
+from DF fields); `ref_day1`, `repeat_day2`, `c3.2_day3` also carry **RAWX + SFRBX**
+(clean carrier phase + lock-time + ephemeris — the cleaner source). 6 reps/gesture
+= 30/full window (c-series); 3 reps = 12/window (ref/repeat). Yield = % of captures
+with ≥3 clean satellites (from meta
 `passed_health`, which used the old 50 m gate → a **floor**; `DF407` lock-time can
 raise it).
 
@@ -77,7 +80,7 @@ raise it).
 |---|---|---|---|
 | `c1.1_day1` | Jun 29 16:40 | 5 | W0–W3: 30 each, **all 100%** |
 | `c3.2_day1` | Jul 1 00:25 | 5 | W0:30(70%) W1:30(13%) W2:30(100%) W3:18(67%) |
-| `c3.2_day2` | Jul 14 23:46 | 5 | W1:30(48%) W2:30(100%) |
+| `c3.2_day2` | Jul 14 23:46 | 5 | W1:30(48%) W2:30(100%) W3:30(97%) |
 | `c3.2_day3` | Jul 21 23:40 | 5 | W2:30(53%) W3:30(100%) |
 | `ref_day1` | Jul 14 22:17 | push,star | W0–W3: 12 each, **all 100%** |
 | `repeat_day2` | Jul 15 22:09 | push,star | W0–W3: 12 each, **all 100%** |
@@ -91,7 +94,8 @@ geometry at the same window index.
   day1 & day2 100% clean; day3 ~53%. Best multi-week same-geometry series.
 - **★ ref_day1 ↔ repeat_day2 — full W0–W3 ramp on consecutive days** (Jul 14/15),
   push+star only, **100% yield throughout**. Cleanest cross-day pair, 2 gestures.
-- c3.2 W3 — 2 timepoints (day1 + day3). c3.2 W1 — starved (13%/48%), avoid.
+- c3.2 W3 — **3 timepoints** (day1 + day2 + day3) after the day2-W3 recovery
+  (2026-07-23); day2 W3 is 97% clean. c3.2 W1 — starved (13%/48%), avoid.
 
 ### The within-day, different-geometry ramps (same hardware, geometry drifts)
 
@@ -124,14 +128,16 @@ In brief — test that **geometry/window coherence matters** for classification:
 
 ## 4. Constraints & traps (must honor in the pipeline)
 
-- **MSM-only**; reconstruct phase from DF397/398 + DF405/406; gate slips on
-  **`DF407` lock-time**, not the buggy 50 m distance gate.
+- **Mixed observable** — MSM sessions: reconstruct phase from DF397/398 + DF405/406;
+  RAWX sessions (`ref_day1`, `repeat_day2`, `c3.2_day3`): use `cpMes·λ` directly. Gate
+  slips on **`DF407`/`locktime`**, not the buggy 50 m distance gate.
 - **Gesture is NOT guaranteed in the nominal 3–6 s slice** — detect onset
   (`analysis/onset_align.py`), don't hardcode a window.
 - **`ref_sat` varies across captures** — re-single-difference to a common reference.
 - **Satellite correspondence**: cross-regime the visible PRNs differ → per-sat
   feature vectors can't align → that's why the trajectory arm is needed there.
-- **Label typo**: `traingle` (c1.1, c3.2_day1) vs `triangle` (day2, day3) — normalize.
+- **Label typo**: normalized 2026-07-23 — all manifests now use `triangle`
+  consistently; 96 duplicate `traingle_*` files removed. No longer a live trap.
 - **Small N** (~6 reps/gesture/window) — simple classifiers, repeated stratified CV,
   permutation tests, chance = 20%.
 - **Known model caveat** (`geomlib.py` header, `THEORY.md`): on current free-hand
@@ -144,5 +150,44 @@ In brief — test that **geometry/window coherence matters** for classification:
 
 ## 5. Status line
 
-Data merged, reorganized, cleaned, pushed. Structure verified runnable. Ready to
-build the classification pipeline (Exp 1: c1.1 within-day ramp) as the next step.
+Data merged, reorganized, cleaned, pushed. Structure verified runnable. **Data-quality
+issues (#7–#10) reconciled 2026-07-23** — labels normalized, c3.2_day2 W3 recovered,
+split pairs repaired, `ref_jun26` disambiguated; audit shows 0 dangling manifest refs.
+
+**Phase 0 (shared preprocessing, issue #2) built 2026-07-24** — `lib/dataset.py`
+(unified catalog + loader, no-silent-pool guard, observable auto-detected) and
+`analysis/preprocess.py` (DF407 cleaning + yield report, common-reference SD,
+adaptive onset alignment, CMR trajectory, g-vectors, CN0). Emits the per-capture
+feature object for all 6 active sessions (MSM7 + RAWX), verified. DF407 gate
+rescues yield dramatically (c3.2_day1 W1 13%→100%).
+
+**Phase 1 (α study, the gate, issue #3) — first full matrix 2026-07-24** on branch
+`phase1-alpha-study`. `analysis/alpha_study.py` unifies the three α scripts into one
+bootstrapped study (per-cell 95% CI + pass/fail vs matched null, per gesture×window)
+over all 6 sessions × 5 channels × 5 gestures → `results/alpha_matrix.json`.
+**Gate verdict: CN0 ✅ (strongest, 0.2–0.74) + push-SD ✅ (0.13–0.23); CMR/CM ❌.**
+Reproduces measure_alpha (push-SD across-day +0.14 vs 0.17, modulo the 20° elev
+mask). The c3.2_day2 weak-negative push-SD was checked and is small-N split-half
+noise (per-window W2 −0.22 / W3 +0.32), not a W1 artifact. Open secondaries (#3):
+onset-help quantification and an explicit RAWX-vs-MSM comparison.
+
+Phase 1 done + merged (#3 closed): gate = **CN0 + push-SD**; secondaries (onset-help,
+RAWX-vs-MSM) done.
+
+**Phase 2 (within-geometry separability, #4) — done + merged 2026-07-24.**
+`analysis/separability.py` classifies gestures within one window on onset-aligned
+CN0 (+push-SD) features (LDA/kNN/linSVM, repeated stratified CV, permutation null)
+→ `results/separability.json`. **Gate passed:** c1.1_day1 W0/W1 5-class (chance 20%)
+→ linSVM 64%/69%, p=0.005.
+**Key ablation** (`--ablate`, `results/separability_ablation.json`): CN0-only 64/69%,
+**SD-only 24/18% = at chance**, CN0+SD ≈ CN0-only. → the entire discriminative
+signal is **CN0 amplitude, not carrier-phase geometry**. Sensing works, but not via
+the mechanism the project set out to demonstrate.
+
+**This reframes Phase 3 (#5, the headline):** the working channel (CN0) is
+geometry-*invariant* amplitude, so a flat CN0-accuracy vs geometry drift would
+support proximity/amplitude sensing, NOT the geometry thesis. Phase 3 must run the
+coherence 2×2 per-channel: only push-SD accuracy decaying with drift (tracking κ)
+while CN0 stays flat cleanly isolates the geometry mechanism.
+
+Next: **Phase 3 (#5)** — geometry/window coherence.
