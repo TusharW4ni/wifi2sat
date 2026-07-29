@@ -199,9 +199,20 @@ confound, NOT geometry** — cannot be attributed to geometry in this within-day
 (A modest gesture increment at sep-1, ~12pp, sits within the noise: point estimates
 over 6/4/2 window pairs, no CIs.)
 
-**Next (Phase 3): the confound forces arm 2** — same geometry, different day
-(ref↔repeat, c3.2 W2 3-timepoint), the only arm that dissociates geometry from
-elapsed time. Plus: bootstrap/permutation CIs; move onset/sat-selection inside CV
-(leakage); drop the degenerate ref/repeat 2-class cells (n=6–9, 78 feats). κ tie-in:
-only testable on the phase channel (at chance), so report low power — do NOT read
-CN0-amplitude decay as κ.
+**Phase 3 arm 2 (same geometry, different day) — NEGATIVE (2026-07-24)**
+(`coherence.py --crossday`, bootstrap CIs + baseline control →
+`results/coherence_crossday.json`). Train one day's window → test the other day's
+SAME window (sidereal geometry held fixed, time varies). **The within-session
+signal does not transfer:** c3.2 day1→day2 5-class (chance 20%, n=30) — W2 CN0 33%
+[17–50] vs its baseline 30% (≈chance); W3 23% (chance); SD at chance throughout;
+only starved-W1 shows gesture>baseline (43 vs 23), on the least reliable window,
+within noise. ref→repeat (2-class, n=6–12) is tiny-N noise — where SD looks high
+(W3 75%) its baseline is higher (83%) → confound. So no transferable, geometry-locked
+gesture fingerprint is demonstrable; the within-day accuracy was largely
+per-session/environmental. (Small N can't exclude a small real effect.)
+
+**Phase 3 conclusion:** arms 1 (confounded) + 2 (no transfer) ⇒ the carrier-phase
+geometry thesis is **unsupported on this free-hand data**, and even the amplitude
+(CN0) signal doesn't reproduce across days. See `docs/FINDINGS.md` for the honest
+end-to-end write-up. **The unlock is re-collection** (interleaved gesture order +
+mechanically-reproduced gestures, #11), not more analysis.

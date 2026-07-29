@@ -17,7 +17,11 @@ Everything lives under `gnss-data-collection/`.
    signal-first analysis plan. **The GitHub issues track this plan.**
 3. **`gnss-data-collection/window-experiment/docs/CHECKPOINT.md`** — current state
    and exact data locations.
-4. `window-experiment/docs/THEORY.md` (physics/math) and `PROJECT_LOG.md` (build
+4. **`window-experiment/docs/FINDINGS.md`** — the honest end-to-end result of
+   Phases 0–3: on free-hand data the carrier-phase-geometry thesis is not
+   demonstrable (phase ≈ null; signal is confounded amplitude that doesn't transfer
+   across days). Read this before trusting any "it works" framing.
+5. `window-experiment/docs/THEORY.md` (physics/math) and `PROJECT_LOG.md` (build
    history) for depth.
 
 ## Repo layout (strands)
