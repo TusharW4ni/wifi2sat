@@ -24,3 +24,8 @@ script + session produced it. Regenerate rather than hand-edit.
   `analysis/coherence.py --best`. Baseline control also on `separability.py`
   (`--baseline`): gesture-free classifies at 42% on c1.1 W0 (chance 20%) vs 64%
   gesture — the confound floor.
+- `coherence_crossday.json` — Phase 3 (#5) arm 2: same-geometry / different-day
+  transfer (train one day → test the other day's same window), bootstrap CIs +
+  pre-onset baseline. **Negative:** accuracy does not transfer across days above
+  baseline/chance → no demonstrable transferable gesture signal. Produced by
+  `analysis/coherence.py --crossday`.
