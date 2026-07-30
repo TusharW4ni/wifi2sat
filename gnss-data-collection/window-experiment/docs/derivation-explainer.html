@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="An interactive derivation of the geometry-decorrelation curvature kappa behind the GNSS carrier-phase gesture window experiment.">
-<title>The κ Derivation — GNSS Carrier-Phase Gestures</title>
+<title>The κ Derivation: GNSS Carrier-Phase Gestures</title>
 <style>
   :root{
     --ground:#0F1230;
@@ -26,7 +26,7 @@
   }
 
   *{box-sizing:border-box}
-  /* themed scrollbars — match the indigo instrument console */
+  /* themed scrollbars: match the indigo instrument console */
   html{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
   *{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
   ::-webkit-scrollbar{width:13px;height:13px}
@@ -311,7 +311,7 @@
   <div class="inner">
     <div class="eyebrow">A derivation, built from scratch</div>
     <h1>How long does a gesture stay legible<br>as the sky drifts overhead? <span class="kap">κ</span></h1>
-    <p class="lede">A hand near a fixed GPS antenna bends the satellite signal. Do the <b>same gesture</b> a few minutes later and the satellites have quietly moved. This lecture derives — one honest step at a time — exactly how fast that motion erases the gesture, and why some gestures shrug it off while others fall apart. The whole answer collapses into a single number.</p>
+    <p class="lede">A hand near a fixed GPS antenna bends the satellite signal. Do the <b>same gesture</b> a few minutes later and the satellites have quietly moved. This lecture derives, one honest step at a time, exactly how fast that motion erases the gesture, and why some gestures shrug it off while others fall apart. The whole answer collapses into a single number.</p>
     <div class="scrolltip"><span>↓ &nbsp; scroll to begin &nbsp; ↓</span></div>
   </div>
 </div>
@@ -322,24 +322,24 @@
 <section class="step" id="s0">
   <div class="eyebrow"><span class="num">00</span> The one-paragraph map</div>
   <h2>Where we're going</h2>
-  <p>We start with a physical fact — a hand shifts the phase of a satellite signal — and end with a formula for the <em>usable time window</em> of a gesture. The road has five landmarks, and every symbol you meet lives in the <b>Σ Symbols</b> panel (top-right) so you never have to scroll back. Hover any colored symbol in the text or equations to light up its siblings.</p>
+  <p>We start with a physical fact (a hand shifts the phase of a satellite signal) and end with a formula for the <em>usable time window</em> of a gesture. The road has five landmarks, and every symbol you meet lives in the <b>Σ Symbols</b> panel (top-right) so you never have to scroll back. Hover any colored symbol in the text or equations to light up its siblings.</p>
   <ul>
-    <li><span class="sym g" data-sym="e">ê</span> <b>Geometry</b> — where the satellites are, and how that turns hand-motion into phase.</li>
-    <li><span class="sym s" data-sym="s">s</span> <b>The clean signal</b> — strip away everything that isn't the gesture.</li>
-    <li><span class="sym d" data-sym="M">M</span> <b>Gesture shape</b> — compress a 3-D path into one matrix.</li>
-    <li><span class="sym k" data-sym="kappa">κ</span> <b>The curvature</b> — one number that says how fast reproducibility dies.</li>
-    <li><span class="sym k" data-sym="dt">δt</span> <b>The window</b> — turn κ into seconds and minutes.</li>
+    <li><span class="sym g" data-sym="e">ê</span> <b>Geometry:</b> where the satellites are, and how that turns hand-motion into phase.</li>
+    <li><span class="sym s" data-sym="s">s</span> <b>The clean signal:</b> strip away everything that isn't the gesture.</li>
+    <li><span class="sym d" data-sym="M">M</span> <b>Gesture shape:</b> compress a 3-D path into one matrix.</li>
+    <li><span class="sym k" data-sym="kappa">κ</span> <b>The curvature:</b> one number that says how fast reproducibility dies.</li>
+    <li><span class="sym k" data-sym="dt">δt</span> <b>The window:</b> turn κ into seconds and minutes.</li>
   </ul>
   <div class="callout intuition"><span class="tag">The whole idea in one breath</span>
-  A gesture is a little 3-D shape. Each satellite sees a flattened <em>shadow</em> of that shape. As satellites drift, the direction of the shadow rotates. If the shape is a straight line, its shadow only changes length — harmless. If the shape is a 2-D or 3-D blob, its shadow changes <em>form</em> — and the signal stops matching itself. κ measures exactly that.</div>
+  A gesture is a little 3-D shape. Each satellite sees a flattened <em>shadow</em> of that shape. As satellites drift, the direction of the shadow rotates. If the shape is a straight line, its shadow only changes length, which is harmless. If the shape is a 2-D or 3-D blob, its shadow changes <em>form</em>, and the signal stops matching itself. κ measures exactly that.</div>
 </section>
 
 <!-- ============ 01 ============ -->
 <section class="step" id="s1">
   <div class="eyebrow"><span class="num">01</span> The physical picture</div>
   <h2>A hand is a moving mirror</h2>
-  <p>A GNSS satellite is ~20,000 km away, so its radio wave arrives as essentially <em>parallel rays</em>. The antenna is bolted down — it never moves. When your hand comes near, the wave can also bounce off your skin and reach the antenna by a slightly longer, second path. This bonus path is <b>multipath</b>, and it interferes with the direct wave.</p>
-  <p>The carrier wave is a pure sinusoid with wavelength <span class="sym g" data-sym="lam">λ</span> ≈ 19&nbsp;cm (GPS L1). The receiver measures the wave's <em>phase</em> to a fraction of a millimeter. So even a small change in the reflected path length shows up as a measurable phase wiggle. Move your hand, change the extra path, wiggle the phase — that wiggle <em>is</em> the gesture.</p>
+  <p>A GNSS satellite is ~20,000 km away, so its radio wave arrives as essentially <em>parallel rays</em>. The antenna is bolted down: it never moves. When your hand comes near, the wave can also bounce off your skin and reach the antenna by a slightly longer, second path. This bonus path is <b>multipath</b>, and it interferes with the direct wave.</p>
+  <p>The carrier wave is a pure sinusoid with wavelength <span class="sym g" data-sym="lam">λ</span> ≈ 19&nbsp;cm (GPS L1). The receiver measures the wave's <em>phase</em> to a fraction of a millimeter. So even a small change in the reflected path length shows up as a measurable phase wiggle. Move your hand, change the extra path, wiggle the phase. That wiggle <em>is</em> the gesture.</p>
   <p>Here's the key simplification. Because the incoming rays are parallel, when your hand moves by a displacement <span class="sym d vec" data-sym="d">d</span>, the extra path length changes by the <em>projection of that motion onto the line-of-sight direction</em> <span class="sym g vec" data-sym="e">ê</span>. Motion along the ray matters fully; motion across the ray barely matters. Drag the hand below and watch it.</p>
 
   <figure class="panel">
@@ -350,11 +350,11 @@
       <span class="r"><span class="lab">along-LOS part (ê·d)</span><span class="val g" id="pj_proj">0.0 cm</span></span>
       <span class="r"><span class="lab">phase shift</span><span class="val" id="pj_phase">0.0 cyc</span></span>
     </div>
-    <figcaption>The dashed cyan ray is the line of sight to the satellite. Only the component of the hand's motion <b>along</b> that ray (the cyan projection) changes the path length — and therefore the phase. Slide across the ray and the phase barely moves; slide along it and the phase races. That's the whole reason geometry matters.</figcaption>
+    <figcaption>The dashed cyan ray is the line of sight to the satellite. Only the component of the hand's motion <b>along</b> that ray (the cyan projection) changes the path length, and therefore the phase. Slide across the ray and the phase barely moves; slide along it and the phase races. That's the whole reason geometry matters.</figcaption>
   </figure>
 
   <div class="callout"><span class="tag">Why projection?</span>
-  For far-away parallel rays, the extra distance the reflected wave travels when the mirror moves by <span class="sym d vec" data-sym="d">d</span> is <span class="sym g vec" data-sym="e">ê</span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span> — a dot product. Dot product = "how much of this points along that." A displacement perpendicular to the ray contributes zero to first order. Hold that thought; it becomes the entire model in the next step.</div>
+  For far-away parallel rays, the extra distance the reflected wave travels when the mirror moves by <span class="sym d vec" data-sym="d">d</span> is <span class="sym g vec" data-sym="e">ê</span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>, a dot product. Dot product = "how much of this points along that." A displacement perpendicular to the ray contributes zero to first order. Hold that thought; it becomes the entire model in the next step.</div>
 </section>
 
 <!-- ============ 02 ============ -->
@@ -376,12 +376,12 @@
 
   <p>Read it left to right:</p>
   <ul>
-    <li><span class="frac" style="font-size:15px"><span class="num">2π</span><span class="den"><span class="sym g" data-sym="lam">λ</span></span></span> <span class="sym g vec" data-sym="e">ê<sub>i</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>(t) — <b>the gesture.</b> The <sup>2π</sup>⁄<sub>λ</sub> converts a length into radians of phase (one wavelength = one full turn = 2π). This is the only term we want.</li>
-    <li><span class="sym x" data-sym="c">c(t)</span> — the <b>receiver clock</b> error. The receiver's cheap clock drifts, and this adds the <em>same</em> phase to <em>every</em> satellite at once.</li>
-    <li><span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span> — the <b>range trend.</b> The satellite is genuinely moving through the sky, so the true distance changes slowly and smoothly over our few-second window.</li>
-    <li><span class="sym x" data-sym="noise">noise</span> — thermal and tracking noise.</li>
+    <li><span class="frac" style="font-size:15px"><span class="num">2π</span><span class="den"><span class="sym g" data-sym="lam">λ</span></span></span> <span class="sym g vec" data-sym="e">ê<sub>i</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>(t): <b>the gesture.</b> The <sup>2π</sup>⁄<sub>λ</sub> converts a length into radians of phase (one wavelength = one full turn = 2π). This is the only term we want.</li>
+    <li><span class="sym x" data-sym="c">c(t)</span>: the <b>receiver clock</b> error. The receiver's cheap clock drifts, and this adds the <em>same</em> phase to <em>every</em> satellite at once.</li>
+    <li><span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span>: the <b>range trend.</b> The satellite is genuinely moving through the sky, so the true distance changes slowly and smoothly over our few-second window.</li>
+    <li><span class="sym x" data-sym="noise">noise</span>: thermal and tracking noise.</li>
   </ul>
-  <p>Three of these four are nuisances. The next step kills them both cleanly — and the trick is almost embarrassingly simple.</p>
+  <p>Three of these four are nuisances. The next step kills them both cleanly, and the trick is almost embarrassingly simple.</p>
 </section>
 
 <!-- ============ 03 ============ -->
@@ -390,10 +390,10 @@
   <h2>Two subtractions and the gesture pops out</h2>
 
   <h3>Single-differencing kills the clock</h3>
-  <p>The clock error <span class="sym x" data-sym="c">c(t)</span> is <em>identical</em> on every satellite (it's the receiver's clock, not the satellite's). So pick one satellite as a reference and subtract its phase from everyone else's. The clock term is common, so it cancels — exactly, for free. This is <b>single-differencing</b>.</p>
+  <p>The clock error <span class="sym x" data-sym="c">c(t)</span> is <em>identical</em> on every satellite (it's the receiver's clock, not the satellite's). So pick one satellite as a reference and subtract its phase from everyone else's. The clock term is common, so it cancels, exactly, for free. This is <b>single-differencing</b>.</p>
 
   <h3>Detrending kills the range trend</h3>
-  <p>The range trend <span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span> is smooth and slow — over a 3-second window it looks like a gentle parabola. A gesture is a fast wiggle on top. Fit a low-order polynomial (2nd or 3rd order) to each satellite's window and subtract it. The slow trend leaves; the fast gesture stays. This is <b>detrending</b>.</p>
+  <p>The range trend <span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span> is smooth and slow: over a 3-second window it looks like a gentle parabola. A gesture is a fast wiggle on top. Fit a low-order polynomial (2nd or 3rd order) to each satellite's window and subtract it. The slow trend leaves; the fast gesture stays. This is <b>detrending</b>.</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 2 · peeling the phase apart</span><span class="live">toggle the layers</span></div>
@@ -422,10 +422,10 @@
     <span class="note">clean gesture signal = differential sensitivity vector · hand displacement</span>
   </div>
 
-  <p>That's the workhorse of the whole project. The clean signal on satellite <span class="sym g" data-sym="i">i</span> is a simple dot product: a fixed <b>sensitivity vector</b> <span class="sym g vec" data-sym="g">g<sub>i</sub></span> dotted with the moving hand <span class="sym d vec" data-sym="d">d</span>(t). Everything about <em>the sky</em> is baked into <span class="sym g vec" data-sym="g">g<sub>i</sub></span> — it's the difference of two line-of-sight vectors, scaled by <sup>2π</sup>⁄<sub>λ</sub>. Everything about <em>the gesture</em> is in <span class="sym d vec" data-sym="d">d</span>(t).</p>
+  <p>That's the workhorse of the whole project. The clean signal on satellite <span class="sym g" data-sym="i">i</span> is a simple dot product: a fixed <b>sensitivity vector</b> <span class="sym g vec" data-sym="g">g<sub>i</sub></span> dotted with the moving hand <span class="sym d vec" data-sym="d">d</span>(t). Everything about <em>the sky</em> is baked into <span class="sym g vec" data-sym="g">g<sub>i</sub></span>: it's the difference of two line-of-sight vectors, scaled by <sup>2π</sup>⁄<sub>λ</sub>. Everything about <em>the gesture</em> is in <span class="sym d vec" data-sym="d">d</span>(t).</p>
 
   <div class="callout intuition"><span class="tag">Mental model</span>
-  <span class="sym g vec" data-sym="g">g<sub>i</sub></span> is a fixed arrow in space — a "camera direction." <span class="sym s" data-sym="s">s<sub>i</sub></span>(t) is what that one camera sees of the gesture: its 1-D shadow. Different satellites are cameras pointing from different angles, each recording a different shadow of the same hand motion.</div>
+  <span class="sym g vec" data-sym="g">g<sub>i</sub></span> is a fixed arrow in space: a "camera direction." <span class="sym s" data-sym="s">s<sub>i</sub></span>(t) is what that one camera sees of the gesture: its 1-D shadow. Different satellites are cameras pointing from different angles, each recording a different shadow of the same hand motion.</div>
 </section>
 
 <!-- ============ 04 ============ -->
@@ -433,7 +433,7 @@
   <div class="eyebrow"><span class="num">04</span> Do it again, later</div>
   <h2>How similar are two repetitions?</h2>
   <p>Now the real question. Perform the <em>same</em> gesture <span class="sym d vec" data-sym="d">d</span>(t) at time A, then again at time B, <span class="sym g" data-sym="dtheta">Δt</span> later. In between, the satellites have crept across the sky, so each sensitivity vector rotates: <span class="sym g vec" data-sym="g">g<sub>A</sub></span> → <span class="sym g vec" data-sym="g">g<sub>B</sub></span>. Do the two recorded signals still look alike?</p>
-  <p>We measure "alike" with the <b>correlation</b> <span class="sym k" data-sym="r">r</span> — the normalized overlap of the two waveforms. r = 1 means identical shape; r = 0 means unrelated. Crucially, correlation ignores overall size: a signal and a scaled copy of it correlate at r = 1. Remember that; it's the punchline later.</p>
+  <p>We measure "alike" with the <b>correlation</b> <span class="sym k" data-sym="r">r</span>: the normalized overlap of the two waveforms. r = 1 means identical shape; r = 0 means unrelated. Crucially, correlation ignores overall size: a signal and a scaled copy of it correlate at r = 1. Remember that; it's the punchline later.</p>
 
   <div class="eqn boxed">
     <span class="sym k" data-sym="r">r</span>
@@ -464,13 +464,13 @@
     <span class="op">=</span>
     ∫<sub>0</sub><sup>T<sub>g</sub></sup>
     <span class="sym d vec" data-sym="d">d</span>(t)&thinsp;<span class="sym d vec" data-sym="d">d</span>(t)<sup>⊤</sup> dt
-    <span class="note">the structure matrix — the gesture's shape, frozen into one 3×3 matrix</span>
+    <span class="note">the structure matrix: the gesture's shape, frozen into one 3×3 matrix</span>
   </div>
 
   <h3>What is M, really?</h3>
-  <p><span class="sym d" data-sym="M">M</span> is the <b>scatter matrix</b> of the trajectory — statistically, its covariance (up to scale). It answers "which directions did the hand actually explore, and how much?" Picture it as an <b>ellipsoid</b>: a long thin cigar if the gesture is basically a straight line; a round ball if the gesture roams in all directions. Its eigenvectors are the gesture's principal axes; its eigenvalues are how far it traveled along each.</p>
+  <p><span class="sym d" data-sym="M">M</span> is the <b>scatter matrix</b> of the trajectory, statistically its covariance (up to scale). It answers "which directions did the hand actually explore, and how much?" Picture it as an <b>ellipsoid</b>: a long thin cigar if the gesture is basically a straight line; a round ball if the gesture roams in all directions. Its eigenvectors are the gesture's principal axes; its eigenvalues are how far it traveled along each.</p>
 
-  <p>With M in hand, the messy correlation of waveforms becomes a clean piece of geometry — the <b>generalized cosine</b> between the two sensitivity vectors, measured <em>in the metric M</em>:</p>
+  <p>With M in hand, the messy correlation of waveforms becomes a clean piece of geometry: the <b>generalized cosine</b> between the two sensitivity vectors, measured <em>in the metric M</em>:</p>
 
   <div class="eqn boxed">
     <span class="sym k" data-sym="r">r</span>
@@ -482,14 +482,14 @@
   </div>
 
   <div class="callout"><span class="tag">The load-bearing sentence</span>
-  <b>Ordinary</b> cosine of two vectors is <span style="font-family:var(--mono)">g<sub>A</sub>·g<sub>B</sub> / (|g<sub>A</sub>||g<sub>B</sub>|)</span>. This is the same thing, but distances and angles are warped by <span class="sym d" data-sym="M">M</span> — the gesture's shape decides which directions "count." <b>All the geometry drift is in <span class="sym g vec" data-sym="g">g<sub>A</sub></span>→<span class="sym g vec" data-sym="g">g<sub>B</sub></span>; all the gesture shape is in <span class="sym d" data-sym="M">M</span>.</b> The rest of the derivation is just watching this cosine fall as the sky rotates <span class="sym g vec" data-sym="g">g<sub>A</sub></span> into <span class="sym g vec" data-sym="g">g<sub>B</sub></span>.</div>
+  <b>Ordinary</b> cosine of two vectors is <span style="font-family:var(--mono)">g<sub>A</sub>·g<sub>B</sub> / (|g<sub>A</sub>||g<sub>B</sub>|)</span>. This is the same thing, but distances and angles are warped by <span class="sym d" data-sym="M">M</span>: the gesture's shape decides which directions "count." <b>All the geometry drift is in <span class="sym g vec" data-sym="g">g<sub>A</sub></span>→<span class="sym g vec" data-sym="g">g<sub>B</sub></span>; all the gesture shape is in <span class="sym d" data-sym="M">M</span>.</b> The rest of the derivation is just watching this cosine fall as the sky rotates <span class="sym g vec" data-sym="g">g<sub>A</sub></span> into <span class="sym g vec" data-sym="g">g<sub>B</sub></span>.</div>
 </section>
 
 <!-- ============ 05 ============ -->
 <section class="step" id="s5">
   <div class="eyebrow"><span class="num">05</span> The small-drift expansion</div>
   <h2>Squeeze out the one number: κ</h2>
-  <p>Over a few minutes the sky barely moves, so <span class="sym g vec" data-sym="g">g<sub>B</sub></span> is only a little different from <span class="sym g vec" data-sym="g">g<sub>A</sub></span>. Write the difference as <span class="sym g vec" data-sym="dg">Δg</span> and expand the cosine for small drift. This is the mathematical heart of the whole project — so we'll go one line at a time. Toggle the algebra if you want every step.</p>
+  <p>Over a few minutes the sky barely moves, so <span class="sym g vec" data-sym="g">g<sub>B</sub></span> is only a little different from <span class="sym g vec" data-sym="g">g<sub>A</sub></span>. Write the difference as <span class="sym g vec" data-sym="dg">Δg</span> and expand the cosine for small drift. This is the mathematical heart of the whole project, so we'll go one line at a time. Toggle the algebra if you want every step.</p>
 
   <p>Write <span class="sym g vec" data-sym="g">g<sub>B</sub></span> = <span class="sym g vec" data-sym="g">g<sub>A</sub></span> + <span class="sym g vec" data-sym="dg">Δg</span>, and name the three quadratic pieces that appear:</p>
 
@@ -510,7 +510,7 @@
       =
       <span class="frac"><span class="num">1+<span class="sym s" data-sym="bg">β</span></span><span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">1+2<span class="sym s" data-sym="bg">β</span>+<span class="sym s" data-sym="bg">γ</span></span></span></span></span>
     </div>
-    <p class="muted" style="font-size:15px">Taylor-expand the square root to second order — <span style="font-family:var(--mono)">√(1+x) ≈ 1 + x/2 − x²/8</span> — then multiply out and keep terms up to Δθ². The order-Δθ terms cancel exactly, leaving:</p>
+    <p class="muted" style="font-size:15px">Taylor-expand the square root to second order (<span style="font-family:var(--mono)">√(1+x) ≈ 1 + x/2 − x²/8</span>), then multiply out and keep terms up to Δθ². The order-Δθ terms cancel exactly, leaving:</p>
   </div>
 
   <div class="eqn">
@@ -539,14 +539,14 @@
       <span class="num">(<span class="sym g vec" data-sym="w">w</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span>)(<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span>) − (<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span>)<sup>2</sup></span>
       <span class="den">(<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span>)<sup>2</sup></span>
     </span>
-    <span class="note">decorrelation is quadratic in drift — and κ is the curvature of that parabola</span>
+    <span class="note">decorrelation is quadratic in drift, and κ is the curvature of that parabola</span>
   </div>
 
   <div class="btnrow" style="justify-content:center;margin:8px 0 26px"><button class="chip" id="algToggle">▸ show the algebra between the lines</button></div>
 
-  <p>That's it — the entire theoretical payoff. Correlation starts at 1 and falls off <b>quadratically</b> (like a parabola, not a straight line) as the sky drifts, and the steepness of that parabola is a single dimensionless number <span class="sym k" data-sym="kappa">κ</span> built only from the gesture shape <span class="sym d" data-sym="M">M</span> and the geometry vectors <span class="sym g vec" data-sym="g">g</span>, <span class="sym g vec" data-sym="w">w</span>.</p>
+  <p>That's it: the entire theoretical payoff. Correlation starts at 1 and falls off <b>quadratically</b> (like a parabola, not a straight line) as the sky drifts, and the steepness of that parabola is a single dimensionless number <span class="sym k" data-sym="kappa">κ</span> built only from the gesture shape <span class="sym d" data-sym="M">M</span> and the geometry vectors <span class="sym g vec" data-sym="g">g</span>, <span class="sym g vec" data-sym="w">w</span>.</p>
 
-  <p>Now play with it. The panel below is the whole theorem made touchable. It's a 2-D slice (easier to see than 3-D, same math). The amber ellipse <em>is</em> <span class="sym d" data-sym="M">M</span> — drag the <b>shape</b> slider to squash it from a round "star" to a thin "push." The cyan arrow is <span class="sym g vec" data-sym="g">g</span>; the <b>drift</b> slider rotates it by <span class="sym g" data-sym="dtheta">Δθ</span>. Watch the true correlation <span class="sym k" data-sym="r">r</span> and its parabola prediction track each other, and watch <span class="sym k" data-sym="kappa">κ</span> respond.</p>
+  <p>Now play with it. The panel below is the whole theorem made touchable. It's a 2-D slice (easier to see than 3-D, same math). The amber ellipse <em>is</em> <span class="sym d" data-sym="M">M</span>: drag the <b>shape</b> slider to squash it from a round "star" to a thin "push." The cyan arrow is <span class="sym g vec" data-sym="g">g</span>; the <b>drift</b> slider rotates it by <span class="sym g" data-sym="dtheta">Δθ</span>. Watch the true correlation <span class="sym k" data-sym="r">r</span> and its parabola prediction track each other, and watch <span class="sym k" data-sym="kappa">κ</span> respond.</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 3 · the κ playground</span><span class="live">the whole theorem</span></div>
@@ -570,40 +570,40 @@
       </div>
     </div>
     <div class="readout">
-      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="kap_k">—</span></span>
-      <span class="r"><span class="lab">true r</span><span class="val" id="kap_rt">—</span></span>
-      <span class="r"><span class="lab">parabola 1−½κΔθ²</span><span class="val" id="kap_ra">—</span></span>
+      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="kap_k">…</span></span>
+      <span class="r"><span class="lab">true r</span><span class="val" id="kap_rt">…</span></span>
+      <span class="r"><span class="lab">parabola 1−½κΔθ²</span><span class="val" id="kap_ra">…</span></span>
     </div>
-    <figcaption>Left: the gesture shape <b>M</b> (amber ellipse) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). Right: correlation vs drift. Squash M to a line and the curve goes <b>flat — κ→0, the gesture is geometry-proof.</b> Round M out and the curve dives — κ grows, reproducibility dies fast. The dashed rose parabola is the small-drift prediction; note how it hugs the true curve near zero and drifts off far out (the approximation is only for <em>small</em> drift).</figcaption>
+    <figcaption>Left: the gesture shape <b>M</b> (amber ellipse) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). Right: correlation vs drift. Squash M to a line and the curve goes <b>flat: κ→0, the gesture is geometry-proof.</b> Round M out and the curve dives: κ grows, reproducibility dies fast. The dashed rose parabola is the small-drift prediction; note how it hugs the true curve near zero and drifts off far out (the approximation is only for <em>small</em> drift).</figcaption>
   </figure>
 </section>
 
 <!-- ============ 06 ============ -->
 <section class="step" id="s6">
   <div class="eyebrow"><span class="num">06</span> Two facts about κ</div>
-  <h2>It's never negative — and it can be exactly zero</h2>
+  <h2>It's never negative, and it can be exactly zero</h2>
 
   <h3>κ ≥ 0 always (correlation can only get worse)</h3>
-  <p>Look back at the numerator of κ: <span style="font-family:var(--mono)">(w<sup>⊤</sup>Mw)(g<sup>⊤</sup>Mg) − (g<sup>⊤</sup>Mw)²</span>. That's exactly the <b>Cauchy–Schwarz inequality</b> in the M-metric: for any two vectors, (their M-inner-product)² ≤ (each M-length)². So the numerator is ≥ 0, and κ ≥ 0. Drift can never <em>increase</em> the correlation — which matches intuition: the sky wandering off can only make a repeat look less like the original, never more.</p>
+  <p>Look back at the numerator of κ: <span style="font-family:var(--mono)">(w<sup>⊤</sup>Mw)(g<sup>⊤</sup>Mg) − (g<sup>⊤</sup>Mw)²</span>. That's exactly the <b>Cauchy–Schwarz inequality</b> in the M-metric: for any two vectors, (their M-inner-product)² ≤ (each M-length)². So the numerator is ≥ 0, and κ ≥ 0. Drift can never <em>increase</em> the correlation, which matches intuition: the sky wandering off can only make a repeat look less like the original, never more.</p>
 
   <h3>κ = 0 exactly when the gesture is one straight line</h3>
   <p>This is the whole headline, and it drops out in three lines. If the gesture moves along a single fixed direction <span class="sym d vec" data-sym="n">n̂</span>, then <span class="sym d vec" data-sym="d">d</span>(t) = f(t)&thinsp;<span class="sym d vec" data-sym="n">n̂</span> and the structure matrix collapses to <b>rank 1</b>:</p>
 
   <div class="eqn boxed">
     <span class="sym d" data-sym="M">M</span> = <span class="paren">(</span>∫ f<sup>2</sup> dt<span class="paren">)</span> <span class="sym d vec" data-sym="n">n̂</span> <span class="sym d vec" data-sym="n">n̂</span><sup>⊤</sup>
-    <span class="note">a single-axis gesture — the cigar collapsed to a needle</span>
+    <span class="note">a single-axis gesture: the cigar collapsed to a needle</span>
   </div>
 
-  <p>The magic property of a rank-1 matrix: <span class="sym d" data-sym="M">M</span> times <em>anything</em> points along <span class="sym d vec" data-sym="n">n̂</span>. So <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span> and <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span> are <em>parallel</em>. Feed that into κ's numerator and the two terms become identical — they subtract to exactly zero:</p>
+  <p>The magic property of a rank-1 matrix: <span class="sym d" data-sym="M">M</span> times <em>anything</em> points along <span class="sym d vec" data-sym="n">n̂</span>. So <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span> and <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span> are <em>parallel</em>. Feed that into κ's numerator and the two terms become identical, so they subtract to exactly zero:</p>
 
   <div class="eqn">
     <span class="sym k" data-sym="kappa">κ</span><sub>1D</sub> ∝ (<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="w">w</span>)<sup>2</sup>(<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="g">g</span>)<sup>2</sup> − (<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="g">g</span>)<sup>2</sup>(<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="w">w</span>)<sup>2</sup> = 0
   </div>
 
   <div class="callout intuition"><span class="tag">Why this makes physical sense</span>
-  A straight-line gesture is a single camera-shadow: the satellite only ever sees the scalar <span style="font-family:var(--mono)">n̂·g</span> times the fixed waveform f(t). When the sky drifts, that scalar changes — but it only rescales the <em>amplitude</em> of f(t); the <em>shape</em> is untouched. And correlation ignores amplitude (Step 04). So r stays pinned at 1. A round gesture instead paints a 2-D shadow whose <em>shape</em> morphs as g rotates — and that's what correlation punishes. <b>Dimension of the gesture, not its size, sets the window.</b></div>
+  A straight-line gesture is a single camera-shadow: the satellite only ever sees the scalar <span style="font-family:var(--mono)">n̂·g</span> times the fixed waveform f(t). When the sky drifts, that scalar changes, but it only rescales the <em>amplitude</em> of f(t); the <em>shape</em> is untouched. And correlation ignores amplitude (Step 04). So r stays pinned at 1. A round gesture instead paints a 2-D shadow whose <em>shape</em> morphs as g rotates, and that's what correlation punishes. <b>Dimension of the gesture, not its size, sets the window.</b></div>
 
-  <p>Confirm it yourself in Fig 3: drag the shape slider all the way to "thin." As the ellipse becomes a needle, κ crashes toward 0 and the correlation curve flattens into a horizontal line — no matter how far you push the drift slider.</p>
+  <p>Confirm it yourself in Fig 3: drag the shape slider all the way to "thin." As the ellipse becomes a needle, κ crashes toward 0 and the correlation curve flattens into a horizontal line, no matter how far you push the drift slider.</p>
 </section>
 
 <!-- ============ 07 ============ -->
@@ -622,7 +622,7 @@
     </table>
   </div>
 
-  <p>Push is almost pure rank-1 — its second and third eigenvalues are under 1% of the first, so it's a needle, and κ ≈ 0. Star spreads a third of its energy into the off-axes, so <span class="sym d" data-sym="M">M</span> is fat, κ is finite, and the signal decorrelates quadratically. The ratio of their windows is set entirely by <span style="font-family:var(--mono)">√(κ<sub>star</sub>/κ<sub>push</sub>)</span> — pure geometry of the two shapes.</p>
+  <p>Push is almost pure rank-1: its second and third eigenvalues are under 1% of the first, so it's a needle, and κ ≈ 0. Star spreads a third of its energy into the off-axes, so <span class="sym d" data-sym="M">M</span> is fat, κ is finite, and the signal decorrelates quadratically. The ratio of their windows is set entirely by <span style="font-family:var(--mono)">√(κ<sub>star</sub>/κ<sub>push</sub>)</span>: pure geometry of the two shapes.</p>
 
   <div class="callout intuition"><span class="tag">The prediction this makes</span>
   If the theory is right, a classifier trained at one time-of-day and tested later should fail <b>gesture-by-gesture, not uniformly</b>: push should survive geometry drift, star should collapse first. That gesture-shape-dependent failure is the signature the experiment hunts for.</div>
@@ -642,7 +642,7 @@
     <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2(1 − <span class="sym k" data-sym="rmin">r<sub>min</sub></span>)</span><span class="den"><span class="sym k" data-sym="kappa">κ</span></span></span></span></span>
   </div>
 
-  <p>The sensitivity vector rotates at a steady rate <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0.45°/min — and here's the key point: <b>this is not a knob you turn.</b> It's fixed by how fast the satellites orbit, which you can't change. What you <em>can</em> change is <em>which constellation</em> you track, because different orbits move at different speeds. Since drift = rate × time, <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;<span class="sym k" data-sym="dt">δt</span>, and the window is:</p>
+  <p>The sensitivity vector rotates at a steady rate <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0.45°/min, and here's the key point: <b>this is not a knob you turn.</b> It's fixed by how fast the satellites orbit, which you can't change. What you <em>can</em> change is <em>which constellation</em> you track, because different orbits move at different speeds. Since drift = rate × time, <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;<span class="sym k" data-sym="dt">δt</span>, and the window is:</p>
 
   <div class="eqn boxed">
     <span class="sym k" data-sym="dt">δt<sub>max</sub></span>
@@ -655,12 +655,12 @@
   <details class="explainer">
     <summary>How do we actually know ω<sub>LOS</sub> ≈ 0.45°/min? (and is it the same for every satellite?)</summary>
     <div class="in">
-      <p><b>Two independent ways — one from physics, one from the data itself.</b></p>
+      <p><b>Two independent ways: one from physics, one from the data itself.</b></p>
       <p><b>1 · From orbital mechanics (the sanity check).</b> The sky moves because the satellites move. A GPS satellite completes one orbit in about <b>11 h 58 m</b> (it laps the Earth twice per day). Its angular speed around Earth's center is therefore</p>
       <div class="eqn" style="font-size:16px;text-align:left;margin:6px 0"><span class="op">n =</span> <span class="frac"><span class="num">360°</span><span class="den">11.97 h × 60</span></span> ≈ 0.50°/min.</div>
       <p>That orbital rate is the dominant term. The line-of-sight rate seen from the ground is the same order, nudged by range and elevation (a satellite overhead sweeps a bit faster than one near the horizon), which is why it lands near 0.45–0.50 rather than exactly 0.50.</p>
-      <p><b>2 · Measured straight from our captures (the real source of 0.45).</b> Every capture stores each satellite's line-of-sight unit vector <span class="sym g" data-sym="e">ê<sub>i</sub></span> per epoch (the <code>los_enu</code> field). So you don't have to model anything — just take the angle between <span class="sym g" data-sym="e">ê</span> now and <span class="sym g" data-sym="e">ê</span> a minute later and divide by the minute. Across our satellites and elevations that clusters at <b>0.42–0.52°/min</b>, hence the working figure ≈ 0.45. It barely depends on elevation because the rate is set by orbital motion, not by where the satellite sits in the sky.</p>
-      <p><b>Is it constellation-specific? Yes — orbit altitude sets the speed.</b></p>
+      <p><b>2 · Measured straight from our captures (the real source of 0.45).</b> Every capture stores each satellite's line-of-sight unit vector <span class="sym g" data-sym="e">ê<sub>i</sub></span> per epoch (the <code>los_enu</code> field). So you don't have to model anything: just take the angle between <span class="sym g" data-sym="e">ê</span> now and <span class="sym g" data-sym="e">ê</span> a minute later and divide by the minute. Across our satellites and elevations that clusters at <b>0.42–0.52°/min</b>, hence the working figure ≈ 0.45. It barely depends on elevation because the rate is set by orbital motion, not by where the satellite sits in the sky.</p>
+      <p><b>Is it constellation-specific? Yes: orbit altitude sets the speed.</b></p>
       <table class="ctable">
         <thead><tr><th>constellation</th><th>orbit type</th><th>period</th><th>≈ ω<sub>LOS</sub></th></tr></thead>
         <tbody>
@@ -669,7 +669,7 @@
           <tr><td>BeiDou GEO / IGSO</td><td>geo-synchronous</td><td>~24 h</td><td><b>≈ 0 (~0.03)</b></td></tr>
         </tbody>
       </table>
-      <p>GPS and BeiDou-<em>MEO</em> are close (both are medium-Earth-orbit, ~0.45–0.50°/min) — that's why the project lumps them together. But BeiDou also flies <b>geostationary</b> (GEO) and inclined-geosync (IGSO) birds that hang almost still over the ground: their <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0, so their geometric window is effectively unlimited. Same orbital difference is why the geometries <em>repeat</em> on different clocks — GPS every 1 sidereal day, BeiDou-MEO every 7 (Step 10). Bottom line: <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> is physics, but it's <em>per-constellation</em> physics — so in the calculator below you pick a constellation, you don't dial a rate.</p>
+      <p>GPS and BeiDou-<em>MEO</em> are close (both are medium-Earth-orbit, ~0.45–0.50°/min), which is why the project lumps them together. But BeiDou also flies <b>geostationary</b> (GEO) and inclined-geosync (IGSO) birds that hang almost still over the ground: their <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0, so their geometric window is effectively unlimited. Same orbital difference is why the geometries <em>repeat</em> on different clocks: GPS every 1 sidereal day, BeiDou-MEO every 7 (Step 10). Bottom line: <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> is physics, but it's <em>per-constellation</em> physics, so in the calculator below you pick a constellation, you don't dial a rate.</p>
     </div>
   </details>
 
@@ -693,11 +693,11 @@
       </div>
     </div>
     <div class="readout">
-      <span class="r"><span class="lab">κ (illustrative)</span><span class="val k" id="win_k">—</span></span>
-      <span class="r"><span class="lab">tolerable drift Δθ</span><span class="val g" id="win_dt">—</span></span>
-      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="win_out">—</span></span>
+      <span class="r"><span class="lab">κ (illustrative)</span><span class="val k" id="win_k">…</span></span>
+      <span class="r"><span class="lab">tolerable drift Δθ</span><span class="val g" id="win_dt">…</span></span>
+      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="win_out">…</span></span>
     </div>
-    <figcaption>The curve is <b>r(δt)</b> for the chosen gesture; the rose line is your tolerance <b>r<sub>min</sub></b>; where they cross is the window. <b>ω<sub>LOS</sub> isn't a free dial</b> — it's set by which satellites you track, so you pick a constellation. Switch to <b>GEO/IGSO</b> (near-stationary orbits) and the window explodes; switch gesture to <b>push</b> and the curve goes nearly flat. <em>κ values here are illustrative scale figures, not the lab's final calibrated numbers.</em></figcaption>
+    <figcaption>The curve is <b>r(δt)</b> for the chosen gesture; the rose line is your tolerance <b>r<sub>min</sub></b>; where they cross is the window. <b>ω<sub>LOS</sub> isn't a free dial</b>: it's set by which satellites you track, so you pick a constellation. Switch to <b>GEO/IGSO</b> (near-stationary orbits) and the window explodes; switch gesture to <b>push</b> and the curve goes nearly flat. <em>κ values here are illustrative scale figures, not the lab's final calibrated numbers.</em></figcaption>
   </figure>
 </section>
 
@@ -705,7 +705,7 @@
 <section class="step" id="s9">
   <div class="eyebrow"><span class="num">09</span> The catch</div>
   <h2>Hands aren't machines: the floor α</h2>
-  <p>Everything so far assumed the gesture is <em>identical</em> both times. It isn't. Even at <b>zero</b> geometry drift, two free-hand repetitions don't perfectly match — you can't move your hand the exact same way twice. So the correlation doesn't start at 1; it starts at a ceiling <span class="sym k" data-sym="alpha">α</span> &lt; 1, the <b>reproducibility floor</b>. A better model multiplies the two effects:</p>
+  <p>Everything so far assumed the gesture is <em>identical</em> both times. It isn't. Even at <b>zero</b> geometry drift, two free-hand repetitions don't perfectly match: you can't move your hand the exact same way twice. So the correlation doesn't start at 1; it starts at a ceiling <span class="sym k" data-sym="alpha">α</span> &lt; 1, the <b>reproducibility floor</b>. A better model multiplies the two effects:</p>
 
   <div class="eqn boxed">
     <span class="sym k" data-sym="r">r</span>(<span class="sym k" data-sym="dt">δt</span>)
@@ -715,7 +715,7 @@
     <span class="note">repeatability × geometry falloff</span>
   </div>
 
-  <p>Here's why this matters so much. To <em>measure</em> the geometric window, the parabola dip has to be visible above the reproducibility noise. But measured free-hand <span class="sym k" data-sym="alpha">α</span> ≈ 0.6 — well below the ~0.85 physical noise ceiling. The hand-sloppiness swamps the gentle geometry falloff, so κ is buried. Drag α below and watch the geometry signal vanish into the floor:</p>
+  <p>Here's why this matters so much. To <em>measure</em> the geometric window, the parabola dip has to be visible above the reproducibility noise. But measured free-hand <span class="sym k" data-sym="alpha">α</span> ≈ 0.6: well below the ~0.85 physical noise ceiling. The hand-sloppiness swamps the gentle geometry falloff, so κ is buried. Drag α below and watch the geometry signal vanish into the floor:</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 5 · why mechanical repetition is needed</span><span class="live">α vs the signal</span></div>
@@ -730,19 +730,19 @@
         <div class="btnrow"><button class="chip on" id="al_push">push</button><button class="chip" id="al_star">star</button></div>
       </div>
     </div>
-    <figcaption>The amber curve is the ideal geometry falloff (starts at 1); the rose curve is what you actually measure (starts at α). When α is low, the two are nearly parallel and the geometric <b>dip</b> — the thing carrying κ — is lost in the offset. Pushing α toward the 0.85 ceiling is exactly why the experiment needs a <b>machine or rig</b> to repeat the gesture, not a human hand.</figcaption>
+    <figcaption>The amber curve is the ideal geometry falloff (starts at 1); the rose curve is what you actually measure (starts at α). When α is low, the two are nearly parallel and the geometric <b>dip</b>, the thing carrying κ, is lost in the offset. Pushing α toward the 0.85 ceiling is exactly why the experiment needs a <b>machine or rig</b> to repeat the gesture, not a human hand.</figcaption>
   </figure>
 
   <div class="callout honest"><span class="tag">The honest result</span>
-  On free-hand data this is where the thesis stalls: reproducibility (α≈0.6) is too low to isolate the geometric κ, the recoverable signal turns out to be mostly amplitude rather than phase-shape, and it doesn't transfer across days. The theory is clean; demonstrating it needs <b>mechanically reproduced</b> gestures — the derivation tells you precisely why. See the project's FINDINGS write-up for the full post-mortem.</div>
+  On free-hand data this is where the thesis stalls: reproducibility (α≈0.6) is too low to isolate the geometric κ, the recoverable signal turns out to be mostly amplitude rather than phase-shape, and it doesn't transfer across days. The theory is clean; demonstrating it needs <b>mechanically reproduced</b> gestures: the derivation tells you precisely why. See the project's FINDINGS write-up for the full post-mortem.</div>
 
   <h3 id="transfer">Does the mechanical window transfer to your hand?</h3>
   <p>Here's the natural worry, and it's the right one to have: the real product is <em>free-hand</em>. So if the rig measures a window <span class="sym k" data-sym="dt">Z</span>, does that <span class="sym k" data-sym="dt">Z</span> still hold when a person does the gesture? Split the falloff back into its two independent parts and the answer drops out cleanly.</p>
 
   <div class="callout"><span class="tag">The one decomposition to remember</span>
-  <b><span class="sym k" data-sym="kappa">κ</span> is the geometry clock — it depends only on the gesture <em>shape</em> and the sky, never on who performs it.</b> <span class="sym k" data-sym="alpha">α</span> is the starting line — it depends only on the performer. A machine starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.85; a free hand starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.60, and jittery.</div>
+  <b><span class="sym k" data-sym="kappa">κ</span> is the geometry clock: it depends only on the gesture <em>shape</em> and the sky, never on who performs it.</b> <span class="sym k" data-sym="alpha">α</span> is the starting line: it depends only on the performer. A machine starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.85; a free hand starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.60, and jittery.</div>
 
-  <p>So the <em>rate</em> of geometric decorrelation — measured as a fraction of wherever it starts — is <b>identical</b> for hand and machine: <span class="sym k" data-sym="r">r</span>(<span class="sym k" data-sym="dt">δt</span>)&thinsp;/&thinsp;<span class="sym k" data-sym="alpha">α</span> = 1 − ½<span class="sym k" data-sym="kappa">κ</span><span class="sym g" data-sym="wlos">ω</span><sub>LOS</sub><sup>2</sup><span class="sym k" data-sym="dt">δt</span><sup>2</sup>. The geometry clock ticks at the same speed for everyone. <b>The hand just starts the race further back, and shaking.</b></p>
+  <p>So the <em>rate</em> of geometric decorrelation, measured as a fraction of wherever it starts, is <b>identical</b> for hand and machine: <span class="sym k" data-sym="r">r</span>(<span class="sym k" data-sym="dt">δt</span>)&thinsp;/&thinsp;<span class="sym k" data-sym="alpha">α</span> = 1 − ½<span class="sym k" data-sym="kappa">κ</span><span class="sym g" data-sym="wlos">ω</span><sub>LOS</sub><sup>2</sup><span class="sym k" data-sym="dt">δt</span><sup>2</sup>. The geometry clock ticks at the same speed for everyone. <b>The hand just starts the race further back, and shaking.</b></p>
 
   <p>The catch appears the instant you demand an <em>absolute</em> quality bar <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Carry <span class="sym k" data-sym="alpha">α</span> all the way through the window formula and it now sits inside:</p>
 
@@ -751,10 +751,10 @@
     <span class="op">=</span>
     <span class="frac"><span class="num">1</span><span class="den"><span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span></span></span>
     <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2<span class="paren">(</span>1 − <span class="sym k" data-sym="rmin">r<sub>min</sub></span> / <span class="sym k" data-sym="alpha">α</span><span class="paren">)</span></span><span class="den"><span class="sym k" data-sym="kappa">κ</span></span></span></span></span>
-    <span class="note">the same window formula — now honest about the starting line. If r<sub>min</sub> &gt; α, there is no real solution at all.</span>
+    <span class="note">the same window formula: now honest about the starting line. If r<sub>min</sub> &gt; α, there is no real solution at all.</span>
   </div>
 
-  <p>Set <span class="sym k" data-sym="rmin">r<sub>min</sub></span> = 0.8 and give it a hand's <span class="sym k" data-sym="alpha">α</span> ≈ 0.6: then <span class="sym k" data-sym="rmin">r<sub>min</sub></span>/<span class="sym k" data-sym="alpha">α</span> &gt; 1, the square root goes imaginary, and the window is <b>undefined</b> — the hand fails the bar at <em>zero</em> drift, before the sky moves at all. For a bare-hand <em>template match</em>, reproducibility, not geometry, is the binding limit — so <b><span class="sym k" data-sym="dt">Z</span>(hand) ≤ <span class="sym k" data-sym="dt">Z</span>(machine)</b>, and often far less. Drag the bar below: watch the machine earn a window while the hand can't even line up at the start.</p>
+  <p>Set <span class="sym k" data-sym="rmin">r<sub>min</sub></span> = 0.8 and give it a hand's <span class="sym k" data-sym="alpha">α</span> ≈ 0.6: then <span class="sym k" data-sym="rmin">r<sub>min</sub></span>/<span class="sym k" data-sym="alpha">α</span> &gt; 1, the square root goes imaginary, and the window is <b>undefined</b>: the hand fails the bar at <em>zero</em> drift, before the sky moves at all. For a bare-hand <em>template match</em>, reproducibility, not geometry, is the binding limit, so <b><span class="sym k" data-sym="dt">Z</span>(hand) ≤ <span class="sym k" data-sym="dt">Z</span>(machine)</b>, and often far less. Drag the bar below: watch the machine earn a window while the hand can't even line up at the start.</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 6 · the two runners</span><span class="live">same clock, different start</span></div>
@@ -774,31 +774,31 @@
       </div>
     </div>
     <div class="readout">
-      <span class="r"><span class="lab">machine window (α≈0.85)</span><span class="val g" id="run_m">—</span></span>
-      <span class="r"><span class="lab">hand window (α≈0.60)</span><span class="val k" id="run_h">—</span></span>
+      <span class="r"><span class="lab">machine window (α≈0.85)</span><span class="val g" id="run_m">…</span></span>
+      <span class="r"><span class="lab">hand window (α≈0.60)</span><span class="val k" id="run_h">…</span></span>
     </div>
-    <figcaption>One gesture, one sky, two performers. The <b>machine</b> (cyan) starts near 0.85; the <b>hand</b> (rose) starts near 0.60. They fall along the <em>same</em> geometry curve — hit <b>normalize to start</b> and the two snap together, showing κ is shared. But against an absolute bar the hand can begin <em>below</em> it and never qualify: at r<sub>min</sub> = 0.7, star, the machine gets a window and the hand gets none. That gap is reproducibility, not geometry.</figcaption>
+    <figcaption>One gesture, one sky, two performers. The <b>machine</b> (cyan) starts near 0.85; the <b>hand</b> (rose) starts near 0.60. They fall along the <em>same</em> geometry curve: hit <b>normalize to start</b> and the two snap together, showing κ is shared. But against an absolute bar the hand can begin <em>below</em> it and never qualify: at r<sub>min</sub> = 0.7, star, the machine gets a window and the hand gets none. That gap is reproducibility, not geometry.</figcaption>
   </figure>
 
-  <p><b>And the star gets hit twice.</b> It is the highest-<span class="sym k" data-sym="kappa">κ</span> gesture — the tightest geometric window — <em>and</em> the hardest to reproduce, since multi-axis motion gives your hand more ways to wander (lower <span class="sym k" data-sym="alpha">α</span>). It decorrelates faster from the sky <em>and</em> from your own hand at once. Toggle the panel to <b>push</b> and watch both windows stretch out; that's the low-<span class="sym k" data-sym="kappa">κ</span>, easy-to-repeat end.</p>
+  <p><b>And the star gets hit twice.</b> It is the highest-<span class="sym k" data-sym="kappa">κ</span> gesture, the tightest geometric window, <em>and</em> the hardest to reproduce, since multi-axis motion gives your hand more ways to wander (lower <span class="sym k" data-sym="alpha">α</span>). It decorrelates faster from the sky <em>and</em> from your own hand at once. Toggle the panel to <b>push</b> and watch both windows stretch out; that's the low-<span class="sym k" data-sym="kappa">κ</span>, easy-to-repeat end.</p>
 
   <div class="callout intuition"><span class="tag">So what is the mechanical Z actually for?</span>
-  It is <b>not</b> the product's operating window. The free-hand product never leans on signal correlation — it trains a <b>classifier across geometry</b> (that's the eventual goal). What the rig buys you is the <b>geometry budget</b>: measured cleanly, with <span class="sym k" data-sym="alpha">α</span> pushed near 1 so it isn't buried, <span class="sym k" data-sym="kappa">κ</span> tells you the timescale on which the signal genuinely changes <em>shape</em>. That tells you how densely to sample geometry when you collect hand data, and which gestures (star) demand it most. You use a machine to read <span class="sym k" data-sym="kappa">κ</span> precisely <em>because</em> the hand can't — and then <span class="sym k" data-sym="kappa">κ</span>, being performer-independent, hands that budget straight to the free-hand system.</div>
+  It is <b>not</b> the product's operating window. The free-hand product never leans on signal correlation: it trains a <b>classifier across geometry</b> (that's the eventual goal). What the rig buys you is the <b>geometry budget</b>: measured cleanly, with <span class="sym k" data-sym="alpha">α</span> pushed near 1 so it isn't buried, <span class="sym k" data-sym="kappa">κ</span> tells you the timescale on which the signal genuinely changes <em>shape</em>. That tells you how densely to sample geometry when you collect hand data, and which gestures (star) demand it most. You use a machine to read <span class="sym k" data-sym="kappa">κ</span> precisely <em>because</em> the hand can't, and then <span class="sym k" data-sym="kappa">κ</span>, being performer-independent, hands that budget straight to the free-hand system.</div>
 
-  <p class="muted" style="font-size:15px">One honest wrinkle: a hand doesn't trace one fixed shape <span class="sym d" data-sym="M">M</span> — it draws a <em>distribution</em> of shapes, so what transfers is an <em>effective</em> <span class="sym k" data-sym="kappa">κ</span> averaged over that spread. Program the rig to trace a representative gesture and the budget carries over; let the hand drift into a different shape and you're measuring a different κ.</p>
+  <p class="muted" style="font-size:15px">One honest wrinkle: a hand doesn't trace one fixed shape <span class="sym d" data-sym="M">M</span>: it draws a <em>distribution</em> of shapes, so what transfers is an <em>effective</em> <span class="sym k" data-sym="kappa">κ</span> averaged over that spread. Program the rig to trace a representative gesture and the budget carries over; let the hand drift into a different shape and you're measuring a different κ.</p>
 </section>
 
 <!-- ============ 10 ============ -->
 <section class="step" id="s10">
   <div class="eyebrow"><span class="num">10</span> Measuring it directly</div>
   <h2>Ask the sky to repeat itself</h2>
-  <p>You don't have to wait around for natural drift to trace out r(Δθ). Satellite geometry <em>repeats</em>: GPS returns to the same configuration one <b>sidereal day</b> later — 23h 56m 04s, about 3m 56s short of a solar day. So the same patch of sky you saw at noon today shows up at 11:56 tomorrow.</p>
+  <p>You don't have to wait around for natural drift to trace out r(Δθ). Satellite geometry <em>repeats</em>: GPS returns to the same configuration one <b>sidereal day</b> later: 23h 56m 04s, about 3m 56s short of a solar day. So the same patch of sky you saw at noon today shows up at 11:56 tomorrow.</p>
 
   <div class="eqn">
     <span class="sym k" data-sym="tsid">T<sub>sid</sub></span> = 86164.09 s ≈ solar day − 3m 56s
   </div>
 
-  <p>The clean measurement — the <b>repeat-offset sweep</b>: record a reference gesture at time T, then revisit at T + <span class="sym k" data-sym="tsid">T<sub>sid</sub></span> + ε for a handful of small offsets ε. Each offset injects a known drift <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;ε, so sweeping ε traces the decorrelation curve directly — and you check it against the predicted 1 − ½κΔθ². Scrub the offset and watch the sky nearly line back up:</p>
+  <p>The clean measurement is the <b>repeat-offset sweep</b>: record a reference gesture at time T, then revisit at T + <span class="sym k" data-sym="tsid">T<sub>sid</sub></span> + ε for a handful of small offsets ε. Each offset injects a known drift <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;ε, so sweeping ε traces the decorrelation curve directly, and you check it against the predicted 1 − ½κΔθ². Scrub the offset and watch the sky nearly line back up:</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 7 · sidereal repeat sweep</span><span class="live">scrub the offset</span></div>
@@ -810,10 +810,10 @@
       </div>
     </div>
     <div class="readout">
-      <span class="r"><span class="lab">induced drift Δθ</span><span class="val g" id="sid_dt">—</span></span>
-      <span class="r"><span class="lab">predicted r (star)</span><span class="val k" id="sid_r">—</span></span>
+      <span class="r"><span class="lab">induced drift Δθ</span><span class="val g" id="sid_dt">…</span></span>
+      <span class="r"><span class="lab">predicted r (star)</span><span class="val k" id="sid_r">…</span></span>
     </div>
-    <figcaption>Faint arrows: yesterday's sky (the reference). Bright cyan: today's sky at offset ε. At ε = 0 they overlap — geometry has come full circle. Nudge ε and the two skies separate by exactly the drift the formula predicts. This is how you measure the window without waiting days.</figcaption>
+    <figcaption>Faint arrows: yesterday's sky (the reference). Bright cyan: today's sky at offset ε. At ε = 0 they overlap: geometry has come full circle. Nudge ε and the two skies separate by exactly the drift the formula predicts. This is how you measure the window without waiting days.</figcaption>
   </figure>
 </section>
 
@@ -825,10 +825,10 @@
 
   <div class="recap">
     <div class="rc"><div class="n">01 · SIGNAL</div><p>A hand near the antenna shifts each satellite's carrier phase by the <b>projection of its motion onto the line of sight</b>; strip the clock and range trend and the clean signal is just <b>s = g·d</b>.</p></div>
-    <div class="rc"><div class="n">02 · SHAPE</div><p>Repeat the gesture later and correlation becomes a <b>cosine in the metric M</b> — the gesture's 3×3 shape matrix carries all the shape, the vectors g carry all the sky.</p></div>
+    <div class="rc"><div class="n">02 · SHAPE</div><p>Repeat the gesture later and correlation becomes a <b>cosine in the metric M</b>: the gesture's 3×3 shape matrix carries all the shape, the vectors g carry all the sky.</p></div>
     <div class="rc"><div class="n">03 · CURVATURE</div><p>For small drift, correlation falls like a parabola: <b>r ≈ 1 − ½κΔθ²</b>, with one dimensionless curvature κ ≥ 0 built from M, g and the drift direction w.</p></div>
-    <div class="rc"><div class="n">04 · DIMENSION</div><p>A <b>straight-line gesture makes M rank-1, so κ = 0</b> — its shadow only rescales, and correlation ignores scale. A round gesture morphs its shadow, so κ &gt; 0. Dimension, not size, sets the window.</p></div>
-    <div class="rc"><div class="n">05 · WINDOW</div><p>Turn κ into time: <b>δt ∝ 1/√κ</b> divided by the sky's rotation rate — but you only see it if the hand repeats well enough (α near the noise ceiling), which is why the measurement wants a machine.</p></div>
+    <div class="rc"><div class="n">04 · DIMENSION</div><p>A <b>straight-line gesture makes M rank-1, so κ = 0</b>: its shadow only rescales, and correlation ignores scale. A round gesture morphs its shadow, so κ &gt; 0. Dimension, not size, sets the window.</p></div>
+    <div class="rc"><div class="n">05 · WINDOW</div><p>Turn κ into time: <b>δt ∝ 1/√κ</b> divided by the sky's rotation rate, but you only see it if the hand repeats well enough (α near the noise ceiling), which is why the measurement wants a machine.</p></div>
   </div>
 
   <div class="callout intuition" style="margin-top:30px"><span class="tag">The single sentence to leave people with</span>
@@ -839,7 +839,7 @@
 <section class="step" id="s12">
   <div class="eyebrow"><span class="num">12</span> The control room</div>
   <h2>The whole system, in one panel</h2>
-  <p>Everything you've built now lives on one console. On the <b>left</b> is the geometry: the gesture's shape <span class="sym d" data-sym="M">M</span> — an ellipse in 2-D, a full ellipsoid in 3-D — and the sensitivity vector <span class="sym g" data-sym="g">g</span> drifting to <span class="sym g" data-sym="g">g′</span> as the sky turns. On the <b>right</b> is the consequence: the correlation <span class="sym k" data-sym="r">r</span> decaying over time, capped by the reproducibility floor <span class="sym k" data-sym="alpha">α</span>, cut by your tolerance <span class="sym k" data-sym="rmin">r<sub>min</sub></span> — and where they meet is the window <span class="sym k" data-sym="dt">δt</span>. Every knob you've met is on this panel. <b>Flip to 3-D and drag</b> to see the dimension a flat picture hides.</p>
+  <p>Everything you've built now lives on one console. On the <b>left</b> is the geometry: the gesture's shape <span class="sym d" data-sym="M">M</span> (an ellipse in 2-D, a full ellipsoid in 3-D) and the sensitivity vector <span class="sym g" data-sym="g">g</span> drifting to <span class="sym g" data-sym="g">g′</span> as the sky turns. On the <b>right</b> is the consequence: the correlation <span class="sym k" data-sym="r">r</span> decaying over time, capped by the reproducibility floor <span class="sym k" data-sym="alpha">α</span>, cut by your tolerance <span class="sym k" data-sym="rmin">r<sub>min</sub></span>, and where they meet is the window <span class="sym k" data-sym="dt">δt</span>. Every knob you've met is on this panel. <b>Flip to 3-D and drag</b> to see the dimension a flat picture hides.</p>
 
   <figure class="panel">
     <div class="head"><span>Fig 8 · the whole system</span><span class="live">κ · α · ω · r_min → δt</span></div>
@@ -867,17 +867,17 @@
       </div>
     </div>
     <div class="readout">
-      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="ms_k">—</span></span>
-      <span class="r"><span class="lab">floor α</span><span class="val" id="ms_a2">—</span></span>
-      <span class="r"><span class="lab">tolerance r_min</span><span class="val" id="ms_r2">—</span></span>
-      <span class="r"><span class="lab">ω_LOS</span><span class="val g" id="ms_w2">—</span></span>
-      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="ms_out">—</span></span>
+      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="ms_k">…</span></span>
+      <span class="r"><span class="lab">floor α</span><span class="val" id="ms_a2">…</span></span>
+      <span class="r"><span class="lab">tolerance r_min</span><span class="val" id="ms_r2">…</span></span>
+      <span class="r"><span class="lab">ω_LOS</span><span class="val g" id="ms_w2">…</span></span>
+      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="ms_out">…</span></span>
     </div>
-    <figcaption>One console for the whole derivation. <b>Left</b>: the gesture ellipsoid <b>M</b> (amber) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). <b>Right</b>: r(δt) = α·(1 − ½κω²δt²), with the α ceiling, the r<sub>min</sub> bar, and their crossing — the window. κ is computed from the full 3-D shape, so it doesn't change when you switch views; the <b>3-D</b> toggle just reveals the extra dimension a flat ellipse can't show — watch <b>push</b> stay a needle while <b>star</b> fattens into a blob. Absolute minutes are illustrative; the shape of the story is exact.</figcaption>
+    <figcaption>One console for the whole derivation. <b>Left</b>: the gesture ellipsoid <b>M</b> (amber) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). <b>Right</b>: r(δt) = α·(1 − ½κω²δt²), with the α ceiling, the r<sub>min</sub> bar, and their crossing: the window. κ is computed from the full 3-D shape, so it doesn't change when you switch views; the <b>3-D</b> toggle just reveals the extra dimension a flat ellipse can't show: watch <b>push</b> stay a needle while <b>star</b> fattens into a blob. Absolute minutes are illustrative; the shape of the story is exact.</figcaption>
   </figure>
 
   <div class="callout intuition"><span class="tag">Reading the console the way the paper does</span>
-  Push (κ≈0) keeps the right-hand curve nearly flat — the window runs off the chart, limited only by <span class="sym k" data-sym="alpha">α</span>. Star fattens the ellipsoid, lifts κ, and pulls the crossing in. Drop <span class="sym k" data-sym="alpha">α</span> toward a hand's 0.6 and the whole curve sinks beneath a demanding <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Switch to GEO and even star goes geometry-proof. Shape sets <span class="sym k" data-sym="kappa">κ</span>, the performer sets <span class="sym k" data-sym="alpha">α</span>, the constellation sets <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>, you set <span class="sym k" data-sym="rmin">r<sub>min</sub></span> — that's the entire result on one screen.</div>
+  Push (κ≈0) keeps the right-hand curve nearly flat: the window runs off the chart, limited only by <span class="sym k" data-sym="alpha">α</span>. Star fattens the ellipsoid, lifts κ, and pulls the crossing in. Drop <span class="sym k" data-sym="alpha">α</span> toward a hand's 0.6 and the whole curve sinks beneath a demanding <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Switch to GEO and even star goes geometry-proof. Shape sets <span class="sym k" data-sym="kappa">κ</span>, the performer sets <span class="sym k" data-sym="alpha">α</span>, the constellation sets <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>, you set <span class="sym k" data-sym="rmin">r<sub>min</sub></span>: that's the entire result on one screen.</div>
 
   <footer>
     Derived from <b>window-experiment/docs/THEORY.md</b> and the project knowledge-base.<br>
@@ -893,7 +893,7 @@
   <div class="dhead"><span>Σ &nbsp;Symbol reference</span><button id="dockClose" aria-label="Close symbol reference">×</button></div>
   <div class="dbody">
     <div class="grp gg">
-      <div class="glab">Geometry — the sky</div>
+      <div class="glab">Geometry: the sky</div>
       <div class="sitem" data-for="e"><span class="sy">ê<sub>i</sub></span><span class="sd">Line-of-sight unit vector, antenna → satellite <em>i</em>.</span></div>
       <div class="sitem" data-for="lam"><span class="sy">λ</span><span class="sd">Carrier wavelength, ≈19 cm on GPS L1. <em>Converts length to phase: one λ = 2π.</em></span></div>
       <div class="sitem" data-for="g"><span class="sy">g<sub>i</sub></span><span class="sd">Differential sensitivity vector, (2π/λ)(ê<sub>i</sub> − ê<sub>ref</sub>). <em>How hand motion maps to phase on sat i.</em></span></div>
@@ -904,8 +904,8 @@
       <div class="sitem" data-for="i"><span class="sy">i</span><span class="sd">Index of a satellite.</span></div>
     </div>
     <div class="grp gd">
-      <div class="glab">Gesture — the shape</div>
-      <div class="sitem" data-for="d"><span class="sy">d(t)</span><span class="sd">Hand displacement trajectory — the gesture, over a few-second window.</span></div>
+      <div class="glab">Gesture: the shape</div>
+      <div class="sitem" data-for="d"><span class="sy">d(t)</span><span class="sd">Hand displacement trajectory: the gesture, over a few-second window.</span></div>
       <div class="sitem" data-for="n"><span class="sy">n̂</span><span class="sd">Fixed unit direction of a single-axis (straight-line) gesture.</span></div>
       <div class="sitem" data-for="M"><span class="sy">M</span><span class="sd">Structure matrix, ∫ d dᵀ dt. <em>The gesture's shape as a 3×3 scatter matrix.</em></span></div>
     </div>
@@ -915,15 +915,15 @@
       <div class="sitem" data-for="s"><span class="sy">s<sub>i</sub></span><span class="sd">Clean gesture signal after single-difference + detrend: g<sub>i</sub>·d(t).</span></div>
       <div class="sitem" data-for="r"><span class="sy">r</span><span class="sd">Correlation between two repetitions, 0–1. <em>Ignores overall amplitude.</em></span></div>
       <div class="sitem" data-for="abc"><span class="sy">a b c</span><span class="sd">The three quadratic scalars in the expansion (gᵀMg, gᵀMΔg, ΔgᵀMΔg).</span></div>
-      <div class="sitem" data-for="bg"><span class="sy">β γ</span><span class="sd">Normalized versions, b/a and c/a — orders Δθ and Δθ².</span></div>
+      <div class="sitem" data-for="bg"><span class="sy">β γ</span><span class="sd">Normalized versions, b/a and c/a: orders Δθ and Δθ².</span></div>
     </div>
     <div class="grp gk">
       <div class="glab">The payoff</div>
       <div class="sitem" data-for="kappa"><span class="sy">κ</span><span class="sd">Decorrelation curvature (dimensionless). <em>κ=0 for single-axis; larger for multi-axis.</em></span></div>
       <div class="sitem" data-for="dt"><span class="sy">δt<sub>max</sub></span><span class="sd">Usable time window before correlation drops below tolerance.</span></div>
       <div class="sitem" data-for="rmin"><span class="sy">r<sub>min</sub></span><span class="sd">Minimum acceptable correlation you're willing to keep.</span></div>
-      <div class="sitem" data-for="alpha"><span class="sy">α</span><span class="sd">Reproducibility floor — correlation at zero drift. <em>Free-hand ≈0.6; ceiling ≈0.85.</em></span></div>
-      <div class="sitem" data-for="tsid"><span class="sy">T<sub>sid</sub></span><span class="sd">Sidereal day, 86164.09 s — the period after which GPS geometry repeats.</span></div>
+      <div class="sitem" data-for="alpha"><span class="sy">α</span><span class="sd">Reproducibility floor: correlation at zero drift. <em>Free-hand ≈0.6; ceiling ≈0.85.</em></span></div>
+      <div class="sitem" data-for="tsid"><span class="sy">T<sub>sid</sub></span><span class="sd">Sidereal day, 86164.09 s: the period after which GPS geometry repeats.</span></div>
     </div>
     <div class="grp gx">
       <div class="glab">Removed nuisances</div>
@@ -1048,7 +1048,7 @@
   }, {threshold:0.02});
 
   // =========================================================
-  //  FIG 1 — multipath projection
+  //  FIG 1: multipath projection
   // =========================================================
   (function(){
     var cv=document.getElementById('cvProj'); if(!cv)return; io.observe(cv);
@@ -1129,7 +1129,7 @@
   })();
 
   // =========================================================
-  //  FIG 2 — peel layers
+  //  FIG 2: peel layers
   // =========================================================
   (function(){
     var cv=document.getElementById('cvPeel'); if(!cv)return; io.observe(cv);
@@ -1170,13 +1170,13 @@
       ctx.font='12px ui-monospace,monospace'; ctx.textAlign='left';
       ctx.fillStyle=C.d; ctx.fillText('■ gesture  s = g·d', x0, H-12);
       if(anyOn){ctx.fillStyle=C.text; ctx.fillText('■ what the receiver logs', x0+180, H-12);}
-      else{ctx.fillStyle=C.g; ctx.fillText('clean — nuisances removed ✓', x0+180, H-12);}
+      else{ctx.fillStyle=C.g; ctx.fillText('clean: nuisances removed ✓', x0+180, H-12);}
     }
     window.addEventListener('resize',draw); draw();
   })();
 
   // =========================================================
-  //  FIG 3 — kappa playground
+  //  FIG 3: kappa playground
   // =========================================================
   (function(){
     var cv=document.getElementById('cvKap'); if(!cv)return; io.observe(cv);
@@ -1208,9 +1208,9 @@
       rhoL.textContent=(st.rho).toFixed(3);
       psiL.textContent=Math.round(psiS.value)+'°';
       dtL.textContent=Math.round(dtS.value)+'°';
-      kEl.textContent=blind?'— blind':K.toFixed(2);
-      rtEl.textContent=blind?'—':rt.toFixed(3);
-      raEl.textContent=blind?'—':ra.toFixed(3);
+      kEl.textContent=blind?'blind':K.toFixed(2);
+      rtEl.textContent=blind?'…':rt.toFixed(3);
+      raEl.textContent=blind?'…':ra.toFixed(3);
 
       var splitX=Math.min(W*0.46, 360);
       // ---- left: M ellipse + g vectors ----
@@ -1224,7 +1224,7 @@
       ctx.beginPath(); ctx.ellipse(0,0,R*1.0,R*Math.sqrt(st.rho),0,0,7); ctx.fill(); ctx.stroke();
       ctx.restore();
       ctx.fillStyle=C.d; ctx.font='12px ui-monospace,monospace'; ctx.fillText('M', cx-R*1.3, cy-R*1.15);
-      // g vectors (cyan) — note canvas y is down, so negate y
+      // g vectors (cyan): note canvas y is down, so negate y
       function vec(v,col,lab,al){
         var ex=cx+v[0]*R*1.15, ey=cy-v[1]*R*1.15;
         ctx.strokeStyle=col; ctx.globalAlpha=al||1; ctx.lineWidth=2.6;
@@ -1254,7 +1254,7 @@
         ctx.fillStyle=C.k; ctx.font='13px ui-monospace,monospace';
         ctx.fillText('satellite is nearly blind here:', px0+8, (py0+py1)/2-10);
         ctx.fillStyle=C.muted;
-        ctx.fillText('g ⟂ M, so g·d ≈ 0 — no signal,', px0+8, (py0+py1)/2+10);
+        ctx.fillText('g ⟂ M, so g·d ≈ 0, no signal,', px0+8, (py0+py1)/2+10);
         ctx.fillText('correlation undefined.', px0+8, (py0+py1)/2+28);
         return;
       }
@@ -1272,14 +1272,14 @@
       ctx.fillStyle=C.g; ctx.beginPath(); ctx.arc(mx,Y(Math.max(0,rt)),4,0,7); ctx.fill();
       // legend
       ctx.font='11px ui-monospace,monospace';
-      ctx.fillStyle=C.g; ctx.fillText('— true r', px1-92, py0+6);
+      ctx.fillStyle=C.g; ctx.fillText('solid: true r', px1-92, py0+6);
       ctx.fillStyle=C.k; ctx.fillText('-- 1−½κΔθ²', px1-92, py0+22);
     }
     window.addEventListener('resize',draw); draw();
   })();
 
   // =========================================================
-  //  FIG 4 — window calculator
+  //  FIG 4: window calculator
   // =========================================================
   (function(){
     var cv=document.getElementById('cvWin'); if(!cv)return; io.observe(cv);
@@ -1343,7 +1343,7 @@
   })();
 
   // =========================================================
-  //  FIG 5 — alpha floor
+  //  FIG 5: alpha floor
   // =========================================================
   (function(){
     var cv=document.getElementById('cvAlpha'); if(!cv)return; io.observe(cv);
@@ -1372,14 +1372,14 @@
       curve(function(th){return 1-0.5*K*th*th;},C.d,2.4);          // ideal
       curve(function(th){return alpha*(1-0.5*K*th*th);},C.k,2.8);   // measured
       ctx.font='12px ui-monospace,monospace';
-      ctx.fillStyle=C.d;ctx.fillText('— ideal (starts at 1)',px1-190,py0+6);
-      ctx.fillStyle=C.k;ctx.fillText('— measured (starts at α)',px1-190,py0+22);
+      ctx.fillStyle=C.d;ctx.fillText('ideal (starts at 1)',px1-190,py0+6);
+      ctx.fillStyle=C.k;ctx.fillText('measured (starts at α)',px1-190,py0+22);
     }
     setB();window.addEventListener('resize',draw);draw();
   })();
 
   // =========================================================
-  //  FIG 6 — the two runners (hand vs machine)
+  //  FIG 6: the two runners (hand vs machine)
   // =========================================================
   (function(){
     var cv=document.getElementById('cvRun'); if(!cv)return; io.observe(cv);
@@ -1438,7 +1438,7 @@
   })();
 
   // =========================================================
-  //  FIG 7 — sidereal repeat sky
+  //  FIG 7: sidereal repeat sky
   // =========================================================
   (function(){
     var cv=document.getElementById('cvSid'); if(!cv)return; io.observe(cv);
@@ -1482,7 +1482,7 @@
   })();
 
   // =========================================================
-  //  FIG 8 — the whole system (2D / 3D master console)
+  //  FIG 8: the whole system (2D / 3D master console)
   // =========================================================
   (function(){
     var cv=document.getElementById('cvMaster'); if(!cv)return; io.observe(cv);
@@ -1588,7 +1588,7 @@
   })();
 
   // =========================================================
-  //  HERO — drifting sky
+  //  HERO: drifting sky
   // =========================================================
   (function(){
     var cv=document.getElementById('skyHero'); if(!cv)return;

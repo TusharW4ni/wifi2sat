@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="A clean, static, print-friendly derivation sheet for the geometry-decorrelation curvature kappa that sets a GNSS carrier-phase gesture's usable time window.">
-<title>κ Derivation Steps — GNSS Carrier-Phase Gestures</title>
+<title>κ Derivation Steps: GNSS Carrier-Phase Gestures</title>
 <style>
   :root{
     --ground:#0F1230;
@@ -210,7 +210,7 @@
 <header class="masthead">
   <div class="eyebrow">Derivation sheet · static · print-friendly</div>
   <h1>Geometry-decorrelation curvature <span class="kap">κ</span><br>and the gesture window δt<sub>max</sub></h1>
-  <p class="sub">The full chain from the carrier-phase signal model to the usable time window, one step at a time — clean math, terse captions. A hand near a fixed GNSS antenna perturbs carrier phase; do the <b>same gesture</b> later and the sky has drifted. This derives exactly how fast that drift erases reproducibility, and why <b>single-axis</b> gestures shrug it off while <b>multi-axis</b> gestures decorrelate quadratically.</p>
+  <p class="sub">The full chain from the carrier-phase signal model to the usable time window, one step at a time: clean math, terse captions. A hand near a fixed GNSS antenna perturbs carrier phase; do the <b>same gesture</b> later and the sky has drifted. This derives exactly how fast that drift erases reproducibility, and why <b>single-axis</b> gestures shrug it off while <b>multi-axis</b> gestures decorrelate quadratically.</p>
   <p class="src">Canonical text: <a href="THEORY.md">THEORY.md</a> &nbsp;·&nbsp; Interactive version: <a href="derivation-explainer.html">derivation-explainer.html</a></p>
 </header>
 
@@ -239,7 +239,7 @@
 <section class="step" id="s2">
   <div class="lead"><span class="num">02</span> Single-difference &amp; detrend</div>
   <h2>Peel away the clock and the range trend</h2>
-  <p><b>Single-differencing</b> against a reference satellite subtracts <span class="sym x">c(t)</span> — common to all satellites, so it cancels exactly. A low-order <b>detrend</b> over the short window removes the smooth <span class="sym x">ρ<sub>i</sub>(t)</span>. What remains is the clean gesture signal:</p>
+  <p><b>Single-differencing</b> against a reference satellite subtracts <span class="sym x">c(t)</span>, which is common to all satellites, so it cancels exactly. A low-order <b>detrend</b> over the short window removes the smooth <span class="sym x">ρ<sub>i</sub>(t)</span>. What remains is the clean gesture signal:</p>
 
   <div class="eqn boxed">
     <span class="sym s">s<sub>i</sub></span>(t)
@@ -298,7 +298,7 @@
     <span class="op">=</span>
     ∫<sub>0</sub><sup>T<sub>g</sub></sup>
     <span class="sym d vec">d</span>(t)&thinsp;<span class="sym d vec">d</span>(t)<sup>⊤</sup> dt
-    <span class="note">the structure matrix — the gesture's shape frozen into one 3×3 matrix</span>
+    <span class="note">the structure matrix: the gesture's shape frozen into one 3×3 matrix</span>
   </div>
 
   <p>Every inner product becomes a quadratic form in <span class="sym d">M</span>, so the correlation is the <b>generalized cosine</b> between the two geometry vectors, measured in the metric <span class="sym d">M</span>:</p>
@@ -382,7 +382,7 @@
       <span class="num">(<span class="sym g vec">w</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)(<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>) − (<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)<sup>2</sup></span>
       <span class="den">(<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>)<sup>2</sup></span>
     </span>
-    <span class="note"><span class="sym k">κ</span> is dimensionless — the decorrelation curvature</span>
+    <span class="note"><span class="sym k">κ</span> is dimensionless: the decorrelation curvature</span>
   </div>
   <p class="cap">Correlation starts at 1 and falls off along a parabola whose steepness is a single number <span class="sym k">κ</span>, built only from gesture shape <span class="sym d">M</span> and geometry <span class="sym g vec">g</span>, <span class="sym g vec">w</span>.</p>
 </section>
@@ -401,7 +401,7 @@
     <span style="display:inline-block;width:24px"></span>⟹<span style="display:inline-block;width:24px"></span>
     <span class="sym k">κ</span> ≥ 0.
   </div>
-  <p class="cap">Drift can only <em>decrease</em> correlation — never increase it.</p>
+  <p class="cap">Drift can only <em>decrease</em> correlation, never increase it.</p>
 
   <h3>κ = 0 ⇔ M is rank-1 (single-axis gesture)</h3>
   <p>If the gesture moves along a fixed direction <span class="sym d vec">n̂</span>, then <span class="sym d vec">d</span>(t)=f(t)&thinsp;<span class="sym d vec">n̂</span> and <span class="sym d">M</span> collapses to rank 1:</p>
@@ -411,7 +411,7 @@
     <span class="note">the cigar collapsed to a needle</span>
   </div>
 
-  <p>For any vector <span class="sym s">x</span>, <span style="font-family:var(--mono)"><span class="sym d">M</span><span class="sym s">x</span> = (∫f²)(<span class="sym d vec">n̂</span>·<span class="sym s">x</span>)<span class="sym d vec">n̂</span></span> — always along <span class="sym d vec">n̂</span>. So <span class="sym d">M</span><span class="sym g vec">g</span> ∥ <span class="sym d">M</span><span class="sym g vec">w</span>, and the two numerator terms become identical and cancel:</p>
+  <p>For any vector <span class="sym s">x</span>, <span style="font-family:var(--mono)"><span class="sym d">M</span><span class="sym s">x</span> = (∫f²)(<span class="sym d vec">n̂</span>·<span class="sym s">x</span>)<span class="sym d vec">n̂</span></span>, always along <span class="sym d vec">n̂</span>. So <span class="sym d">M</span><span class="sym g vec">g</span> ∥ <span class="sym d">M</span><span class="sym g vec">w</span>, and the two numerator terms become identical and cancel:</p>
 
   <div class="eqn">
     <span class="sym k">κ</span><sub>1D</sub>
@@ -424,7 +424,7 @@
   </div>
 
   <div class="note-box"><span class="tag">Why it makes sense</span>
-  A 1-D gesture senses only the scalar <span style="font-family:var(--mono)"><span class="sym d vec">n̂</span>·<span class="sym g vec">g</span></span>. As geometry drifts, that scalar changes the signal's <em>amplitude</em> but never its <em>shape</em> f(t) — and correlation is amplitude-invariant, so <span class="sym k">r</span> stays pinned at 1.</div>
+  A 1-D gesture senses only the scalar <span style="font-family:var(--mono)"><span class="sym d vec">n̂</span>·<span class="sym g vec">g</span></span>. As geometry drifts, that scalar changes the signal's <em>amplitude</em> but never its <em>shape</em> f(t), and correlation is amplitude-invariant, so <span class="sym k">r</span> stays pinned at 1.</div>
 </section>
 
 <!-- ===== 08 ===== -->
@@ -440,7 +440,7 @@
     <span style="display:inline-block;width:22px"></span>⟹<span style="display:inline-block;width:22px"></span>
     <span class="sym k">κ</span> &gt; 0.
   </div>
-  <p>The signal <em>shape</em> — not just amplitude — changes with geometry, so correlation falls quadratically. The larger the eigenvalue spread of <span class="sym d">M</span>, the larger <span class="sym k">κ</span> and the tighter the window. The two probe gestures sit at the κ-extremes:</p>
+  <p>The signal <em>shape</em> (not just amplitude) changes with geometry, so correlation falls quadratically. The larger the eigenvalue spread of <span class="sym d">M</span>, the larger <span class="sym k">κ</span> and the tighter the window. The two probe gestures sit at the κ-extremes:</p>
 
   <div class="symtable">
     <table>
@@ -492,7 +492,7 @@
     <span class="paren">(</span>1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span><span class="sym k">κ</span> <span class="sym g">ω<sub>LOS</sub></span><sup>2</sup> <span class="sym k">δt</span><sup>2</sup><span class="paren">)</span>
     <span class="note">repeatability × geometry falloff</span>
   </div>
-  <p class="cap">Free-hand <span class="sym k">α</span> ≈ 0.6 — well below the ~0.85 ceiling — buries the gentle geometry dip. Isolating <span class="sym k">κ</span> therefore requires <b>mechanically reproduced</b> gestures.</p>
+  <p class="cap">Free-hand <span class="sym k">α</span> ≈ 0.6 (well below the ~0.85 ceiling) buries the gentle geometry dip. Isolating <span class="sym k">κ</span> therefore requires <b>mechanically reproduced</b> gestures.</p>
 </section>
 
 <!-- ===== 11 ===== -->
@@ -508,7 +508,7 @@
     <span class="note">GPS repeats in 1 sidereal day; GPS+BeiDou-MEO jointly every 7 sidereal days</span>
   </div>
 
-  <p>Collect a reference at <span style="font-family:var(--mono)">T</span>, revisit at <span style="font-family:var(--mono)">T + <span class="sym g">T<sub>sid</sub></span> + ε</span> for a set of offsets ε. The induced drift is <span style="font-family:var(--mono)"><span class="sym g">Δθ</span> = <span class="sym g">ω<sub>LOS</sub></span>&thinsp;ε</span>, so sweeping ε traces <span class="sym k">r</span>(<span class="sym g">Δθ</span>) directly — compared against the predicted <span style="font-family:var(--mono)">1 − ½<span class="sym k">κ</span><span class="sym g">Δθ</span>²</span>.</p>
+  <p>Collect a reference at <span style="font-family:var(--mono)">T</span>, revisit at <span style="font-family:var(--mono)">T + <span class="sym g">T<sub>sid</sub></span> + ε</span> for a set of offsets ε. The induced drift is <span style="font-family:var(--mono)"><span class="sym g">Δθ</span> = <span class="sym g">ω<sub>LOS</sub></span>&thinsp;ε</span>, so sweeping ε traces <span class="sym k">r</span>(<span class="sym g">Δθ</span>) directly, compared against the predicted <span style="font-family:var(--mono)">1 − ½<span class="sym k">κ</span><span class="sym g">Δθ</span>²</span>.</p>
 </section>
 
 <!-- ===== result in one line ===== -->
@@ -518,7 +518,7 @@
   <div class="headline">
     <span class="tag">The whole derivation, compressed</span>
     <p>The reproducible signal is <span style="font-family:var(--mono)"><span class="sym s">s<sub>i</sub></span>=<span class="sym g vec">g<sub>i</sub></span>·<span class="sym d vec">d</span></span>; correlation under drift is the <span class="sym d">M</span>-metric cosine of the geometry vectors, and it falls quadratically as <span style="font-family:var(--mono)"><span class="sym k">r</span> ≈ 1 − ½<span class="sym k">κ</span><span class="sym g">Δθ</span>²</span>.</p>
-    <p><b class="d">Single-axis gestures are geometry-robust</b> (<span class="sym k">κ</span>→0, rank-1 <span class="sym d">M</span>); <b class="k">every extra dimension shrinks the window like κ<sup>−1/2</sup></b>. Gesture <em>shape</em>, via the rank / eigenvalue-spread of <span class="sym d">M</span>, sets everything — and a reproducibility floor <span class="sym k">α</span> near the noise ceiling is what makes the geometric <span class="sym k">κ</span> measurable at all.</p>
+    <p><b class="d">Single-axis gestures are geometry-robust</b> (<span class="sym k">κ</span>→0, rank-1 <span class="sym d">M</span>); <b class="k">every extra dimension shrinks the window like κ<sup>−1/2</sup></b>. Gesture <em>shape</em>, via the rank / eigenvalue-spread of <span class="sym d">M</span>, sets everything, and a reproducibility floor <span class="sym k">α</span> near the noise ceiling is what makes the geometric <span class="sym k">κ</span> measurable at all.</p>
   </div>
 </section>
 
@@ -532,12 +532,12 @@
     <table>
       <thead><tr><th>symbol</th><th>meaning</th></tr></thead>
       <tbody>
-        <tr class="grouprow grp-d"><td colspan="2">Gesture — amber</td></tr>
-        <tr><td class="sy" style="color:var(--d)">d(t)</td><td>hand displacement trajectory ∈ ℝ³ — the gesture, over <span style="font-family:var(--mono)">[0, T<sub>g</sub>]</span></td></tr>
+        <tr class="grouprow grp-d"><td colspan="2">Gesture: amber</td></tr>
+        <tr><td class="sy" style="color:var(--d)">d(t)</td><td>hand displacement trajectory ∈ ℝ³, the gesture, over <span style="font-family:var(--mono)">[0, T<sub>g</sub>]</span></td></tr>
         <tr><td class="sy" style="color:var(--d)">n̂</td><td>fixed unit direction of a single-axis gesture, <span style="font-family:var(--mono)">d = f(t) n̂</span></td></tr>
-        <tr><td class="sy" style="color:var(--d)">M</td><td>structure (scatter) matrix, <span style="font-family:var(--mono)">M = ∫ d dᵀ dt</span> — the gesture's shape</td></tr>
+        <tr><td class="sy" style="color:var(--d)">M</td><td>structure (scatter) matrix, <span style="font-family:var(--mono)">M = ∫ d dᵀ dt</span>, the gesture's shape</td></tr>
 
-        <tr class="grouprow grp-g"><td colspan="2">Geometry — cyan</td></tr>
+        <tr class="grouprow grp-g"><td colspan="2">Geometry: cyan</td></tr>
         <tr><td class="sy" style="color:var(--g)">ê<sub>i</sub></td><td>line-of-sight unit vector, antenna → satellite <span style="font-family:var(--mono)">i</span></td></tr>
         <tr><td class="sy" style="color:var(--g)">ê<sub>ref</sub></td><td>LOS to the reference satellite used for single-differencing</td></tr>
         <tr><td class="sy" style="color:var(--g)">λ</td><td>carrier wavelength (≈ 19 cm, GPS L1)</td></tr>
@@ -546,22 +546,22 @@
         <tr><td class="sy" style="color:var(--g)">Δg</td><td>drift of the sensitivity vector, <span style="font-family:var(--mono)">g<sub>B</sub> = g<sub>A</sub> + Δg</span></td></tr>
         <tr><td class="sy" style="color:var(--g)">w</td><td>drift direction, <span style="font-family:var(--mono)">w = dg/dθ</span>, so <span style="font-family:var(--mono)">Δg = Δθ w</span></td></tr>
         <tr><td class="sy" style="color:var(--g)">ω<sub>LOS</sub></td><td>apparent LOS rotation rate ≈ 0.45°/min (GPS/BeiDou-MEO)</td></tr>
-        <tr><td class="sy" style="color:var(--g)">T<sub>sid</sub></td><td>sidereal day, 86164.0905 s — the geometry-repeat period</td></tr>
+        <tr><td class="sy" style="color:var(--g)">T<sub>sid</sub></td><td>sidereal day, 86164.0905 s, the geometry-repeat period</td></tr>
 
-        <tr class="grouprow grp-k"><td colspan="2">Payoff — rose</td></tr>
+        <tr class="grouprow grp-k"><td colspan="2">Payoff: rose</td></tr>
         <tr><td class="sy" style="color:var(--k)">κ</td><td>decorrelation curvature (dimensionless), <span style="font-family:var(--mono)">[(wᵀMw)(gᵀMg)−(gᵀMw)²]/(gᵀMg)²</span></td></tr>
         <tr><td class="sy" style="color:var(--k)">δt<sub>max</sub></td><td>usable window, <span style="font-family:var(--mono)">ω<sub>LOS</sub>⁻¹ √(2(1−r<sub>min</sub>)/κ)</span></td></tr>
         <tr><td class="sy" style="color:var(--k)">r<sub>min</sub></td><td>minimum acceptable correlation (the quality bar)</td></tr>
         <tr><td class="sy" style="color:var(--k)">α</td><td>reproducibility floor, <span style="font-family:var(--mono)">r(Δθ=0)=α&lt;1</span>; free-hand ≈ 0.6, ceiling ≈ 0.85</td></tr>
 
-        <tr class="grouprow grp-s"><td colspan="2">Signal &amp; scalars — light</td></tr>
+        <tr class="grouprow grp-s"><td colspan="2">Signal &amp; scalars: light</td></tr>
         <tr><td class="sy" style="color:var(--s)">φ<sub>i</sub>(t)</td><td>measured carrier-phase perturbation on satellite <span style="font-family:var(--mono)">i</span></td></tr>
         <tr><td class="sy" style="color:var(--s)">s<sub>i</sub>(t)</td><td>clean gesture signal, <span style="font-family:var(--mono)">s<sub>i</sub> = g<sub>i</sub>·d</span></td></tr>
         <tr><td class="sy" style="color:var(--s)">r</td><td>normalized zero-lag correlation of two repetitions</td></tr>
         <tr><td class="sy" style="color:var(--s)">a, b, c</td><td>quadratic pieces: <span style="font-family:var(--mono)">gᵀMg, gᵀMΔg, ΔgᵀMΔg</span></td></tr>
         <tr><td class="sy" style="color:var(--s)">β, γ</td><td>normalized drift terms, <span style="font-family:var(--mono)">β = b/a (∼Δθ), γ = c/a (∼Δθ²)</span></td></tr>
 
-        <tr class="grouprow grp-x"><td colspan="2">Nuisance terms — muted</td></tr>
+        <tr class="grouprow grp-x"><td colspan="2">Nuisance terms: muted</td></tr>
         <tr><td class="sy" style="color:var(--muted)">c(t)</td><td>receiver clock error (common to all satellites; removed by single-differencing)</td></tr>
         <tr><td class="sy" style="color:var(--muted)">ρ<sub>i</sub>(t)</td><td>smooth geometric range trend (removed by detrending)</td></tr>
       </tbody>
@@ -571,7 +571,7 @@
 
 <footer>
   <b>Geometry-decorrelation of GNSS carrier-phase gestures.</b><br>
-  Static derivation sheet — mirrors <a href="THEORY.md">THEORY.md</a> (canonical text). Interactive walkthrough: <a href="derivation-explainer.html">derivation-explainer.html</a>.<br>
+  Static derivation sheet mirroring <a href="THEORY.md">THEORY.md</a> (canonical text). Interactive walkthrough: <a href="derivation-explainer.html">derivation-explainer.html</a>.<br>
   Self-contained · no external resources · print-friendly.
 </footer>
 

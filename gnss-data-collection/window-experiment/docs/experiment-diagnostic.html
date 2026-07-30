@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Diagnostic: why the free-hand data cannot yield the geometry-decorrelation curvature kappa or the window delta-t_max — the three compounding failures, with the numbers.">
-<title>Diagnostic — Why the Free-Hand Data Can't Measure the Window</title>
+<meta name="description" content="Diagnostic: why the free-hand data cannot yield the geometry-decorrelation curvature kappa or the window delta-t_max. The three compounding failures, with the numbers.">
+<title>Diagnostic: Why the Free-Hand Data Can't Measure the Window</title>
 <style>
   :root{
     --ground:#0F1230; --panel:#171B47; --panel-2:#1E2358;
@@ -139,9 +139,9 @@
 <div class="hero">
   <div class="eyebrow">Internal diagnostic · Phases 0–3</div>
   <h1>Why the free-hand data can't measure the window <span class="kap">δt<sub>max</sub></span></h1>
-  <p class="sub">The window experiment was built to measure one number — the geometry-decorrelation curvature <span class="k">κ</span>, and from it the usable window <span class="k">δt<sub>max</sub></span>. On the data we have, we can't. This is the honest account of <em>why</em>: three compounding failures, with the numbers, and the concept confusions they create.</p>
+  <p class="sub">The window experiment was built to measure one number: the geometry-decorrelation curvature <span class="k">κ</span>, and from it the usable window <span class="k">δt<sub>max</sub></span>. On the data we have, we can't. This is the honest account of <em>why</em>: three compounding failures, with the numbers, and the concept confusions they create.</p>
   <div class="meta">
-    Scope: <b>diagnosis only</b> — what broke and why, not what to do about it.<br>
+    Scope: <b>diagnosis only</b>, what broke and why, not what to do about it.<br>
     Companion to <b>FINDINGS.md</b> (terse evidence log) and <b>THEORY.md</b> (the math).<br>
     Source: Phases 0–3, GitHub issues #2–#5.
   </div>
@@ -158,21 +158,21 @@
 
 <div class="bluf">
   <span class="lab">Bottom line up front</span>
-  <p>On the <b>free-hand</b> data, the core thesis — that a hand perturbs GNSS <b>carrier phase</b> in a <b>geometry-dependent</b> way we can turn into a decorrelation window — is <b class="bad">not demonstrable</b>. Not because the theory is wrong (<span class="k">κ</span> checks out on synthetic ground truth), but because the data breaks the measurement at three compounding points:</p>
-  <p>① the carrier-<b>phase</b> signal <b class="bad">doesn't reproduce</b> (<span class="k">α</span> ≈ 0); ② the only thing that <b>does</b> reproduce is <b>amplitude</b> (CN0) — the wrong channel for <span class="k">κ</span>; ③ any apparent decay is <b class="bad">confounded with acquisition time</b>, not geometry — and the clean cross-day test comes back at chance.</p>
-  <p>Net: <span class="k">κ</span> is <b>unidentifiable</b> and <span class="k">δt<sub>max</sub></span> is <b>currently unmeasured</b>. The barrier is data reproducibility and experimental confounding — <b>not the math.</b></p>
+  <p>On the <b>free-hand</b> data, the core thesis (that a hand perturbs GNSS <b>carrier phase</b> in a <b>geometry-dependent</b> way we can turn into a decorrelation window) is <b class="bad">not demonstrable</b>. Not because the theory is wrong (<span class="k">κ</span> checks out on synthetic ground truth), but because the data breaks the measurement at three compounding points:</p>
+  <p>① the carrier-<b>phase</b> signal <b class="bad">doesn't reproduce</b> (<span class="k">α</span> ≈ 0); ② the only thing that <b>does</b> reproduce is <b>amplitude</b> (CN0), the wrong channel for <span class="k">κ</span>; ③ any apparent decay is <b class="bad">confounded with acquisition time</b>, not geometry, and the clean cross-day test comes back at chance.</p>
+  <p>Net: <span class="k">κ</span> is <b>unidentifiable</b> and <span class="k">δt<sub>max</sub></span> is <b>currently unmeasured</b>. The barrier is data reproducibility and experimental confounding: <b>not the math.</b></p>
 </div>
 
 <!-- 1 -->
 <section id="s1">
   <div class="eyebrow"><span class="num">1</span> The target</div>
   <h2>What we set out to measure</h2>
-  <p>After single-differencing and detrending, one satellite's cleaned gesture signal is a dot product, <span class="g">s<sub>i</sub></span> = <span class="g">g<sub>i</sub></span>·<span class="d">d</span>(t) — the sensitivity vector times the hand motion. Repeat the same gesture a bit later and the sky has drifted, so <span class="g">g</span> rotates and the two signals stop matching. The theory says that mismatch grows quadratically:</p>
+  <p>After single-differencing and detrending, one satellite's cleaned gesture signal is a dot product, <span class="g">s<sub>i</sub></span> = <span class="g">g<sub>i</sub></span>·<span class="d">d</span>(t): the sensitivity vector times the hand motion. Repeat the same gesture a bit later and the sky has drifted, so <span class="g">g</span> rotates and the two signals stop matching. The theory says that mismatch grows quadratically:</p>
   <p style="text-align:center;font-family:var(--mono);font-size:18px"><span class="k">r</span>(<span class="k">δt</span>) ≈ <span class="k">α</span>·(1 − ½ <span class="k">κ</span> <span class="g">ω<sub>LOS</sub></span>² <span class="k">δt</span>²)</p>
   <ul>
-    <li><span class="k">κ</span> — the <b>decorrelation curvature</b>: how fast the sky wrecks the signal. A property of the gesture's <em>shape</em>. This is the number the experiment exists to measure.</li>
-    <li><span class="k">α</span> — the <b>reproducibility floor</b>: the correlation at zero drift (how well the gesture repeats at all).</li>
-    <li><span class="k">δt<sub>max</sub></span> = <span class="g">ω<sub>LOS</sub></span><sup>−1</sup>√(2(1−<span class="k">r<sub>min</sub></span>)/<span class="k">κ</span>) — turn <span class="k">κ</span> into the usable window.</li>
+    <li><span class="k">κ</span>, the <b>decorrelation curvature</b>: how fast the sky wrecks the signal. A property of the gesture's <em>shape</em>. This is the number the experiment exists to measure.</li>
+    <li><span class="k">α</span>, the <b>reproducibility floor</b>: the correlation at zero drift (how well the gesture repeats at all).</li>
+    <li><span class="k">δt<sub>max</sub></span> = <span class="g">ω<sub>LOS</sub></span><sup>−1</sup>√(2(1−<span class="k">r<sub>min</sub></span>)/<span class="k">κ</span>): turn <span class="k">κ</span> into the usable window.</li>
   </ul>
   <p><b>Measuring <span class="k">κ</span> means fitting the curvature of <span class="k">r</span> as geometry drifts.</b> Everything below is about why that fit is impossible on the current data.</p>
 </section>
@@ -181,10 +181,10 @@
 <section id="s2" class="wide">
   <div class="eyebrow"><span class="num">2</span> The measurement chain</div>
   <h2>Three things must be true to read κ off data</h2>
-  <p style="max-width:var(--col)">To fit the decay curve and extract <span class="k">κ</span>, a chain of preconditions has to hold — <em>in order</em>. If any link breaks, <span class="k">κ</span> is unidentifiable. In the free-hand data, <b class="bad">all three break.</b></p>
+  <p style="max-width:var(--col)">To fit the decay curve and extract <span class="k">κ</span>, a chain of preconditions has to hold, <em>in order</em>. If any link breaks, <span class="k">κ</span> is unidentifiable. In the free-hand data, <b class="bad">all three break.</b></p>
 
   <figure class="fig">
-    <div class="fhead">the chain — and where it snaps</div>
+    <div class="fhead">the chain, and where it snaps</div>
     <div class="chain">
       <div class="lk">
         <span class="x">✗ ①</span>
@@ -204,7 +204,7 @@
         <span class="x">✗ ③</span>
         <div class="n">LINK 3</div>
         <h4 class="g">…and its decay is caused by geometry</h4>
-        <p>The falloff must track satellite drift — not the room, the time of day, or anything else changing in parallel.</p>
+        <p>The falloff must track satellite drift, not the room, the time of day, or anything else changing in parallel.</p>
       </div>
     </div>
     <div class="cap">Each link is a separate empirical claim. Section 3 shows every one of them failing, with the measured numbers. The failures compound: even if you patched one, the next still blocks the fit.</div>
@@ -217,15 +217,15 @@
   <h2>The three compounding failures</h2>
 
   <h3><span class="fail">①</span> The phase signal doesn't reproduce (α ≈ 0)</h3>
-  <p>Phase 1 (<code>alpha_study.py</code>) measured reproducibility <span class="k">α</span> across all sessions, five channels, every gesture, against a matched null with bootstrap CIs. The result for the channels <span class="k">κ</span> actually lives on — the carrier-<b>phase</b> channels — is stark: they sit <b class="bad">at the null</b>.</p>
+  <p>Phase 1 (<code>alpha_study.py</code>) measured reproducibility <span class="k">α</span> across all sessions, five channels, every gesture, against a matched null with bootstrap CIs. The result for the channels <span class="k">κ</span> actually lives on (the carrier-<b>phase</b> channels) is stark: they sit <b class="bad">at the null</b>.</p>
   <ul>
     <li>Single-difference (SD), common-mode residual (CMR), common-mode (CM) carrier phase: <b class="bad">α ≈ 0</b> across sessions.</li>
     <li><span class="g">push</span>-SD is the one exception, and only barely: <b>α ≈ 0.13–0.24</b>, and only for push.</li>
-    <li><span class="g">star</span> — the high-κ gesture whose decorrelation would be the <em>whole point</em> — is <b class="bad">indistinguishable from noise</b>.</li>
+    <li><span class="g">star</span>, the high-κ gesture whose decorrelation would be the <em>whole point</em>, is <b class="bad">indistinguishable from noise</b>.</li>
   </ul>
 
   <figure class="fig">
-    <div class="fhead">Fig 1 · reproducibility α by channel — what repeats, and what doesn't</div>
+    <div class="fhead">Fig 1 · reproducibility α by channel: what repeats, and what doesn't</div>
     <div class="svgwrap">
       <svg viewBox="0 0 640 264" role="img" aria-label="Bar chart of reproducibility alpha by channel: carrier-phase channels sit near zero, only amplitude CN0 reproduces">
         <!-- null band -->
@@ -273,11 +273,11 @@
         <text x="174" y="199" fill="var(--bad)" font-size="10">at null</text>
       </svg>
     </div>
-    <div class="cap"><b class="g">Cyan = carrier phase</b> (the channels κ needs). <b class="d">Amber = amplitude / CN0.</b> Every phase channel hugs the noise null; only amplitude climbs. <b>You cannot fit the decay rate of a signal that starts at zero</b> — so κ is unidentifiable from the phase channel before geometry even enters.</div>
+    <div class="cap"><b class="g">Cyan = carrier phase</b> (the channels κ needs). <b class="d">Amber = amplitude / CN0.</b> Every phase channel hugs the noise null; only amplitude climbs. <b>You cannot fit the decay rate of a signal that starts at zero</b>, so κ is unidentifiable from the phase channel before geometry even enters.</div>
   </figure>
 
-  <h3><span class="fail">②</span> The only reproducible signal is amplitude — the wrong channel</h3>
-  <p>The one channel that reproduces is <b class="d">CN0</b> — signal strength — with <span class="k">α</span> up to <b>0.74</b>. But CN0 is a broad, <b>non-directional</b> proximity / shadowing effect: "a hand is nearby, partially blocking the sky." <span class="k">κ</span> is a theory about the <em>phase trajectory's geometry</em> — the directional <span class="g">g</span>·<span class="d">d</span> projection. <b>Amplitude has no κ.</b></p>
+  <h3><span class="fail">②</span> The only reproducible signal is amplitude: the wrong channel</h3>
+  <p>The one channel that reproduces is <b class="d">CN0</b> (signal strength) with <span class="k">α</span> up to <b>0.74</b>. But CN0 is a broad, <b>non-directional</b> proximity / shadowing effect: "a hand is nearby, partially blocking the sky." <span class="k">κ</span> is a theory about the <em>phase trajectory's geometry</em>: the directional <span class="g">g</span>·<span class="d">d</span> projection. <b>Amplitude has no κ.</b></p>
   <p>Phase 2 (<code>separability.py</code>) nails this with an ablation on c1.1_day1 (5-class, chance 20%):</p>
   <ul>
     <li>CN0-only ≈ CN0+SD ≫ <b class="bad">SD-only (at chance)</b>.</li>
@@ -286,10 +286,10 @@
   <div class="callout"><span class="lab">what this means</span>Even the signal we <em>can</em> build on is the wrong <em>kind</em> to extract κ from. A geometry-decorrelation curvature is defined on the phase-projection mechanism; measuring it off an amplitude proximity effect is a category error.</div>
 
   <h3><span class="fail">③</span> The decay is confounded with time, not geometry</h3>
-  <p>This is the one that would sink the measurement even if ① and ② were fixed. Gestures were recorded in <b>contiguous per-gesture time-blocks</b>, so within a session, <b>window separation ≡ elapsed time ≡ geometry drift</b> all move together (collinear). Any decay you see could be geometry (κ) <em>or</em> the room drifting over minutes — the design can't tell them apart. Two controls expose it:</p>
+  <p>This is the one that would sink the measurement even if ① and ② were fixed. Gestures were recorded in <b>contiguous per-gesture time-blocks</b>, so within a session, <b>window separation ≡ elapsed time ≡ geometry drift</b> all move together (collinear). Any decay you see could be geometry (κ) <em>or</em> the room drifting over minutes: the design can't tell them apart. Two controls expose it:</p>
 
   <figure class="fig">
-    <div class="fhead">Fig 2 · the confound — accuracy is mostly time, and nothing survives to the next day</div>
+    <div class="fhead">Fig 2 · the confound: accuracy is mostly time, and nothing survives to the next day</div>
     <div class="svgwrap">
       <svg viewBox="0 0 640 280" role="img" aria-label="Two bar groups. Within a session, a gesture-free baseline reaches 42 percent vs 64 percent with gesture (chance 20). Across a day, gesture 33 vs baseline 30, both near chance.">
         <!-- y axis scale: value% 0..70 -> y from 235 (0) to 45 (70). yfun = 235 - v*(190/70) -->
@@ -330,40 +330,40 @@
         <rect x="508" y="145.4" width="52" height="89.6" rx="3" fill="var(--g)"/>
         <text x="534" y="249" fill="var(--muted)" font-size="10" text-anchor="middle">gesture</text>
         <text x="534" y="139" fill="var(--g)" font-size="11" text-anchor="middle">33</text>
-        <text x="470" y="263" fill="var(--bad)" font-size="10" text-anchor="middle">≈ chance — no transfer</text>
+        <text x="470" y="263" fill="var(--bad)" font-size="10" text-anchor="middle">≈ chance, no transfer</text>
       </svg>
     </div>
-    <div class="cap"><b>*baseline = the gesture-FREE, pre-onset stretch</b> run through the same classifier. Left: within a session it hits 42% with <em>no gesture happening</em> (chance 20%) — so ~2/3 of the headline 64% is time/environment leakage; the genuine gesture increment is only ~22 pp. Right: train day 1 → test the same sidereally-aligned window on day 2 and accuracy collapses to chance (33% vs a 30% baseline). Numbers: c3.2 day1→day2, 5-class CN0.</div>
+    <div class="cap"><b>*baseline = the gesture-FREE, pre-onset stretch</b> run through the same classifier. Left: within a session it hits 42% with <em>no gesture happening</em> (chance 20%), so ~2/3 of the headline 64% is time/environment leakage; the genuine gesture increment is only ~22 pp. Right: train day 1 → test the same sidereally-aligned window on day 2 and accuracy collapses to chance (33% vs a 30% baseline). Numbers: c3.2 day1→day2, 5-class CN0.</div>
   </figure>
 
-  <p><b>Phase 3, Arm 1</b> (different geometry, same day): CN0 accuracy appears to decay with window separation — but the gesture-free baseline <b>reproduces the same decay</b>. So it's a time/environment effect, <b class="bad">not attributable to geometry.</b></p>
-  <p><b>Phase 3, Arm 2</b> (same geometry, different day — the decisive test): revisit the same sky one sidereal day later, so geometry is held fixed while time/environment change. If the signal were geometry-locked it must transfer. It doesn't — day1→day2 collapses to <b class="bad">chance</b> (W2 CN0 33% vs 30% baseline; W3 and SD at chance). <b>There is no transferable, geometry-locked fingerprint to attach κ to.</b></p>
+  <p><b>Phase 3, Arm 1</b> (different geometry, same day): CN0 accuracy appears to decay with window separation, but the gesture-free baseline <b>reproduces the same decay</b>. So it's a time/environment effect, <b class="bad">not attributable to geometry.</b></p>
+  <p><b>Phase 3, Arm 2</b> (same geometry, different day, the decisive test): revisit the same sky one sidereal day later, so geometry is held fixed while time/environment change. If the signal were geometry-locked it must transfer. It doesn't: day1→day2 collapses to <b class="bad">chance</b> (W2 CN0 33% vs 30% baseline; W3 and SD at chance). <b>There is no transferable, geometry-locked fingerprint to attach κ to.</b></p>
 </section>
 
 <!-- 4 -->
 <section id="s4">
   <div class="eyebrow"><span class="num">4</span> Clearing up the concepts</div>
   <h2>Three distinctions that keep tripping people up</h2>
-  <p>These come up every time the results are discussed. Getting them straight is the difference between reading the failure correctly and mis-diagnosing it. <span class="muted">(What to <em>do</em> about any of this is a separate proposal — out of scope for this diagnostic.)</span></p>
+  <p>These come up every time the results are discussed. Getting them straight is the difference between reading the failure correctly and mis-diagnosing it. <span class="muted">(What to <em>do</em> about any of this is a separate proposal, out of scope for this diagnostic.)</span></p>
 
-  <h3>κ vs α — the geometry clock vs the starting line</h3>
+  <h3>κ vs α: the geometry clock vs the starting line</h3>
   <p>These are different animals and constantly get merged:</p>
   <div class="tbl">
     <table>
       <thead><tr><th>&nbsp;</th><th>what it measures</th><th>depends on</th><th>in our data</th></tr></thead>
       <tbody>
-        <tr><td><b class="k">κ</b></td><td>how fast the <em>sky</em> wrecks the signal (gesture <b>shape</b>)</td><td>nobody — it's physics</td><td>unmeasurable (no signal to fit)</td></tr>
+        <tr><td><b class="k">κ</b></td><td>how fast the <em>sky</em> wrecks the signal (gesture <b>shape</b>)</td><td>nobody, it's physics</td><td>unmeasurable (no signal to fit)</td></tr>
         <tr><td><b class="k">α</b></td><td>how well a <em>performer</em> repeats the gesture</td><td>the performer (rig ≈ 0.85, hand ≈ 0.6)</td><td class="bad">≈ 0 for phase</td></tr>
       </tbody>
     </table>
   </div>
-  <p>Why it matters here: our headline problem — phase <span class="k">α</span> ≈ 0 — is an <b>α problem</b>, a reproducibility failure. It says nothing about whether <span class="k">κ</span> (the geometry mechanism) is real or not. The mechanism could be perfectly intact and we would <em>still</em> see nothing, because <span class="k">α</span> gates whether <span class="k">κ</span> is observable at all. <b>Low α doesn't disprove the physics; it hides it.</b></p>
+  <p>Why it matters here: our headline problem, phase <span class="k">α</span> ≈ 0, is an <b>α problem</b>, a reproducibility failure. It says nothing about whether <span class="k">κ</span> (the geometry mechanism) is real or not. The mechanism could be perfectly intact and we would <em>still</em> see nothing, because <span class="k">α</span> gates whether <span class="k">κ</span> is observable at all. <b>Low α doesn't disprove the physics; it hides it.</b></p>
 
   <h3>Does the "mechanical window" transfer to the hand? Same clock, different start</h3>
-  <p>A natural worry: if a machine measured a window, would it apply to a human hand? Split the falloff — <span class="k">r</span> = <span class="k">α</span>·(geometry term) — and it resolves cleanly. The <em>rate</em> of geometric decorrelation, as a fraction of where it starts (<span class="k">r</span>/<span class="k">α</span> = 1 − ½<span class="k">κ</span>Δθ²), <b>does not depend on the performer.</b> <span class="k">κ</span> is the same for hand and machine.</p>
+  <p>A natural worry: if a machine measured a window, would it apply to a human hand? Split the falloff, <span class="k">r</span> = <span class="k">α</span>·(geometry term), and it resolves cleanly. The <em>rate</em> of geometric decorrelation, as a fraction of where it starts (<span class="k">r</span>/<span class="k">α</span> = 1 − ½<span class="k">κ</span>Δθ²), <b>does not depend on the performer.</b> <span class="k">κ</span> is the same for hand and machine.</p>
 
   <figure class="fig">
-    <div class="fhead">Fig 3 · same κ, different α — why a high-α source reveals the curve and a floor-α source can't</div>
+    <div class="fhead">Fig 3 · same κ, different α: why a high-α source reveals the curve and a floor-α source can't</div>
     <div class="svgwrap">
       <svg viewBox="0 0 620 300" role="img" aria-label="Three decay curves of identical shape starting at different alpha values. High alpha reveals a visible dip; the floor curve near zero is flat and hides the curvature.">
         <!-- axes: x 60..560 (delta t), y r: Y = 250 - 210*r -->
@@ -380,22 +380,22 @@
         <!-- curve alpha=0.85 (rig) cyan: start y=71.5 end y=116.1 -->
         <path d="M60,71.5 Q560,71.5 560,116.1" fill="none" stroke="var(--g)" stroke-width="2.6"/>
         <circle cx="60" cy="71.5" r="4.5" fill="var(--g)"/>
-        <text x="70" y="66" fill="var(--g)" font-size="11">rig  α≈0.85  — dip is visible → κ readable</text>
+        <text x="70" y="66" fill="var(--g)" font-size="11">rig  α≈0.85 : dip is visible → κ readable</text>
         <!-- curve alpha=0.60 (hand) amber: start 124 end 155.5 -->
         <path d="M60,124 Q560,124 560,155.5" fill="none" stroke="var(--d)" stroke-width="2.6"/>
         <circle cx="60" cy="124" r="4.5" fill="var(--d)"/>
-        <text x="70" y="119" fill="var(--d)" font-size="11">hand  α≈0.60  — shallower but still shaped</text>
+        <text x="70" y="119" fill="var(--d)" font-size="11">hand  α≈0.60 : shallower but still shaped</text>
         <!-- curve alpha=0.05 (our phase) muted/bad: start 239.5 end 242.1 -->
         <path d="M60,239.5 Q560,239.5 560,242.1" fill="none" stroke="var(--bad)" stroke-width="2.6"/>
         <circle cx="60" cy="239.5" r="4.5" fill="var(--bad)"/>
-        <text x="70" y="285" fill="var(--bad)" font-size="11">our free-hand phase  α≈0  — flat on the floor → κ invisible</text>
+        <text x="70" y="285" fill="var(--bad)" font-size="11">our free-hand phase  α≈0 : flat on the floor → κ invisible</text>
       </svg>
     </div>
-    <div class="cap">All three curves have the <b>identical shape</b> (same κ) — they only differ in where they start (α). A rig doesn't change the <em>physics</em> of the window; it changes whether the curve rises far enough above the noise floor to be <b>measurable</b>. Our free-hand phase data is the bottom curve: pinned to the floor, so its curvature — the κ we want — is invisible.</div>
+    <div class="cap">All three curves have the <b>identical shape</b> (same κ); they only differ in where they start (α). A rig doesn't change the <em>physics</em> of the window; it changes whether the curve rises far enough above the noise floor to be <b>measurable</b>. Our free-hand phase data is the bottom curve: pinned to the floor, so its curvature, the κ we want, is invisible.</div>
   </figure>
 
-  <h3>Humans never need α &gt; r_min — the product isn't template matching</h3>
-  <p>The last confusion: "how do we get people to repeat gestures well enough (α) to clear the quality bar (<span class="k">r<sub>min</sub></span>)?" You don't, and you never need to. That target only exists for a <b>template-matcher</b> comparing a live gesture to a stored one. The eventual product recognizes gestures with a <b>classifier trained across geometry</b> — it learns "star-ness" despite human variability by having <em>seen</em> that variability. So a low human <span class="k">α</span> is not a product blocker.</p>
+  <h3>Humans never need α &gt; r_min: the product isn't template matching</h3>
+  <p>The last confusion: "how do we get people to repeat gestures well enough (α) to clear the quality bar (<span class="k">r<sub>min</sub></span>)?" You don't, and you never need to. That target only exists for a <b>template-matcher</b> comparing a live gesture to a stored one. The eventual product recognizes gestures with a <b>classifier trained across geometry</b>: it learns "star-ness" despite human variability by having <em>seen</em> that variability. So a low human <span class="k">α</span> is not a product blocker.</p>
   <div class="callout key"><span class="lab">the crux</span>Low human α is a <b>measurement</b> blocker (it hides κ from us right now), <b>not a product</b> blocker (a classifier doesn't care). Keeping "measuring the physics" and "building the product" separate dissolves most of the confusion these results generate.</div>
 </section>
 
@@ -405,20 +405,20 @@
   <h2>So what is the window right now?</h2>
   <p><b>Unmeasured. Unknown.</b> No measured <span class="k">κ</span> → no empirical <span class="k">δt<sub>max</sub></span>. For the carrier-phase-geometry mechanism, we do not have a value.</p>
   <ul>
-    <li><b>The numbers in the interactive lecture/calculator are not measurements.</b> They come from an assumed / synthetic <span class="k">κ</span> (verified in <code>geomlib</code> simulation), shown to illustrate the <em>scaling</em>. Do not read "star ≈ 90 min" as a result — it isn't one.</li>
-    <li><b>The only real evidence bearing on "how long" points short.</b> The one reproducible signal (amplitude) <b class="bad">fails to transfer across a single day</b> at matched geometry. So the practical lifetime of the current signal is under a day, and it's environment-driven — not a clean geometric window.</li>
+    <li><b>The numbers in the interactive lecture/calculator are not measurements.</b> They come from an assumed / synthetic <span class="k">κ</span> (verified in <code>geomlib</code> simulation), shown to illustrate the <em>scaling</em>. Do not read "star ≈ 90 min" as a result; it isn't one.</li>
+    <li><b>The only real evidence bearing on "how long" points short.</b> The one reproducible signal (amplitude) <b class="bad">fails to transfer across a single day</b> at matched geometry. So the practical lifetime of the current signal is under a day, and it's environment-driven, not a clean geometric window.</li>
   </ul>
-  <div class="callout bad"><span class="lab">say it precisely</span>It is <b>not</b> "δt<sub>max</sub> is large and we just haven't measured it." It's "we have a formula and a simulation that say a window should exist and be gesture-shape-dependent, but <b>zero empirical value</b> from real data — and what little real evidence we have says the current signal doesn't even last a day."</div>
+  <div class="callout bad"><span class="lab">say it precisely</span>It is <b>not</b> "δt<sub>max</sub> is large and we just haven't measured it." It's "we have a formula and a simulation that say a window should exist and be gesture-shape-dependent, but <b>zero empirical value</b> from real data, and what little real evidence we have says the current signal doesn't even last a day."</div>
 </section>
 
 <!-- 6 -->
 <section id="s6">
   <div class="eyebrow"><span class="num">6</span> Honest bounds</div>
-  <h2>What this does — and doesn't — prove</h2>
+  <h2>What this does, and doesn't, prove</h2>
   <ul>
-    <li><b>Small N throughout</b> (≤6 reps/gesture/window; cross-day tests n = 6–30). A small real transferable effect cannot be <em>excluded</em> — only that none is <em>demonstrable</em> here.</li>
+    <li><b>Small N throughout</b> (≤6 reps/gesture/window; cross-day tests n = 6–30). A small real transferable effect cannot be <em>excluded</em>; only that none is <em>demonstrable</em> here.</li>
     <li><b>This is about this free-hand dataset</b>, not the physical hypothesis in principle. The <span class="k">κ</span> mechanism is verified on synthetic ground truth (<code>geomlib</code>): the math is sound. The failure is the data's reproducibility floor and confounding, not the theory.</li>
-    <li><b>The amplitude (CN0) effect is real within a session.</b> It's the <em>transfer</em> and the <em>phase/geometry attribution</em> that fail — not the existence of some hand-driven signal.</li>
+    <li><b>The amplitude (CN0) effect is real within a session.</b> It's the <em>transfer</em> and the <em>phase/geometry attribution</em> that fail, not the existence of some hand-driven signal.</li>
     <li><b>The pipeline is not the problem.</b> Phases 0–3 (loader, slip-cleaning, common-reference SD, onset alignment, α study, separability, coherence arms) are built and validated; they're what let us <em>see</em> these failures clearly.</li>
   </ul>
 </section>
@@ -436,7 +436,7 @@
         <tr><td>2 · separability (#4)</td><td>5-class, CN0 vs SD ablation</td><td>CN0-only ≈ CN0+SD ≫ <b class="bad">SD-only (chance)</b></td><td>the signal is amplitude, not phase</td></tr>
         <tr class="nullrow"><td>2 · confound (#4)</td><td>gesture-free pre-onset baseline</td><td>42% vs 64% (chance 20%)</td><td>~2/3 of accuracy is time/environment</td></tr>
         <tr><td>3 · arm 1 (#5)</td><td>decay vs window sep., same day</td><td>baseline reproduces the decay</td><td>time effect, <b class="bad">not geometry</b></td></tr>
-        <tr class="nullrow"><td>3 · arm 2 (#5)</td><td>train day1 → test day2, same geometry</td><td>33% vs 30% baseline (chance 20%)</td><td><b class="bad">no transfer</b> — no geometry-locked fingerprint</td></tr>
+        <tr class="nullrow"><td>3 · arm 2 (#5)</td><td>train day1 → test day2, same geometry</td><td>33% vs 30% baseline (chance 20%)</td><td><b class="bad">no transfer</b>: no geometry-locked fingerprint</td></tr>
       </tbody>
     </table>
   </div>
@@ -445,15 +445,15 @@
     <table>
       <thead><tr><th>symbol</th><th>meaning</th></tr></thead>
       <tbody>
-        <tr><td><b class="sym k">κ</b></td><td>decorrelation curvature — how fast the signal shape decays with geometry drift (gesture-shape property). The target.</td></tr>
-        <tr><td><b class="sym k">α</b></td><td>reproducibility floor — correlation at zero drift. Rig ≈ 0.85, free hand ≈ 0.6; <b class="bad">phase channels ≈ 0 here.</b></td></tr>
+        <tr><td><b class="sym k">κ</b></td><td>decorrelation curvature: how fast the signal shape decays with geometry drift (gesture-shape property). The target.</td></tr>
+        <tr><td><b class="sym k">α</b></td><td>reproducibility floor: correlation at zero drift. Rig ≈ 0.85, free hand ≈ 0.6; <b class="bad">phase channels ≈ 0 here.</b></td></tr>
         <tr><td><b class="sym k">r</b></td><td>correlation between two repetitions (0–1). Amplitude-invariant.</td></tr>
         <tr><td><b class="sym k">r<sub>min</sub></b></td><td>chosen quality bar. A downstream design choice, <em>not</em> an input to measuring κ.</td></tr>
         <tr><td><b class="sym k">δt<sub>max</sub></b></td><td>usable time window = ω<sub>LOS</sub><sup>−1</sup>√(2(1−r<sub>min</sub>)/κ). Currently unmeasured.</td></tr>
         <tr><td><b class="sym g">ω<sub>LOS</sub></b></td><td>line-of-sight rotation rate ≈ 0.45°/min (set by orbital motion).</td></tr>
         <tr><td><b class="sym g">s<sub>i</sub></b> = <b class="sym g">g<sub>i</sub></b>·<b class="sym d">d</b></td><td>cleaned gesture signal on satellite i (phase); g = differential sensitivity vector, d = hand motion.</td></tr>
-        <tr><td><b class="sym d">CN0</b></td><td>carrier-to-noise ratio — signal <b>amplitude</b>. The reproducible-but-non-directional channel. Has no κ.</td></tr>
-        <tr><td><b class="sym g">SD / CMR / CM</b></td><td>single-difference / common-mode-residual / common-mode carrier <b>phase</b> — the channels κ is defined on. At the null here.</td></tr>
+        <tr><td><b class="sym d">CN0</b></td><td>carrier-to-noise ratio: signal <b>amplitude</b>. The reproducible-but-non-directional channel. Has no κ.</td></tr>
+        <tr><td><b class="sym g">SD / CMR / CM</b></td><td>single-difference / common-mode-residual / common-mode carrier <b>phase</b>: the channels κ is defined on. At the null here.</td></tr>
       </tbody>
     </table>
   </div>
