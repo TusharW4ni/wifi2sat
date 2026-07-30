@@ -10,6 +10,11 @@ The headline theoretical result is that the window is governed by a single dimen
 > constellation-aware window calculator, and a 2-D↔3-D gesture-shape explorer — lives
 > next to this file: **[`derivation-explainer.html`](derivation-explainer.html)**
 > (self-contained; open it in any browser). This document remains the canonical text.
+>
+> 📄 **Just want the math?** A clean, static (non-interactive), print-friendly
+> **[`derivation-steps.html`](derivation-steps.html)** presents the same chain as a
+> distilled derivation sheet — every step's equation(s) plus a terse caption, top to
+> bottom, with a color-coded symbol table. No widgets, no dependencies.
 
 ---
 

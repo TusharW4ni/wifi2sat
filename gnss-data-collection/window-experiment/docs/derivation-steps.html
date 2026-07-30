@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A clean, static, print-friendly derivation sheet for the geometry-decorrelation curvature kappa that sets a GNSS carrier-phase gesture's usable time window.">
+<title>κ Derivation Steps — GNSS Carrier-Phase Gestures</title>
+<style>
+  :root{
+    --ground:#0F1230;
+    --panel:#171B47;
+    --panel-2:#1E2358;
+    --text:#ECEAF2;
+    --muted:#8A8FB5;
+    --line:rgba(255,255,255,.09);
+    --line-soft:rgba(255,255,255,.05);
+    /* semantic accents (same color grammar as derivation-explainer.html) */
+    --d:#FFC15E;   /* gesture  (d, M, n̂)                       */
+    --g:#55D6E6;   /* geometry (ê, g, w, Δθ, ω_LOS)            */
+    --k:#FF74B0;   /* payoff   (κ, δt_max, α, r_min)           */
+    --s:#EDEBF6;   /* signal / scalars (s, φ, r, a,b,c, β,γ)   */
+    --mono:ui-monospace,"SF Mono",Menlo,"Cascadia Code",Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --col:min(760px,92vw);
+  }
+
+  *{box-sizing:border-box}
+  html{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
+  *{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
+  ::-webkit-scrollbar{width:13px;height:13px}
+  ::-webkit-scrollbar-track{background:var(--ground)}
+  ::-webkit-scrollbar-thumb{background:var(--panel-2);border-radius:10px;border:3px solid var(--ground)}
+  ::-webkit-scrollbar-thumb:hover{background:#333c86}
+  ::-webkit-scrollbar-corner{background:var(--ground)}
+
+  body{
+    margin:0;background:var(--ground);color:var(--text);
+    font-family:var(--sans);font-size:17px;line-height:1.68;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* faint instrument grid behind everything */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line-soft) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 78%);
+    opacity:.55;
+  }
+  main,header.masthead{position:relative;z-index:1}
+
+  a{color:var(--g);text-decoration:none;border-bottom:1px solid rgba(85,214,230,.35)}
+  a:hover{border-bottom-color:var(--g)}
+  :focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:3px}
+
+  /* ---------- masthead ---------- */
+  header.masthead{
+    max-width:var(--col);margin:0 auto;padding:56px 0 8px;
+  }
+  .masthead .eyebrow{
+    font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--g);margin-bottom:16px;
+  }
+  .masthead h1{
+    font-family:var(--mono);font-weight:600;line-height:1.12;
+    font-size:clamp(25px,4.6vw,40px);margin:0 0 14px;letter-spacing:-.01em;
+  }
+  .masthead h1 .kap{color:var(--k)}
+  .masthead .sub{color:var(--muted);font-size:16px;max-width:60ch;margin:0}
+  .masthead .sub b{color:var(--text);font-weight:600}
+  .masthead .src{
+    font-family:var(--mono);font-size:12.5px;color:var(--muted);
+    margin-top:18px;padding-top:16px;border-top:1px solid var(--line);
+  }
+
+  /* ---------- steps ---------- */
+  main{padding-bottom:100px}
+  section.step{max-width:var(--col);margin:0 auto;padding:38px 0 4px}
+  .step .lead{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:10px;
+  }
+  .step .lead .num{
+    color:var(--k);font-weight:700;font-size:13px;
+    border:1px solid rgba(255,116,176,.4);border-radius:6px;padding:2px 8px;
+  }
+  .step h2{
+    font-family:var(--mono);font-weight:600;font-size:clamp(19px,3vw,25px);
+    line-height:1.18;margin:0 0 12px;letter-spacing:-.005em;
+  }
+  .step h3{font-family:var(--mono);font-weight:600;font-size:16.5px;margin:26px 0 6px;color:var(--text)}
+  .step p{margin:11px 0}
+  .step ul{margin:10px 0;padding-left:20px}
+  .step li{margin:6px 0}
+  .muted{color:var(--muted)}
+  hr.rule{border:0;border-top:1px solid var(--line);max-width:var(--col);margin:40px auto 0}
+
+  /* short caption under an equation cluster */
+  .cap{color:var(--muted);font-size:15px;margin:9px 0 0}
+  .cap b{color:var(--text);font-weight:600}
+
+  /* callout note */
+  .note-box{
+    border-left:3px solid var(--g);background:rgba(85,214,230,.06);
+    padding:12px 16px;margin:18px 0;border-radius:0 8px 8px 0;font-size:15.5px;
+  }
+  .note-box.pay{border-left-color:var(--k);background:rgba(255,116,176,.06)}
+  .note-box .tag{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;
+    display:block;margin-bottom:5px;color:var(--g);
+  }
+  .note-box.pay .tag{color:var(--k)}
+
+  /* ---------- math ---------- */
+  .eqn{
+    font-family:var(--mono);font-size:18px;line-height:2.05;
+    text-align:center;margin:20px 0;padding:6px 4px;
+    overflow-x:auto;overflow-y:hidden;
+  }
+  .eqn.boxed{
+    border:1px solid var(--line);border-radius:10px;background:var(--panel);
+    padding:18px 12px;
+  }
+  .eqn.tight{margin:12px 0;font-size:16.5px}
+  .eqn .note{display:block;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:5px;line-height:1.45}
+  sub,sup{font-size:.72em}
+  .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .18em;line-height:1.25}
+  .frac>.num{border-bottom:1.6px solid currentColor;padding:0 .4em .1em}
+  .frac>.den{padding:.12em .4em 0}
+  .rad{display:inline-flex;align-items:flex-start;vertical-align:middle}
+  .rad>.sgn{font-size:1.35em;line-height:.9;margin-right:.02em}
+  .rad.tall>.sgn{font-size:2.5em;line-height:.7}
+  .rad>.bd{border-top:1.6px solid currentColor;padding:.16em .3em 0;margin-top:.14em}
+  .paren{font-size:1.1em;vertical-align:middle}
+  .sym{border-radius:3px;padding:0 .04em}
+  .sym.d{color:var(--d)} .sym.g{color:var(--g)} .sym.k{color:var(--k)} .sym.s{color:var(--s)}
+  .sym.x{color:var(--muted)}
+  .vec{font-weight:700}
+  .op{color:var(--muted)}
+
+  /* ---------- symbol table ---------- */
+  .symtable{max-width:var(--col);margin:8px auto 0;overflow-x:auto}
+  .symtable table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:520px}
+  .symtable th,.symtable td{padding:8px 12px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+  .symtable th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .symtable .sy{font-family:var(--mono);font-weight:700;font-size:15px;white-space:nowrap}
+  .symtable .grouprow td{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    padding-top:16px;padding-bottom:5px;border-bottom:1px solid var(--line);
+  }
+  .symtable .grouprow td::before{content:"";display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:9px;vertical-align:baseline}
+  .grp-d td{color:var(--d)} .grp-d td::before{background:var(--d)}
+  .grp-g td{color:var(--g)} .grp-g td::before{background:var(--g)}
+  .grp-k td{color:var(--k)} .grp-k td::before{background:var(--k)}
+  .grp-s td{color:var(--s)} .grp-s td::before{background:var(--s)}
+  .grp-x td{color:var(--muted)} .grp-x td::before{background:var(--muted)}
+  .grp-d~tr .sy, tr.grp-d .sy{}
+
+  /* result-in-one-line box */
+  .headline{
+    max-width:var(--col);margin:34px auto 0;
+    border:1px solid rgba(255,116,176,.4);border-radius:14px;
+    background:linear-gradient(180deg,rgba(255,116,176,.08),rgba(255,116,176,.03));
+    padding:22px 24px;
+  }
+  .headline .tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--k);display:block;margin-bottom:10px;
+  }
+  .headline p{margin:0;font-size:17px;line-height:1.6}
+  .headline p+p{margin-top:10px}
+  .headline b.d{color:var(--d)} .headline b.k{color:var(--k)} .headline b.g{color:var(--g)}
+
+  footer{max-width:var(--col);margin:56px auto 0;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13px;font-family:var(--mono);line-height:1.7}
+  footer b{color:var(--text)}
+  footer a{color:var(--g)}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .eqn{font-size:15.5px}
+    .eqn.tight{font-size:14.5px}
+  }
+
+  /* ---------- print ---------- */
+  @media print{
+    :root{--col:100%}
+    body{background:#fff;color:#111;font-size:11pt;overflow-x:visible}
+    body::before{display:none}
+    a{color:#111;border-bottom:0}
+    header.masthead,section.step,.headline,footer,.symtable{max-width:100%}
+    .step .lead{color:#555}
+    .step .lead .num{color:#000;border-color:#999}
+    .step h2,.step h3,.masthead h1,.masthead .eyebrow{color:#000}
+    .eqn.boxed,.headline{border:1px solid #bbb;background:#f6f6f6;box-shadow:none}
+    .sym.d,.sym.g,.sym.k,.sym.s,.sym.x{color:#000}
+    .note-box,.note-box.pay{background:#f2f2f2;border-left-color:#888;color:#111}
+    .note-box .tag,.note-box.pay .tag,.headline .tag{color:#333}
+    .headline b.d,.headline b.k,.headline b.g{color:#000}
+    .cap b{color:#000}
+    section.step{page-break-inside:avoid}
+    footer{color:#555}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="eyebrow">Derivation sheet · static · print-friendly</div>
+  <h1>Geometry-decorrelation curvature <span class="kap">κ</span><br>and the gesture window δt<sub>max</sub></h1>
+  <p class="sub">The full chain from the carrier-phase signal model to the usable time window, one step at a time — clean math, terse captions. A hand near a fixed GNSS antenna perturbs carrier phase; do the <b>same gesture</b> later and the sky has drifted. This derives exactly how fast that drift erases reproducibility, and why <b>single-axis</b> gestures shrug it off while <b>multi-axis</b> gestures decorrelate quadratically.</p>
+  <p class="src">Canonical text: <a href="THEORY.md">THEORY.md</a> &nbsp;·&nbsp; Interactive version: <a href="derivation-explainer.html">derivation-explainer.html</a></p>
+</header>
+
+<main>
+
+<!-- ===== 01 ===== -->
+<section class="step" id="s1">
+  <div class="lead"><span class="num">01</span> Setup &amp; signal model</div>
+  <h2>What the receiver records</h2>
+  <p>A hand acts as a moving multipath reflector near a fixed antenna. Let <span class="sym d vec">d</span>(t)∈ℝ³ be the hand displacement (the gesture), <span class="sym g vec">ê<sub>i</sub></span> the line-of-sight unit vector to satellite <span class="sym g">i</span>, and <span class="sym g">λ</span> the carrier wavelength. To leading order the phase perturbation is the projection of the motion onto the LOS:</p>
+
+  <div class="eqn boxed">
+    <span class="sym s">φ<sub>i</sub></span>(t)
+    <span class="op">≈</span>
+    <span class="frac"><span class="num">2π</span><span class="den"><span class="sym g">λ</span></span></span>
+    <span class="sym g vec">ê<sub>i</sub></span><span class="op">·</span><span class="sym d vec">d</span>(t)
+    <span class="op">+</span> <span class="sym x">c(t)</span>
+    <span class="op">+</span> <span class="sym x">ρ<sub>i</sub>(t)</span>
+    <span class="op">+</span> <span class="sym x">noise</span>
+    <span class="note">gesture term &nbsp;+&nbsp; receiver clock c(t) &nbsp;+&nbsp; geometric range trend ρ<sub>i</sub>(t) &nbsp;+&nbsp; noise</span>
+  </div>
+  <p class="cap">The <span class="op">2π/</span><span class="sym g">λ</span> converts a path-length change into radians. Three of the four terms are nuisances; the next step removes two of them exactly.</p>
+</section>
+
+<!-- ===== 02 ===== -->
+<section class="step" id="s2">
+  <div class="lead"><span class="num">02</span> Single-difference &amp; detrend</div>
+  <h2>Peel away the clock and the range trend</h2>
+  <p><b>Single-differencing</b> against a reference satellite subtracts <span class="sym x">c(t)</span> — common to all satellites, so it cancels exactly. A low-order <b>detrend</b> over the short window removes the smooth <span class="sym x">ρ<sub>i</sub>(t)</span>. What remains is the clean gesture signal:</p>
+
+  <div class="eqn boxed">
+    <span class="sym s">s<sub>i</sub></span>(t)
+    <span class="op">=</span>
+    <span class="sym g vec">g<sub>i</sub></span><span class="op">·</span><span class="sym d vec">d</span>(t)
+    <span style="display:inline-block;width:34px"></span>
+    <span class="sym g vec">g<sub>i</sub></span>
+    <span class="op">=</span>
+    <span class="frac"><span class="num">2π</span><span class="den"><span class="sym g">λ</span></span></span>
+    <span class="paren">(</span><span class="sym g vec">ê<sub>i</sub></span> <span class="op">−</span> <span class="sym g vec">ê<sub>ref</sub></span><span class="paren">)</span>
+    <span class="note">clean signal = differential LOS sensitivity vector · hand displacement</span>
+  </div>
+  <p class="cap"><span class="sym g vec">g<sub>i</sub></span> is the <b>differential LOS sensitivity vector</b>: everything about the sky is baked into it, everything about the gesture into <span class="sym d vec">d</span>(t). All geometry enters through the <span class="sym g vec">g<sub>i</sub></span>.</p>
+</section>
+
+<!-- ===== 03 ===== -->
+<section class="step" id="s3">
+  <div class="lead"><span class="num">03</span> Correlation under drift</div>
+  <h2>Compare two repetitions</h2>
+  <p>Perform the same <span class="sym d vec">d</span>(t) at times A and B separated by <span class="sym g">Δt</span>. In between the LOS rotates, so <span class="sym g vec">g<sub>A</sub></span> → <span class="sym g vec">g<sub>B</sub></span>. Reproducibility is the normalized zero-lag correlation over the window (amplitude-invariant: <span class="sym k">r</span>=1 for a rescaled copy):</p>
+
+  <div class="eqn boxed">
+    <span class="sym k">r</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">⟨<span class="sym s">s<sub>A</sub></span>, <span class="sym s">s<sub>B</sub></span>⟩</span>
+      <span class="den">‖<span class="sym s">s<sub>A</sub></span>‖ ‖<span class="sym s">s<sub>B</sub></span>‖</span>
+    </span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">∫ (<span class="sym g vec">g<sub>A</sub></span><span class="op">·</span><span class="sym d vec">d</span>)(<span class="sym g vec">g<sub>B</sub></span><span class="op">·</span><span class="sym d vec">d</span>) dt</span>
+      <span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">∫ (<span class="sym g vec">g<sub>A</sub></span><span class="op">·</span><span class="sym d vec">d</span>)<sup>2</sup> dt</span></span> · <span class="rad"><span class="sgn">√</span><span class="bd">∫ (<span class="sym g vec">g<sub>B</sub></span><span class="op">·</span><span class="sym d vec">d</span>)<sup>2</sup> dt</span></span></span>
+    </span>
+  </div>
+  <p class="cap">Integrals run over the gesture window <span class="op">[0, T<sub>g</sub>]</span>. Next we collapse each integral into a matrix quadratic form.</p>
+</section>
+
+<!-- ===== 04 ===== -->
+<section class="step" id="s4">
+  <div class="lead"><span class="num">04</span> Structure matrix M</div>
+  <h2>The generalized cosine in the M-metric</h2>
+  <p>The <span class="sym g vec">g</span>-vectors are constant, so they slide out of the time integral, and the gesture collapses into one 3×3 second-moment (scatter) matrix:</p>
+
+  <div class="eqn">
+    ∫ (<span class="sym g vec">g<sub>A</sub></span><span class="op">·</span><span class="sym d vec">d</span>)(<span class="sym g vec">g<sub>B</sub></span><span class="op">·</span><span class="sym d vec">d</span>) dt
+    <span class="op">=</span>
+    <span class="sym g vec">g<sub>A</sub></span><sup>⊤</sup>
+    <span class="paren">(</span>∫ <span class="sym d vec">d</span> <span class="sym d vec">d</span><sup>⊤</sup> dt<span class="paren">)</span>
+    <span class="sym g vec">g<sub>B</sub></span>
+    <span class="op">=</span>
+    <span class="sym g vec">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d">M</span> <span class="sym g vec">g<sub>B</sub></span>
+  </div>
+
+  <div class="eqn boxed">
+    <span class="sym d">M</span>
+    <span class="op">=</span>
+    ∫<sub>0</sub><sup>T<sub>g</sub></sup>
+    <span class="sym d vec">d</span>(t)&thinsp;<span class="sym d vec">d</span>(t)<sup>⊤</sup> dt
+    <span class="note">the structure matrix — the gesture's shape frozen into one 3×3 matrix</span>
+  </div>
+
+  <p>Every inner product becomes a quadratic form in <span class="sym d">M</span>, so the correlation is the <b>generalized cosine</b> between the two geometry vectors, measured in the metric <span class="sym d">M</span>:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k">r</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num"><span class="sym g vec">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d">M</span> <span class="sym g vec">g<sub>B</sub></span></span>
+      <span class="den"><span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym g vec">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d">M</span> <span class="sym g vec">g<sub>A</sub></span></span></span> · <span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym g vec">g<sub>B</sub></span><sup>⊤</sup> <span class="sym d">M</span> <span class="sym g vec">g<sub>B</sub></span></span></span></span>
+    </span>
+  </div>
+  <p class="cap"><b>All gesture shape is in <span class="sym d">M</span>; all geometry drift is in <span class="sym g vec">g<sub>A</sub></span>→<span class="sym g vec">g<sub>B</sub></span>.</b> The rest of the derivation watches this cosine fall as the sky rotates.</p>
+</section>
+
+<!-- ===== 05 ===== -->
+<section class="step" id="s5">
+  <div class="lead"><span class="num">05</span> Small-drift expansion</div>
+  <h2>Taylor-expand the cosine to second order</h2>
+  <p>Write <span class="sym g vec">g<sub>B</sub></span> = <span class="sym g vec">g<sub>A</sub></span> + <span class="sym g vec">Δg</span> with <span class="sym g vec">Δg</span> small, and name the three quadratic pieces:</p>
+
+  <div class="eqn tight">
+    <span class="sym s">a</span> = <span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>
+    <span style="display:inline-block;width:24px"></span>
+    <span class="sym s">b</span> = <span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">Δg</span>
+    <span style="display:inline-block;width:24px"></span>
+    <span class="sym s">c</span> = <span class="sym g vec">Δg</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">Δg</span>
+    <span class="note"><span class="sym s">a</span> is order 1 · <span class="sym s">b</span> is order Δθ · <span class="sym s">c</span> is order Δθ²</span>
+  </div>
+
+  <p>The numerator is <span style="font-family:var(--mono)"><span class="sym s">a</span>+<span class="sym s">b</span></span>; the denominator's second factor is <span style="font-family:var(--mono)">√(<span class="sym s">a</span>+2<span class="sym s">b</span>+<span class="sym s">c</span>)</span>. Divide top and bottom by <span class="sym s">a</span> and set <span class="sym s">β</span>=b/a, <span class="sym s">γ</span>=c/a:</p>
+
+  <div class="eqn tight">
+    <span class="sym k">r</span> =
+    <span class="frac"><span class="num"><span class="sym s">a</span>+<span class="sym s">b</span></span><span class="den"><span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym s">a</span></span></span> <span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym s">a</span>+2<span class="sym s">b</span>+<span class="sym s">c</span></span></span></span></span>
+    =
+    <span class="frac"><span class="num">1+<span class="sym s">β</span></span><span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">1+2<span class="sym s">β</span>+<span class="sym s">γ</span></span></span></span></span>
+  </div>
+
+  <p>Taylor-expand the root with <span style="font-family:var(--mono)">√(1+x) ≈ 1 + x/2 − x²/8</span>, multiply out, and keep terms to Δθ². The order-<span class="sym g">Δθ</span> terms cancel exactly:</p>
+
+  <div class="eqn tight">
+    <span class="rad"><span class="sgn">√</span><span class="bd">1+2<span class="sym s">β</span>+<span class="sym s">γ</span></span></span>
+    <span class="op">≈</span>
+    1 + <span class="sym s">β</span> + <span class="frac"><span class="num"><span class="sym s">γ</span></span><span class="den">2</span></span> − <span class="frac"><span class="num"><span class="sym s">β</span><sup>2</sup></span><span class="den">2</span></span>
+    <span style="display:inline-block;width:22px"></span>
+    <span class="sym k">r</span>
+    <span class="op">≈</span>
+    (1+<span class="sym s">β</span>)<span class="paren">(</span>1 − <span class="sym s">β</span> − <span class="frac"><span class="num"><span class="sym s">γ</span></span><span class="den">2</span></span> + <span class="frac"><span class="num">3<span class="sym s">β</span><sup>2</sup></span><span class="den">2</span></span><span class="paren">)</span>
+  </div>
+
+  <div class="eqn">
+    <span class="sym k">r</span>
+    <span class="op">≈</span>
+    1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="paren">(</span><span class="sym s">γ</span> − <span class="sym s">β</span><sup>2</sup><span class="paren">)</span>
+    <span style="display:inline-block;width:26px"></span>⟹<span style="display:inline-block;width:26px"></span>
+    1 − <span class="sym k">r</span>
+    <span class="op">≈</span>
+    <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="frac"><span class="num"><span class="sym s">c</span>&thinsp;<span class="sym s">a</span> − <span class="sym s">b</span><sup>2</sup></span><span class="den"><span class="sym s">a</span><sup>2</sup></span></span>
+  </div>
+  <p class="cap">Decorrelation is <b>quadratic</b> in the drift. The linear term vanishing is what makes the leading behavior a curvature.</p>
+</section>
+
+<!-- ===== 06 ===== -->
+<section class="step" id="s6">
+  <div class="lead"><span class="num">06</span> The curvature κ</div>
+  <h2>Substitute the drift direction → the closed form</h2>
+  <p>The LOS rotates by a tiny angle <span class="sym g">Δθ</span>, so <span class="sym g vec">Δg</span> = <span class="sym g">Δθ</span>&thinsp;<span class="sym g vec">w</span>, where <span class="sym g vec">w</span> = d<span class="sym g vec">g</span>/d<span class="sym g">θ</span> is fixed by the geometry. Then <span style="font-family:var(--mono)"><span class="sym s">b</span>=<span class="sym g">Δθ</span>(<span class="sym g vec">g</span><sup>⊤</sup>M<span class="sym g vec">w</span>)</span> and <span style="font-family:var(--mono)"><span class="sym s">c</span>=<span class="sym g">Δθ</span>²(<span class="sym g vec">w</span><sup>⊤</sup>M<span class="sym g vec">w</span>)</span>; the <span class="sym g">Δθ</span> factors pull out front:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k">r</span>
+    <span class="op">≈</span>
+    1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="sym k">κ</span> <span class="sym g">Δθ</span><sup>2</sup>
+    <span style="display:inline-block;width:40px"></span>
+    <span class="sym k">κ</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">(<span class="sym g vec">w</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)(<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>) − (<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)<sup>2</sup></span>
+      <span class="den">(<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>)<sup>2</sup></span>
+    </span>
+    <span class="note"><span class="sym k">κ</span> is dimensionless — the decorrelation curvature</span>
+  </div>
+  <p class="cap">Correlation starts at 1 and falls off along a parabola whose steepness is a single number <span class="sym k">κ</span>, built only from gesture shape <span class="sym d">M</span> and geometry <span class="sym g vec">g</span>, <span class="sym g vec">w</span>.</p>
+</section>
+
+<!-- ===== 07 ===== -->
+<section class="step" id="s7">
+  <div class="lead"><span class="num">07</span> Properties of κ</div>
+  <h2>κ ≥ 0, and κ = 0 for a single axis</h2>
+
+  <h3>Non-negativity (Cauchy–Schwarz in the M-inner-product)</h3>
+  <p>The numerator of <span class="sym k">κ</span> is exactly the Cauchy–Schwarz gap in the <span class="sym d">M</span>-metric:</p>
+  <div class="eqn tight">
+    (<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)<sup>2</sup>
+    <span class="op">≤</span>
+    (<span class="sym g vec">g</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">g</span>)(<span class="sym g vec">w</span><sup>⊤</sup><span class="sym d">M</span><span class="sym g vec">w</span>)
+    <span style="display:inline-block;width:24px"></span>⟹<span style="display:inline-block;width:24px"></span>
+    <span class="sym k">κ</span> ≥ 0.
+  </div>
+  <p class="cap">Drift can only <em>decrease</em> correlation — never increase it.</p>
+
+  <h3>κ = 0 ⇔ M is rank-1 (single-axis gesture)</h3>
+  <p>If the gesture moves along a fixed direction <span class="sym d vec">n̂</span>, then <span class="sym d vec">d</span>(t)=f(t)&thinsp;<span class="sym d vec">n̂</span> and <span class="sym d">M</span> collapses to rank 1:</p>
+
+  <div class="eqn boxed">
+    <span class="sym d">M</span> = <span class="paren">(</span>∫ f<sup>2</sup> dt<span class="paren">)</span> <span class="sym d vec">n̂</span> <span class="sym d vec">n̂</span><sup>⊤</sup>
+    <span class="note">the cigar collapsed to a needle</span>
+  </div>
+
+  <p>For any vector <span class="sym s">x</span>, <span style="font-family:var(--mono)"><span class="sym d">M</span><span class="sym s">x</span> = (∫f²)(<span class="sym d vec">n̂</span>·<span class="sym s">x</span>)<span class="sym d vec">n̂</span></span> — always along <span class="sym d vec">n̂</span>. So <span class="sym d">M</span><span class="sym g vec">g</span> ∥ <span class="sym d">M</span><span class="sym g vec">w</span>, and the two numerator terms become identical and cancel:</p>
+
+  <div class="eqn">
+    <span class="sym k">κ</span><sub>1D</sub>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">(∫f²)²<span class="paren">[</span>(<span class="sym d vec">n̂</span>·<span class="sym g vec">w</span>)<sup>2</sup>(<span class="sym d vec">n̂</span>·<span class="sym g vec">g</span>)<sup>2</sup> − (<span class="sym d vec">n̂</span>·<span class="sym g vec">g</span>)<sup>2</sup>(<span class="sym d vec">n̂</span>·<span class="sym g vec">w</span>)<sup>2</sup><span class="paren">]</span></span>
+      <span class="den">(∫f²)²(<span class="sym d vec">n̂</span>·<span class="sym g vec">g</span>)<sup>4</sup></span>
+    </span>
+    <span class="op">=</span> 0
+  </div>
+
+  <div class="note-box"><span class="tag">Why it makes sense</span>
+  A 1-D gesture senses only the scalar <span style="font-family:var(--mono)"><span class="sym d vec">n̂</span>·<span class="sym g vec">g</span></span>. As geometry drifts, that scalar changes the signal's <em>amplitude</em> but never its <em>shape</em> f(t) — and correlation is amplitude-invariant, so <span class="sym k">r</span> stays pinned at 1.</div>
+</section>
+
+<!-- ===== 08 ===== -->
+<section class="step" id="s8">
+  <div class="lead"><span class="num">08</span> Multi-axis ⇒ κ &gt; 0</div>
+  <h2>Every extra dimension shrinks the window</h2>
+  <p>If <span class="sym d vec">d</span>(t) explores two or three dimensions (a star, a circle), <span class="sym d">M</span> is full-rank with spread eigenvalues, <span class="sym d">M</span><span class="sym g vec">g</span> and <span class="sym d">M</span><span class="sym g vec">w</span> are generally <em>not</em> parallel, and:</p>
+
+  <div class="eqn tight">
+    rank(<span class="sym d">M</span>) &gt; 1
+    <span style="display:inline-block;width:22px"></span>⟹<span style="display:inline-block;width:22px"></span>
+    <span class="sym d">M</span><span class="sym g vec">g</span> ∦ <span class="sym d">M</span><span class="sym g vec">w</span>
+    <span style="display:inline-block;width:22px"></span>⟹<span style="display:inline-block;width:22px"></span>
+    <span class="sym k">κ</span> &gt; 0.
+  </div>
+  <p>The signal <em>shape</em> — not just amplitude — changes with geometry, so correlation falls quadratically. The larger the eigenvalue spread of <span class="sym d">M</span>, the larger <span class="sym k">κ</span> and the tighter the window. The two probe gestures sit at the κ-extremes:</p>
+
+  <div class="symtable">
+    <table>
+      <thead><tr><th>gesture</th><th>character</th><th>M eigenvalues (norm.)</th><th>κ</th><th>window</th></tr></thead>
+      <tbody>
+        <tr><td class="sy" style="color:var(--d)">push</td><td>near single-axis</td><td style="font-family:var(--mono)">[1, 0.009, 0.008] (≈ rank-1)</td><td class="sy" style="color:var(--d)">≈ 0</td><td>wide</td></tr>
+        <tr><td class="sy" style="color:var(--k)">star</td><td>genuinely multi-axis</td><td style="font-family:var(--mono)">[1, 0.34, 0.28]</td><td class="sy" style="color:var(--k)">&gt; 0</td><td>tight (binding)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="cap">Eigenvalues are illustrative; the operative values are the <b>empirical</b> <span class="sym d">M</span> measured from recovered data.</p>
+</section>
+
+<!-- ===== 09 ===== -->
+<section class="step" id="s9">
+  <div class="lead"><span class="num">09</span> The usable window</div>
+  <h2>Turn κ into seconds: δt<sub>max</sub></h2>
+  <p>Fix a minimum acceptable correlation <span class="sym k">r<sub>min</sub></span>, set the parabola equal to it, and solve for the tolerable drift:</p>
+
+  <div class="eqn">
+    <span class="sym k">r<sub>min</sub></span> = 1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span><span class="sym k">κ</span> <span class="sym g">Δθ</span><sub>max</sub><sup>2</sup>
+    <span style="display:inline-block;width:26px"></span>⟹<span style="display:inline-block;width:26px"></span>
+    <span class="sym g">Δθ</span><sub>max</sub> =
+    <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2(1 − <span class="sym k">r<sub>min</sub></span>)</span><span class="den"><span class="sym k">κ</span></span></span></span></span>
+  </div>
+
+  <p>The differential LOS rotates at rate <span class="sym g">ω<sub>LOS</sub></span>, so <span class="sym g">Δθ</span> = <span class="sym g">ω<sub>LOS</sub></span>&thinsp;<span class="sym k">δt</span>, giving the headline formula:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k">δt<sub>max</sub></span>
+    <span class="op">=</span>
+    <span class="frac"><span class="num">1</span><span class="den"><span class="sym g">ω<sub>LOS</sub></span></span></span>
+    <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2(1 − <span class="sym k">r<sub>min</sub></span>)</span><span class="den"><span class="sym k">κ</span></span></span></span></span>
+    <span class="note">the window shrinks like κ<sup>−1/2</sup></span>
+  </div>
+  <p class="cap"><span class="sym k">δt<sub>max</sub></span> ∝ <span class="sym k">κ</span><sup>−1/2</sup>: push (<span class="sym k">κ</span>→0) → window limited by reproducibility, not geometry; star (finite <span class="sym k">κ</span>) → finite window. Here <span class="sym g">ω<sub>LOS</sub></span> ≈ 0.45°/min for GPS/BeiDou-MEO (set by orbital rate, nearly independent of elevation).</p>
+</section>
+
+<!-- ===== 10 ===== -->
+<section class="step" id="s10">
+  <div class="lead"><span class="num">10</span> Reproducibility floor</div>
+  <h2>Hands aren't machines: the floor α</h2>
+  <p>At <b>zero</b> geometry drift, two free-hand repetitions still are not identical: <span style="font-family:var(--mono)"><span class="sym k">r</span>(<span class="sym g">Δθ</span>=0) = <span class="sym k">α</span> &lt; 1</span>, the <b>reproducibility floor</b>, bounded above by the thermal/carrier-phase noise ceiling <span style="font-family:var(--mono)"><span class="sym k">r</span><sub>max</sub> ≈ 0.85</span>. The combined model multiplies the two effects:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k">r</span>(<span class="sym k">δt</span>)
+    <span class="op">≈</span>
+    <span class="sym k">α</span>
+    <span class="paren">(</span>1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span><span class="sym k">κ</span> <span class="sym g">ω<sub>LOS</sub></span><sup>2</sup> <span class="sym k">δt</span><sup>2</sup><span class="paren">)</span>
+    <span class="note">repeatability × geometry falloff</span>
+  </div>
+  <p class="cap">Free-hand <span class="sym k">α</span> ≈ 0.6 — well below the ~0.85 ceiling — buries the gentle geometry dip. Isolating <span class="sym k">κ</span> therefore requires <b>mechanically reproduced</b> gestures.</p>
+</section>
+
+<!-- ===== 11 ===== -->
+<section class="step" id="s11">
+  <div class="lead"><span class="num">11</span> Sidereal repeat</div>
+  <h2>Ask the sky to repeat itself</h2>
+  <p>Rather than wait for natural drift, revisit the geometry. GPS/BeiDou-MEO geometry recurs every <b>sidereal day</b>:</p>
+
+  <div class="eqn boxed">
+    <span class="sym g">T<sub>sid</sub></span> = 86164.0905 s
+    <span style="display:inline-block;width:20px"></span><span class="op">≈</span><span style="display:inline-block;width:20px"></span>
+    solar day − 3 m 56 s
+    <span class="note">GPS repeats in 1 sidereal day; GPS+BeiDou-MEO jointly every 7 sidereal days</span>
+  </div>
+
+  <p>Collect a reference at <span style="font-family:var(--mono)">T</span>, revisit at <span style="font-family:var(--mono)">T + <span class="sym g">T<sub>sid</sub></span> + ε</span> for a set of offsets ε. The induced drift is <span style="font-family:var(--mono)"><span class="sym g">Δθ</span> = <span class="sym g">ω<sub>LOS</sub></span>&thinsp;ε</span>, so sweeping ε traces <span class="sym k">r</span>(<span class="sym g">Δθ</span>) directly — compared against the predicted <span style="font-family:var(--mono)">1 − ½<span class="sym k">κ</span><span class="sym g">Δθ</span>²</span>.</p>
+</section>
+
+<!-- ===== result in one line ===== -->
+<section class="step" id="result">
+  <div class="lead"><span class="num">12</span> Result in one line</div>
+  <h2>The headline</h2>
+  <div class="headline">
+    <span class="tag">The whole derivation, compressed</span>
+    <p>The reproducible signal is <span style="font-family:var(--mono)"><span class="sym s">s<sub>i</sub></span>=<span class="sym g vec">g<sub>i</sub></span>·<span class="sym d vec">d</span></span>; correlation under drift is the <span class="sym d">M</span>-metric cosine of the geometry vectors, and it falls quadratically as <span style="font-family:var(--mono)"><span class="sym k">r</span> ≈ 1 − ½<span class="sym k">κ</span><span class="sym g">Δθ</span>²</span>.</p>
+    <p><b class="d">Single-axis gestures are geometry-robust</b> (<span class="sym k">κ</span>→0, rank-1 <span class="sym d">M</span>); <b class="k">every extra dimension shrinks the window like κ<sup>−1/2</sup></b>. Gesture <em>shape</em>, via the rank / eigenvalue-spread of <span class="sym d">M</span>, sets everything — and a reproducibility floor <span class="sym k">α</span> near the noise ceiling is what makes the geometric <span class="sym k">κ</span> measurable at all.</p>
+  </div>
+</section>
+
+<hr class="rule">
+
+<!-- ===== symbol table ===== -->
+<section class="step" id="symbols">
+  <div class="lead"><span class="num">Σ</span> Symbol table</div>
+  <h2>Every symbol, by color grammar</h2>
+  <div class="symtable">
+    <table>
+      <thead><tr><th>symbol</th><th>meaning</th></tr></thead>
+      <tbody>
+        <tr class="grouprow grp-d"><td colspan="2">Gesture — amber</td></tr>
+        <tr><td class="sy" style="color:var(--d)">d(t)</td><td>hand displacement trajectory ∈ ℝ³ — the gesture, over <span style="font-family:var(--mono)">[0, T<sub>g</sub>]</span></td></tr>
+        <tr><td class="sy" style="color:var(--d)">n̂</td><td>fixed unit direction of a single-axis gesture, <span style="font-family:var(--mono)">d = f(t) n̂</span></td></tr>
+        <tr><td class="sy" style="color:var(--d)">M</td><td>structure (scatter) matrix, <span style="font-family:var(--mono)">M = ∫ d dᵀ dt</span> — the gesture's shape</td></tr>
+
+        <tr class="grouprow grp-g"><td colspan="2">Geometry — cyan</td></tr>
+        <tr><td class="sy" style="color:var(--g)">ê<sub>i</sub></td><td>line-of-sight unit vector, antenna → satellite <span style="font-family:var(--mono)">i</span></td></tr>
+        <tr><td class="sy" style="color:var(--g)">ê<sub>ref</sub></td><td>LOS to the reference satellite used for single-differencing</td></tr>
+        <tr><td class="sy" style="color:var(--g)">λ</td><td>carrier wavelength (≈ 19 cm, GPS L1)</td></tr>
+        <tr><td class="sy" style="color:var(--g)">g<sub>i</sub></td><td>differential LOS sensitivity, <span style="font-family:var(--mono)">g<sub>i</sub> = (2π/λ)(ê<sub>i</sub> − ê<sub>ref</sub>)</span></td></tr>
+        <tr><td class="sy" style="color:var(--g)">Δθ</td><td>small LOS rotation angle over the elapsed interval (and Δt, the elapsed time)</td></tr>
+        <tr><td class="sy" style="color:var(--g)">Δg</td><td>drift of the sensitivity vector, <span style="font-family:var(--mono)">g<sub>B</sub> = g<sub>A</sub> + Δg</span></td></tr>
+        <tr><td class="sy" style="color:var(--g)">w</td><td>drift direction, <span style="font-family:var(--mono)">w = dg/dθ</span>, so <span style="font-family:var(--mono)">Δg = Δθ w</span></td></tr>
+        <tr><td class="sy" style="color:var(--g)">ω<sub>LOS</sub></td><td>apparent LOS rotation rate ≈ 0.45°/min (GPS/BeiDou-MEO)</td></tr>
+        <tr><td class="sy" style="color:var(--g)">T<sub>sid</sub></td><td>sidereal day, 86164.0905 s — the geometry-repeat period</td></tr>
+
+        <tr class="grouprow grp-k"><td colspan="2">Payoff — rose</td></tr>
+        <tr><td class="sy" style="color:var(--k)">κ</td><td>decorrelation curvature (dimensionless), <span style="font-family:var(--mono)">[(wᵀMw)(gᵀMg)−(gᵀMw)²]/(gᵀMg)²</span></td></tr>
+        <tr><td class="sy" style="color:var(--k)">δt<sub>max</sub></td><td>usable window, <span style="font-family:var(--mono)">ω<sub>LOS</sub>⁻¹ √(2(1−r<sub>min</sub>)/κ)</span></td></tr>
+        <tr><td class="sy" style="color:var(--k)">r<sub>min</sub></td><td>minimum acceptable correlation (the quality bar)</td></tr>
+        <tr><td class="sy" style="color:var(--k)">α</td><td>reproducibility floor, <span style="font-family:var(--mono)">r(Δθ=0)=α&lt;1</span>; free-hand ≈ 0.6, ceiling ≈ 0.85</td></tr>
+
+        <tr class="grouprow grp-s"><td colspan="2">Signal &amp; scalars — light</td></tr>
+        <tr><td class="sy" style="color:var(--s)">φ<sub>i</sub>(t)</td><td>measured carrier-phase perturbation on satellite <span style="font-family:var(--mono)">i</span></td></tr>
+        <tr><td class="sy" style="color:var(--s)">s<sub>i</sub>(t)</td><td>clean gesture signal, <span style="font-family:var(--mono)">s<sub>i</sub> = g<sub>i</sub>·d</span></td></tr>
+        <tr><td class="sy" style="color:var(--s)">r</td><td>normalized zero-lag correlation of two repetitions</td></tr>
+        <tr><td class="sy" style="color:var(--s)">a, b, c</td><td>quadratic pieces: <span style="font-family:var(--mono)">gᵀMg, gᵀMΔg, ΔgᵀMΔg</span></td></tr>
+        <tr><td class="sy" style="color:var(--s)">β, γ</td><td>normalized drift terms, <span style="font-family:var(--mono)">β = b/a (∼Δθ), γ = c/a (∼Δθ²)</span></td></tr>
+
+        <tr class="grouprow grp-x"><td colspan="2">Nuisance terms — muted</td></tr>
+        <tr><td class="sy" style="color:var(--muted)">c(t)</td><td>receiver clock error (common to all satellites; removed by single-differencing)</td></tr>
+        <tr><td class="sy" style="color:var(--muted)">ρ<sub>i</sub>(t)</td><td>smooth geometric range trend (removed by detrending)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <b>Geometry-decorrelation of GNSS carrier-phase gestures.</b><br>
+  Static derivation sheet — mirrors <a href="THEORY.md">THEORY.md</a> (canonical text). Interactive walkthrough: <a href="derivation-explainer.html">derivation-explainer.html</a>.<br>
+  Self-contained · no external resources · print-friendly.
+</footer>
+
+</main>
+</body>
+</html>
