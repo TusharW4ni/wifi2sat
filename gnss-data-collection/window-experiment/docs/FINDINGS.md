@@ -4,6 +4,11 @@ Honest end-to-end summary of the window/coherence analysis as of 2026-07-24.
 Companion to `ANALYSIS_PLAN.md` (the plan), `CHECKPOINT.md` (running state), and
 the per-phase GitHub issues (#2–#5). Bottom line up front, evidence below.
 
+> 🔎 **Want the illustrated version?** [`experiment-diagnostic.html`](experiment-diagnostic.html)
+> walks through *why* the measurement fails — the three compounding failures (α at the
+> null, amplitude-not-phase, time-confounding) with diagrams, plus the κ-vs-α and
+> reproducibility concept clarifications. This `.md` stays the terse evidence log.
+
 ## Bottom line
 
 On the **free-hand** data collected so far, the project's core thesis — that a hand
