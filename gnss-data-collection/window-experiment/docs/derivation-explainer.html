@@ -1,0 +1,1639 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An interactive derivation of the geometry-decorrelation curvature kappa behind the GNSS carrier-phase gesture window experiment.">
+<title>The κ Derivation — GNSS Carrier-Phase Gestures</title>
+<style>
+  :root{
+    --ground:#0F1230;
+    --panel:#171B47;
+    --panel-2:#1E2358;
+    --text:#ECEAF2;
+    --muted:#8A8FB5;
+    --line:rgba(255,255,255,.09);
+    --line-soft:rgba(255,255,255,.05);
+    /* semantic accents */
+    --d:#FFC15E;   /* gesture  */
+    --g:#55D6E6;   /* geometry */
+    --k:#FF74B0;   /* payoff   */
+    --s:#EDEBF6;   /* signal   */
+    --mono:ui-monospace,"SF Mono",Menlo,"Cascadia Code",Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --col:min(720px,92vw);
+    --wide:min(980px,94vw);
+  }
+
+  *{box-sizing:border-box}
+  /* themed scrollbars — match the indigo instrument console */
+  html{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
+  *{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin}
+  ::-webkit-scrollbar{width:13px;height:13px}
+  ::-webkit-scrollbar-track{background:var(--ground)}
+  ::-webkit-scrollbar-thumb{background:var(--panel-2);border-radius:10px;border:3px solid var(--ground)}
+  ::-webkit-scrollbar-thumb:hover{background:#333c86}
+  ::-webkit-scrollbar-corner{background:var(--ground)}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    margin:0;background:var(--ground);color:var(--text);
+    font-family:var(--sans);font-size:18px;line-height:1.72;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    overflow-x:hidden;
+  }
+  /* faint instrument grid behind everything */
+  body::before{
+    content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      linear-gradient(var(--line-soft) 1px,transparent 1px),
+      linear-gradient(90deg,var(--line-soft) 1px,transparent 1px);
+    background-size:44px 44px;
+    mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 78%);
+    -webkit-mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 78%);
+    opacity:.6;
+  }
+  main,header.bar,.hero{position:relative;z-index:1}
+
+  a{color:var(--g);text-decoration:none;border-bottom:1px solid rgba(85,214,230,.35)}
+  a:hover{border-bottom-color:var(--g)}
+  :focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:3px}
+
+  /* ---------- instrument bar ---------- */
+  header.bar{
+    position:sticky;top:0;z-index:50;
+    display:flex;align-items:center;gap:14px;
+    padding:10px clamp(14px,4vw,34px);
+    background:rgba(15,18,48,.82);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+    font-family:var(--mono);
+  }
+  .bar .dot{width:10px;height:10px;border-radius:50%;background:var(--k);
+    box-shadow:0 0 10px var(--k);flex:0 0 auto}
+  .bar .who{font-size:13px;letter-spacing:.08em;color:var(--text);white-space:nowrap}
+  .bar .who b{color:var(--k);font-weight:600}
+  .bar .prog{flex:1;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+  .bar .prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--g),var(--k));}
+  .bar button{
+    font-family:var(--mono);font-size:12px;letter-spacing:.06em;
+    color:var(--ground);background:var(--g);border:0;border-radius:6px;
+    padding:7px 11px;cursor:pointer;white-space:nowrap;font-weight:700;
+  }
+  .bar button:hover{filter:brightness(1.08)}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:88vh;display:flex;flex-direction:column;justify-content:center;
+    align-items:center;text-align:center;padding:40px clamp(16px,5vw,40px) 60px;
+    position:relative;overflow:hidden;
+  }
+  #skyHero{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.9}
+  .hero .inner{position:relative;z-index:1;max-width:820px}
+  .hero .eyebrow{
+    font-family:var(--mono);font-size:13px;letter-spacing:.32em;text-transform:uppercase;
+    color:var(--g);margin-bottom:22px;
+  }
+  .hero h1{
+    font-family:var(--mono);font-weight:600;line-height:1.06;
+    font-size:clamp(30px,6vw,60px);margin:0 0 8px;letter-spacing:-.01em;
+  }
+  .hero h1 .kap{color:var(--k)}
+  .hero .lede{
+    font-size:clamp(16px,2.2vw,21px);color:var(--text);opacity:.92;
+    max-width:640px;margin:22px auto 0;line-height:1.6;
+  }
+  .hero .lede b{color:var(--d);font-weight:600}
+  .hero .scrolltip{
+    margin-top:40px;font-family:var(--mono);font-size:12px;letter-spacing:.2em;
+    color:var(--muted);text-transform:uppercase;
+  }
+  .hero .scrolltip span{display:inline-block;animation:bob 2.2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
+  @media (prefers-reduced-motion:reduce){.hero .scrolltip span{animation:none}}
+
+  /* ---------- article ---------- */
+  main{padding-bottom:120px}
+  section.step{
+    max-width:var(--col);margin:0 auto;padding:64px 0 8px;scroll-margin-top:70px;
+  }
+  .step .eyebrow{
+    font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:14px;
+  }
+  .step .eyebrow .num{
+    color:var(--k);font-weight:700;font-size:14px;
+    border:1px solid rgba(255,116,176,.4);border-radius:6px;padding:2px 8px;
+  }
+  .step h2{
+    font-family:var(--mono);font-weight:600;font-size:clamp(23px,3.6vw,32px);
+    line-height:1.15;margin:0 0 20px;letter-spacing:-.01em;
+  }
+  .step h3{font-family:var(--mono);font-weight:600;font-size:19px;margin:34px 0 10px;color:var(--text)}
+  .step p{margin:15px 0}
+  .step ul{margin:14px 0;padding-left:22px}
+  .step li{margin:8px 0}
+  .muted{color:var(--muted)}
+
+  /* callouts */
+  .callout{
+    border-left:3px solid var(--g);background:rgba(85,214,230,.06);
+    padding:14px 18px;margin:22px 0;border-radius:0 8px 8px 0;font-size:16.5px;
+  }
+  .callout.intuition{border-left-color:var(--d);background:rgba(255,193,94,.06)}
+  .callout.honest{border-left-color:var(--k);background:rgba(255,116,176,.06)}
+  .callout .tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    display:block;margin-bottom:6px;color:var(--g);
+  }
+  .callout.intuition .tag{color:var(--d)}
+  .callout.honest .tag{color:var(--k)}
+
+  /* collapsible "how do we know" explainer */
+  details.explainer{border:1px solid var(--line);border-radius:10px;background:var(--panel);margin:22px 0;overflow:hidden}
+  details.explainer>summary{cursor:pointer;padding:13px 16px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:var(--g);list-style:none;display:flex;gap:10px;align-items:center}
+  details.explainer>summary::-webkit-details-marker{display:none}
+  details.explainer>summary::before{content:"▸";color:var(--g);transition:transform .15s}
+  details.explainer[open]>summary::before{transform:rotate(90deg)}
+  details.explainer .in{padding:4px 18px 18px;font-size:15.5px;color:var(--text);line-height:1.62;border-top:1px solid var(--line-soft)}
+  details.explainer .in p{margin:12px 0}
+  details.explainer .in ul{margin:10px 0}
+  .ctable{width:100%;border-collapse:collapse;margin:12px 0;font-size:14px}
+  .ctable th,.ctable td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line-soft)}
+  .ctable th{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .ctable td b{font-family:var(--mono);color:var(--g)}
+
+  /* ---------- math ---------- */
+  .eqn{
+    font-family:var(--mono);font-size:19px;line-height:2.1;
+    text-align:center;margin:26px 0;padding:8px 4px;
+    overflow-x:auto;overflow-y:hidden;
+  }
+  .eqn.boxed{
+    border:1px solid var(--line);border-radius:10px;background:var(--panel);
+    padding:20px 12px;
+  }
+  .eqn .note{display:block;font-family:var(--sans);font-size:13px;color:var(--muted);margin-top:6px}
+  sub,sup{font-size:.72em}
+  .frac{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .18em;line-height:1.25}
+  .frac>.num{border-bottom:1.6px solid currentColor;padding:0 .4em .1em}
+  .frac>.den{padding:.12em .4em 0}
+  .rad{display:inline-flex;align-items:flex-start;vertical-align:middle}
+  .rad>.sgn{font-size:1.35em;line-height:.9;margin-right:.02em}
+  .rad.tall>.sgn{font-size:2.5em;line-height:.7}
+  .rad>.bd{border-top:1.6px solid currentColor;padding:.16em .3em 0;margin-top:.14em}
+  .paren{font-size:1.1em;vertical-align:middle}
+  /* symbol color + hover-link */
+  .sym{border-radius:3px;padding:0 .05em;transition:background .12s,box-shadow .12s;cursor:help}
+  .sym.d{color:var(--d)} .sym.g{color:var(--g)} .sym.k{color:var(--k)} .sym.s{color:var(--s)}
+  .sym.x{color:var(--muted)}
+  .sym.hot{background:currentColor;color:var(--ground)!important;box-shadow:0 0 0 2px currentColor}
+  .vec{font-weight:700}
+  .op{color:var(--muted)}
+
+  /* ---------- interactive panels ---------- */
+  figure.panel{
+    max-width:var(--wide);margin:34px auto;padding:0;
+    border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    overflow:hidden;
+  }
+  figure.panel .head{
+    display:flex;align-items:center;gap:10px;justify-content:space-between;
+    padding:11px 16px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);
+    background:rgba(255,255,255,.02);
+  }
+  figure.panel .head .live{color:var(--k);display:flex;align-items:center;gap:7px}
+  figure.panel .head .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--k);box-shadow:0 0 8px var(--k);animation:pulse 1.8s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+  @media (prefers-reduced-motion:reduce){figure.panel .head .live::before{animation:none}}
+  figure.panel .stage{display:block;width:100%}
+  canvas{display:block;width:100%;touch-action:none}
+  .controls{
+    display:flex;flex-wrap:wrap;gap:16px 26px;align-items:center;
+    padding:15px 18px;border-top:1px solid var(--line);background:rgba(0,0,0,.15);
+  }
+  .ctl{display:flex;flex-direction:column;gap:5px;min-width:150px;flex:1}
+  .ctl label{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:10px}
+  .ctl label b{color:var(--text);font-weight:600}
+  input[type=range]{width:100%;accent-color:var(--g);height:22px;cursor:pointer}
+  .btnrow{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{
+    font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    background:var(--panel-2);color:var(--text);border:1px solid var(--line);
+    border-radius:7px;padding:7px 12px;cursor:pointer;
+  }
+  .chip:hover{border-color:var(--g)}
+  .chip.on{background:var(--d);color:var(--ground);border-color:var(--d);font-weight:700}
+  .chip.on.geo{background:var(--g)}
+  .readout{
+    display:flex;flex-wrap:wrap;gap:8px 26px;padding:13px 18px;border-top:1px solid var(--line);
+    font-family:var(--mono);font-size:14px;background:rgba(0,0,0,.22);
+  }
+  .readout .r{display:flex;gap:8px;align-items:baseline}
+  .readout .r .lab{color:var(--muted);font-size:12px;letter-spacing:.05em}
+  .readout .r .val{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
+  .readout .r .val.k{color:var(--k)} .readout .r .val.d{color:var(--d)} .readout .r .val.g{color:var(--g)}
+  figcaption{padding:12px 18px 16px;font-size:14px;color:var(--muted);line-height:1.55;border-top:1px solid var(--line-soft)}
+  figcaption b{color:var(--text)}
+
+  /* table */
+  .tbl{max-width:var(--col);margin:26px auto;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+  th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line)}
+  th{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  td b{font-family:var(--mono)}
+  tr td:first-child{color:var(--text)}
+  .pushrow td{background:rgba(255,193,94,.05)}
+  .starrow td{background:rgba(255,116,176,.05)}
+
+  /* ---------- symbol dock ---------- */
+  #dock{
+    position:fixed;top:0;right:0;height:100vh;width:340px;max-width:88vw;z-index:60;
+    background:var(--panel);border-left:1px solid var(--line);
+    transform:translateX(100%);transition:transform .28s cubic-bezier(.4,0,.2,1);
+    display:flex;flex-direction:column;box-shadow:-20px 0 50px rgba(0,0,0,.4);
+  }
+  #dock.open{transform:translateX(0)}
+  @media (prefers-reduced-motion:reduce){#dock{transition:none}}
+  #dock .dhead{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;border-bottom:1px solid var(--line);
+    font-family:var(--mono);font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--text);
+  }
+  #dock .dhead button{background:none;border:0;color:var(--muted);font-size:22px;cursor:pointer;line-height:1;padding:0 4px}
+  #dock .dhead button:hover{color:var(--text)}
+  #dock .dbody{overflow-y:auto;padding:8px 0 40px}
+  .grp{padding:10px 16px 4px}
+  .grp .glab{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+  .grp .glab::before{content:"";width:10px;height:10px;border-radius:3px}
+  .grp.gd .glab{color:var(--d)} .grp.gd .glab::before{background:var(--d)}
+  .grp.gg .glab{color:var(--g)} .grp.gg .glab::before{background:var(--g)}
+  .grp.gk .glab{color:var(--k)} .grp.gk .glab::before{background:var(--k)}
+  .grp.gs .glab{color:var(--s)} .grp.gs .glab::before{background:var(--s)}
+  .grp.gx .glab{color:var(--muted)} .grp.gx .glab::before{background:var(--muted)}
+  .sitem{display:grid;grid-template-columns:52px 1fr;gap:10px;padding:7px 4px;border-radius:7px;align-items:start}
+  .sitem:hover,.sitem.hot{background:var(--panel-2)}
+  .sitem .sy{font-family:var(--mono);font-weight:700;font-size:16px;text-align:center;padding-top:1px}
+  .grp.gd .sy{color:var(--d)} .grp.gg .sy{color:var(--g)} .grp.gk .sy{color:var(--k)} .grp.gs .sy{color:var(--s)} .grp.gx .sy{color:var(--muted)}
+  .sitem .sd{font-size:13.5px;line-height:1.45;color:var(--text)}
+  .sitem .sd em{color:var(--muted);font-style:normal}
+  #dockscrim{position:fixed;inset:0;background:rgba(6,7,20,.55);z-index:55;opacity:0;pointer-events:none;transition:opacity .28s}
+  #dockscrim.on{opacity:1;pointer-events:auto}
+
+  /* recap cards */
+  .recap{max-width:var(--wide);margin:30px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+  .rc{border:1px solid var(--line);border-radius:12px;padding:18px;background:var(--panel)}
+  .rc .n{font-family:var(--mono);color:var(--k);font-weight:700;font-size:13px;letter-spacing:.1em}
+  .rc p{margin:8px 0 0;font-size:15px;line-height:1.55}
+  .rc p b{color:var(--d)}
+
+  footer{max-width:var(--col);margin:60px auto 0;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:14px;font-family:var(--mono);line-height:1.7}
+  footer b{color:var(--text)}
+
+  @media (max-width:640px){
+    body{font-size:16.5px}
+    .eqn{font-size:16px}
+    .readout{font-size:12.5px}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <span class="dot" aria-hidden="true"></span>
+  <span class="who">GEOM-DECORRELATION&nbsp;·&nbsp;<b>κ</b>&nbsp;derivation</span>
+  <span class="prog" aria-hidden="true"><i id="progbar"></i></span>
+  <button id="dockBtn" aria-controls="dock" aria-expanded="false">Σ Symbols</button>
+</header>
+
+<div class="hero">
+  <canvas id="skyHero" aria-hidden="true"></canvas>
+  <div class="inner">
+    <div class="eyebrow">A derivation, built from scratch</div>
+    <h1>How long does a gesture stay legible<br>as the sky drifts overhead? <span class="kap">κ</span></h1>
+    <p class="lede">A hand near a fixed GPS antenna bends the satellite signal. Do the <b>same gesture</b> a few minutes later and the satellites have quietly moved. This lecture derives — one honest step at a time — exactly how fast that motion erases the gesture, and why some gestures shrug it off while others fall apart. The whole answer collapses into a single number.</p>
+    <div class="scrolltip"><span>↓ &nbsp; scroll to begin &nbsp; ↓</span></div>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ 00 ============ -->
+<section class="step" id="s0">
+  <div class="eyebrow"><span class="num">00</span> The one-paragraph map</div>
+  <h2>Where we're going</h2>
+  <p>We start with a physical fact — a hand shifts the phase of a satellite signal — and end with a formula for the <em>usable time window</em> of a gesture. The road has five landmarks, and every symbol you meet lives in the <b>Σ Symbols</b> panel (top-right) so you never have to scroll back. Hover any colored symbol in the text or equations to light up its siblings.</p>
+  <ul>
+    <li><span class="sym g" data-sym="e">ê</span> <b>Geometry</b> — where the satellites are, and how that turns hand-motion into phase.</li>
+    <li><span class="sym s" data-sym="s">s</span> <b>The clean signal</b> — strip away everything that isn't the gesture.</li>
+    <li><span class="sym d" data-sym="M">M</span> <b>Gesture shape</b> — compress a 3-D path into one matrix.</li>
+    <li><span class="sym k" data-sym="kappa">κ</span> <b>The curvature</b> — one number that says how fast reproducibility dies.</li>
+    <li><span class="sym k" data-sym="dt">δt</span> <b>The window</b> — turn κ into seconds and minutes.</li>
+  </ul>
+  <div class="callout intuition"><span class="tag">The whole idea in one breath</span>
+  A gesture is a little 3-D shape. Each satellite sees a flattened <em>shadow</em> of that shape. As satellites drift, the direction of the shadow rotates. If the shape is a straight line, its shadow only changes length — harmless. If the shape is a 2-D or 3-D blob, its shadow changes <em>form</em> — and the signal stops matching itself. κ measures exactly that.</div>
+</section>
+
+<!-- ============ 01 ============ -->
+<section class="step" id="s1">
+  <div class="eyebrow"><span class="num">01</span> The physical picture</div>
+  <h2>A hand is a moving mirror</h2>
+  <p>A GNSS satellite is ~20,000 km away, so its radio wave arrives as essentially <em>parallel rays</em>. The antenna is bolted down — it never moves. When your hand comes near, the wave can also bounce off your skin and reach the antenna by a slightly longer, second path. This bonus path is <b>multipath</b>, and it interferes with the direct wave.</p>
+  <p>The carrier wave is a pure sinusoid with wavelength <span class="sym g" data-sym="lam">λ</span> ≈ 19&nbsp;cm (GPS L1). The receiver measures the wave's <em>phase</em> to a fraction of a millimeter. So even a small change in the reflected path length shows up as a measurable phase wiggle. Move your hand, change the extra path, wiggle the phase — that wiggle <em>is</em> the gesture.</p>
+  <p>Here's the key simplification. Because the incoming rays are parallel, when your hand moves by a displacement <span class="sym d vec" data-sym="d">d</span>, the extra path length changes by the <em>projection of that motion onto the line-of-sight direction</em> <span class="sym g vec" data-sym="e">ê</span>. Motion along the ray matters fully; motion across the ray barely matters. Drag the hand below and watch it.</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 1 · multipath projection</span><span class="live">drag the hand</span></div>
+    <canvas id="cvProj" class="stage" height="360" aria-label="Interactive: drag a hand near an antenna to see the line-of-sight projection of its motion"></canvas>
+    <div class="readout">
+      <span class="r"><span class="lab">hand offset</span><span class="val d" id="pj_off">0.0 cm</span></span>
+      <span class="r"><span class="lab">along-LOS part (ê·d)</span><span class="val g" id="pj_proj">0.0 cm</span></span>
+      <span class="r"><span class="lab">phase shift</span><span class="val" id="pj_phase">0.0 cyc</span></span>
+    </div>
+    <figcaption>The dashed cyan ray is the line of sight to the satellite. Only the component of the hand's motion <b>along</b> that ray (the cyan projection) changes the path length — and therefore the phase. Slide across the ray and the phase barely moves; slide along it and the phase races. That's the whole reason geometry matters.</figcaption>
+  </figure>
+
+  <div class="callout"><span class="tag">Why projection?</span>
+  For far-away parallel rays, the extra distance the reflected wave travels when the mirror moves by <span class="sym d vec" data-sym="d">d</span> is <span class="sym g vec" data-sym="e">ê</span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span> — a dot product. Dot product = "how much of this points along that." A displacement perpendicular to the ray contributes zero to first order. Hold that thought; it becomes the entire model in the next step.</div>
+</section>
+
+<!-- ============ 02 ============ -->
+<section class="step" id="s2">
+  <div class="eyebrow"><span class="num">02</span> The signal model</div>
+  <h2>Write down what the receiver sees</h2>
+  <p>Putting the projection idea into a formula: the phase perturbation the receiver records on satellite <span class="sym g" data-sym="i">i</span> is</p>
+
+  <div class="eqn boxed">
+    <span class="sym s" data-sym="phi">φ<sub>i</sub></span>(t)
+    <span class="op">≈</span>
+    <span class="frac"><span class="num">2π</span><span class="den"><span class="sym g" data-sym="lam">λ</span></span></span>
+    <span class="sym g vec" data-sym="e">ê<sub>i</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>(t)
+    <span class="op">+</span> <span class="sym x" data-sym="c">c(t)</span>
+    <span class="op">+</span> <span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span>
+    <span class="op">+</span> <span class="sym x" data-sym="noise">noise</span>
+    <span class="note">measured phase = gesture term + receiver clock + range trend + noise</span>
+  </div>
+
+  <p>Read it left to right:</p>
+  <ul>
+    <li><span class="frac" style="font-size:15px"><span class="num">2π</span><span class="den"><span class="sym g" data-sym="lam">λ</span></span></span> <span class="sym g vec" data-sym="e">ê<sub>i</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>(t) — <b>the gesture.</b> The <sup>2π</sup>⁄<sub>λ</sub> converts a length into radians of phase (one wavelength = one full turn = 2π). This is the only term we want.</li>
+    <li><span class="sym x" data-sym="c">c(t)</span> — the <b>receiver clock</b> error. The receiver's cheap clock drifts, and this adds the <em>same</em> phase to <em>every</em> satellite at once.</li>
+    <li><span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span> — the <b>range trend.</b> The satellite is genuinely moving through the sky, so the true distance changes slowly and smoothly over our few-second window.</li>
+    <li><span class="sym x" data-sym="noise">noise</span> — thermal and tracking noise.</li>
+  </ul>
+  <p>Three of these four are nuisances. The next step kills them both cleanly — and the trick is almost embarrassingly simple.</p>
+</section>
+
+<!-- ============ 03 ============ -->
+<section class="step" id="s3">
+  <div class="eyebrow"><span class="num">03</span> Peel away the nuisances</div>
+  <h2>Two subtractions and the gesture pops out</h2>
+
+  <h3>Single-differencing kills the clock</h3>
+  <p>The clock error <span class="sym x" data-sym="c">c(t)</span> is <em>identical</em> on every satellite (it's the receiver's clock, not the satellite's). So pick one satellite as a reference and subtract its phase from everyone else's. The clock term is common, so it cancels — exactly, for free. This is <b>single-differencing</b>.</p>
+
+  <h3>Detrending kills the range trend</h3>
+  <p>The range trend <span class="sym x" data-sym="rho">ρ<sub>i</sub>(t)</span> is smooth and slow — over a 3-second window it looks like a gentle parabola. A gesture is a fast wiggle on top. Fit a low-order polynomial (2nd or 3rd order) to each satellite's window and subtract it. The slow trend leaves; the fast gesture stays. This is <b>detrending</b>.</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 2 · peeling the phase apart</span><span class="live">toggle the layers</span></div>
+    <canvas id="cvPeel" class="stage" height="330" aria-label="Interactive: toggle clock, range trend, and noise to reveal the gesture signal"></canvas>
+    <div class="controls">
+      <div class="btnrow" id="peelBtns">
+        <button class="chip on" data-layer="clock">+ clock c(t)</button>
+        <button class="chip on" data-layer="trend">+ range trend ρ(t)</button>
+        <button class="chip on" data-layer="noise">+ noise</button>
+      </div>
+    </div>
+    <figcaption>The white trace is what the receiver logs. Switch off <b>clock</b> (single-difference) and <b>trend</b> (detrend) and the raw mess collapses onto the amber gesture underneath. That amber curve is the thing we actually study.</figcaption>
+  </figure>
+
+  <p>After both subtractions, the four-term equation becomes gloriously short:</p>
+
+  <div class="eqn boxed">
+    <span class="sym s" data-sym="s">s<sub>i</sub></span>(t)
+    <span class="op">=</span>
+    <span class="sym g vec" data-sym="g">g<sub>i</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>(t)
+    <span style="display:inline-block;width:34px"></span>
+    <span class="sym g vec" data-sym="g">g<sub>i</sub></span>
+    <span class="op">=</span>
+    <span class="frac"><span class="num">2π</span><span class="den"><span class="sym g" data-sym="lam">λ</span></span></span>
+    <span class="paren">(</span><span class="sym g vec" data-sym="e">ê<sub>i</sub></span> <span class="op">−</span> <span class="sym g vec" data-sym="e">ê<sub>ref</sub></span><span class="paren">)</span>
+    <span class="note">clean gesture signal = differential sensitivity vector · hand displacement</span>
+  </div>
+
+  <p>That's the workhorse of the whole project. The clean signal on satellite <span class="sym g" data-sym="i">i</span> is a simple dot product: a fixed <b>sensitivity vector</b> <span class="sym g vec" data-sym="g">g<sub>i</sub></span> dotted with the moving hand <span class="sym d vec" data-sym="d">d</span>(t). Everything about <em>the sky</em> is baked into <span class="sym g vec" data-sym="g">g<sub>i</sub></span> — it's the difference of two line-of-sight vectors, scaled by <sup>2π</sup>⁄<sub>λ</sub>. Everything about <em>the gesture</em> is in <span class="sym d vec" data-sym="d">d</span>(t).</p>
+
+  <div class="callout intuition"><span class="tag">Mental model</span>
+  <span class="sym g vec" data-sym="g">g<sub>i</sub></span> is a fixed arrow in space — a "camera direction." <span class="sym s" data-sym="s">s<sub>i</sub></span>(t) is what that one camera sees of the gesture: its 1-D shadow. Different satellites are cameras pointing from different angles, each recording a different shadow of the same hand motion.</div>
+</section>
+
+<!-- ============ 04 ============ -->
+<section class="step" id="s4">
+  <div class="eyebrow"><span class="num">04</span> Do it again, later</div>
+  <h2>How similar are two repetitions?</h2>
+  <p>Now the real question. Perform the <em>same</em> gesture <span class="sym d vec" data-sym="d">d</span>(t) at time A, then again at time B, <span class="sym g" data-sym="dtheta">Δt</span> later. In between, the satellites have crept across the sky, so each sensitivity vector rotates: <span class="sym g vec" data-sym="g">g<sub>A</sub></span> → <span class="sym g vec" data-sym="g">g<sub>B</sub></span>. Do the two recorded signals still look alike?</p>
+  <p>We measure "alike" with the <b>correlation</b> <span class="sym k" data-sym="r">r</span> — the normalized overlap of the two waveforms. r = 1 means identical shape; r = 0 means unrelated. Crucially, correlation ignores overall size: a signal and a scaled copy of it correlate at r = 1. Remember that; it's the punchline later.</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="r">r</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">∫ <span class="sym s" data-sym="s">s<sub>A</sub></span> <span class="sym s" data-sym="s">s<sub>B</sub></span> dt</span>
+      <span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">∫ <span class="sym s" data-sym="s">s<sub>A</sub></span><sup>2</sup> dt</span></span> · <span class="rad"><span class="sgn">√</span><span class="bd">∫ <span class="sym s" data-sym="s">s<sub>B</sub></span><sup>2</sup> dt</span></span></span>
+    </span>
+    <span class="note">zero-lag correlation over the gesture window</span>
+  </div>
+
+  <p>Substitute <span class="sym s" data-sym="s">s</span> = <span class="sym g vec" data-sym="g">g</span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span> and something beautiful happens. Look at a single overlap integral:</p>
+
+  <div class="eqn">
+    ∫ (<span class="sym g vec" data-sym="g">g<sub>A</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>)(<span class="sym g vec" data-sym="g">g<sub>B</sub></span><span class="op">·</span><span class="sym d vec" data-sym="d">d</span>) dt
+    <span class="op">=</span>
+    <span class="sym g vec" data-sym="g">g<sub>A</sub></span><sup>⊤</sup>
+    <span class="paren">(</span>∫ <span class="sym d vec" data-sym="d">d</span> <span class="sym d vec" data-sym="d">d</span><sup>⊤</sup> dt<span class="paren">)</span>
+    <span class="sym g vec" data-sym="g">g<sub>B</sub></span>
+    <span class="op">=</span>
+    <span class="sym g vec" data-sym="g">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d" data-sym="M">M</span> <span class="sym g vec" data-sym="g">g<sub>B</sub></span>
+  </div>
+
+  <p>The g-vectors are constants, so they slide out of the time integral, and everything about the gesture collects into one 3×3 matrix in the middle. Meet the star of the show:</p>
+
+  <div class="eqn boxed">
+    <span class="sym d" data-sym="M">M</span>
+    <span class="op">=</span>
+    ∫<sub>0</sub><sup>T<sub>g</sub></sup>
+    <span class="sym d vec" data-sym="d">d</span>(t)&thinsp;<span class="sym d vec" data-sym="d">d</span>(t)<sup>⊤</sup> dt
+    <span class="note">the structure matrix — the gesture's shape, frozen into one 3×3 matrix</span>
+  </div>
+
+  <h3>What is M, really?</h3>
+  <p><span class="sym d" data-sym="M">M</span> is the <b>scatter matrix</b> of the trajectory — statistically, its covariance (up to scale). It answers "which directions did the hand actually explore, and how much?" Picture it as an <b>ellipsoid</b>: a long thin cigar if the gesture is basically a straight line; a round ball if the gesture roams in all directions. Its eigenvectors are the gesture's principal axes; its eigenvalues are how far it traveled along each.</p>
+
+  <p>With M in hand, the messy correlation of waveforms becomes a clean piece of geometry — the <b>generalized cosine</b> between the two sensitivity vectors, measured <em>in the metric M</em>:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="r">r</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num"><span class="sym g vec" data-sym="g">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d" data-sym="M">M</span> <span class="sym g vec" data-sym="g">g<sub>B</sub></span></span>
+      <span class="den"><span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym g vec" data-sym="g">g<sub>A</sub></span><sup>⊤</sup> <span class="sym d" data-sym="M">M</span> <span class="sym g vec" data-sym="g">g<sub>A</sub></span></span></span> · <span class="rad"><span class="sgn">√</span><span class="bd"><span class="sym g vec" data-sym="g">g<sub>B</sub></span><sup>⊤</sup> <span class="sym d" data-sym="M">M</span> <span class="sym g vec" data-sym="g">g<sub>B</sub></span></span></span></span>
+    </span>
+  </div>
+
+  <div class="callout"><span class="tag">The load-bearing sentence</span>
+  <b>Ordinary</b> cosine of two vectors is <span style="font-family:var(--mono)">g<sub>A</sub>·g<sub>B</sub> / (|g<sub>A</sub>||g<sub>B</sub>|)</span>. This is the same thing, but distances and angles are warped by <span class="sym d" data-sym="M">M</span> — the gesture's shape decides which directions "count." <b>All the geometry drift is in <span class="sym g vec" data-sym="g">g<sub>A</sub></span>→<span class="sym g vec" data-sym="g">g<sub>B</sub></span>; all the gesture shape is in <span class="sym d" data-sym="M">M</span>.</b> The rest of the derivation is just watching this cosine fall as the sky rotates <span class="sym g vec" data-sym="g">g<sub>A</sub></span> into <span class="sym g vec" data-sym="g">g<sub>B</sub></span>.</div>
+</section>
+
+<!-- ============ 05 ============ -->
+<section class="step" id="s5">
+  <div class="eyebrow"><span class="num">05</span> The small-drift expansion</div>
+  <h2>Squeeze out the one number: κ</h2>
+  <p>Over a few minutes the sky barely moves, so <span class="sym g vec" data-sym="g">g<sub>B</sub></span> is only a little different from <span class="sym g vec" data-sym="g">g<sub>A</sub></span>. Write the difference as <span class="sym g vec" data-sym="dg">Δg</span> and expand the cosine for small drift. This is the mathematical heart of the whole project — so we'll go one line at a time. Toggle the algebra if you want every step.</p>
+
+  <p>Write <span class="sym g vec" data-sym="g">g<sub>B</sub></span> = <span class="sym g vec" data-sym="g">g<sub>A</sub></span> + <span class="sym g vec" data-sym="dg">Δg</span>, and name the three quadratic pieces that appear:</p>
+
+  <div class="eqn">
+    <span class="sym s" data-sym="abc">a</span> = <span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span>
+    <span style="display:inline-block;width:26px"></span>
+    <span class="sym s" data-sym="abc">b</span> = <span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="dg">Δg</span>
+    <span style="display:inline-block;width:26px"></span>
+    <span class="sym s" data-sym="abc">c</span> = <span class="sym g vec" data-sym="dg">Δg</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="dg">Δg</span>
+    <span class="note">a is order 1 · b is order Δθ · c is order Δθ²</span>
+  </div>
+
+  <div id="algebra" hidden>
+    <p class="muted" style="font-size:15px">The numerator is <span style="font-family:var(--mono)">a + b</span>. The denominator's second factor is <span style="font-family:var(--mono)">√(a + 2b + c)</span>. So, dividing top and bottom by <span style="font-family:var(--mono)">a</span> and writing <span class="sym s" data-sym="bg">β</span>=b/a, <span class="sym s" data-sym="bg">γ</span>=c/a:</p>
+    <div class="eqn">
+      <span class="sym k" data-sym="r">r</span> =
+      <span class="frac"><span class="num">a+b</span><span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">a</span></span> <span class="rad"><span class="sgn">√</span><span class="bd">a+2b+c</span></span></span></span>
+      =
+      <span class="frac"><span class="num">1+<span class="sym s" data-sym="bg">β</span></span><span class="den"><span class="rad"><span class="sgn">√</span><span class="bd">1+2<span class="sym s" data-sym="bg">β</span>+<span class="sym s" data-sym="bg">γ</span></span></span></span></span>
+    </div>
+    <p class="muted" style="font-size:15px">Taylor-expand the square root to second order — <span style="font-family:var(--mono)">√(1+x) ≈ 1 + x/2 − x²/8</span> — then multiply out and keep terms up to Δθ². The order-Δθ terms cancel exactly, leaving:</p>
+  </div>
+
+  <div class="eqn">
+    <span class="sym k" data-sym="r">r</span>
+    <span class="op">≈</span>
+    1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="paren">(</span><span class="sym s" data-sym="bg">γ</span> − <span class="sym s" data-sym="bg">β</span><sup>2</sup><span class="paren">)</span>
+    <span style="display:inline-block;width:26px"></span>⟹<span style="display:inline-block;width:26px"></span>
+    1 − <span class="sym k" data-sym="r">r</span>
+    <span class="op">≈</span>
+    <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="frac"><span class="num"><span class="sym s" data-sym="abc">c</span>&thinsp;<span class="sym s" data-sym="abc">a</span> − <span class="sym s" data-sym="abc">b</span><sup>2</sup></span><span class="den"><span class="sym s" data-sym="abc">a</span><sup>2</sup></span></span>
+  </div>
+
+  <p>Last move: the drift is a rotation by a tiny angle <span class="sym g" data-sym="dtheta">Δθ</span>, so <span class="sym g vec" data-sym="dg">Δg</span> = <span class="sym g" data-sym="dtheta">Δθ</span>&thinsp;<span class="sym g vec" data-sym="w">w</span>, where <span class="sym g vec" data-sym="w">w</span> = d<span class="sym g vec" data-sym="g">g</span>/d<span class="sym g" data-sym="dtheta">θ</span> is the fixed direction the sensitivity vector drifts in. Plug that in and the <span class="sym g" data-sym="dtheta">Δθ</span> factors pull out front:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="r">r</span>
+    <span class="op">≈</span>
+    1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+    <span class="sym k" data-sym="kappa">κ</span> <span class="sym g" data-sym="dtheta">Δθ</span><sup>2</sup>
+    <span style="display:inline-block;width:40px"></span>
+    <span class="sym k" data-sym="kappa">κ</span>
+    <span class="op">=</span>
+    <span class="frac">
+      <span class="num">(<span class="sym g vec" data-sym="w">w</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span>)(<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span>) − (<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span>)<sup>2</sup></span>
+      <span class="den">(<span class="sym g vec" data-sym="g">g</span><sup>⊤</sup><span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span>)<sup>2</sup></span>
+    </span>
+    <span class="note">decorrelation is quadratic in drift — and κ is the curvature of that parabola</span>
+  </div>
+
+  <div class="btnrow" style="justify-content:center;margin:8px 0 26px"><button class="chip" id="algToggle">▸ show the algebra between the lines</button></div>
+
+  <p>That's it — the entire theoretical payoff. Correlation starts at 1 and falls off <b>quadratically</b> (like a parabola, not a straight line) as the sky drifts, and the steepness of that parabola is a single dimensionless number <span class="sym k" data-sym="kappa">κ</span> built only from the gesture shape <span class="sym d" data-sym="M">M</span> and the geometry vectors <span class="sym g vec" data-sym="g">g</span>, <span class="sym g vec" data-sym="w">w</span>.</p>
+
+  <p>Now play with it. The panel below is the whole theorem made touchable. It's a 2-D slice (easier to see than 3-D, same math). The amber ellipse <em>is</em> <span class="sym d" data-sym="M">M</span> — drag the <b>shape</b> slider to squash it from a round "star" to a thin "push." The cyan arrow is <span class="sym g vec" data-sym="g">g</span>; the <b>drift</b> slider rotates it by <span class="sym g" data-sym="dtheta">Δθ</span>. Watch the true correlation <span class="sym k" data-sym="r">r</span> and its parabola prediction track each other, and watch <span class="sym k" data-sym="kappa">κ</span> respond.</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 3 · the κ playground</span><span class="live">the whole theorem</span></div>
+    <canvas id="cvKap" class="stage" height="380" aria-label="Interactive: adjust gesture shape and geometry drift to see correlation and curvature"></canvas>
+    <div class="controls">
+      <div class="ctl">
+        <label>gesture shape (round ↔ thin) <b id="kap_rho_l">0.40</b></label>
+        <input type="range" id="kap_rho" min="0" max="100" value="60">
+      </div>
+      <div class="ctl">
+        <label>gesture tilt ψ <b id="kap_psi_l">25°</b></label>
+        <input type="range" id="kap_psi" min="0" max="180" value="25">
+      </div>
+      <div class="ctl">
+        <label>geometry drift Δθ <b id="kap_dt_l">18°</b></label>
+        <input type="range" id="kap_dt" min="0" max="70" value="18">
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>presets</label>
+        <div class="btnrow"><button class="chip" id="kap_push">↦ push (thin)</button><button class="chip" id="kap_star">✷ star (round)</button></div>
+      </div>
+    </div>
+    <div class="readout">
+      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="kap_k">—</span></span>
+      <span class="r"><span class="lab">true r</span><span class="val" id="kap_rt">—</span></span>
+      <span class="r"><span class="lab">parabola 1−½κΔθ²</span><span class="val" id="kap_ra">—</span></span>
+    </div>
+    <figcaption>Left: the gesture shape <b>M</b> (amber ellipse) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). Right: correlation vs drift. Squash M to a line and the curve goes <b>flat — κ→0, the gesture is geometry-proof.</b> Round M out and the curve dives — κ grows, reproducibility dies fast. The dashed rose parabola is the small-drift prediction; note how it hugs the true curve near zero and drifts off far out (the approximation is only for <em>small</em> drift).</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 06 ============ -->
+<section class="step" id="s6">
+  <div class="eyebrow"><span class="num">06</span> Two facts about κ</div>
+  <h2>It's never negative — and it can be exactly zero</h2>
+
+  <h3>κ ≥ 0 always (correlation can only get worse)</h3>
+  <p>Look back at the numerator of κ: <span style="font-family:var(--mono)">(w<sup>⊤</sup>Mw)(g<sup>⊤</sup>Mg) − (g<sup>⊤</sup>Mw)²</span>. That's exactly the <b>Cauchy–Schwarz inequality</b> in the M-metric: for any two vectors, (their M-inner-product)² ≤ (each M-length)². So the numerator is ≥ 0, and κ ≥ 0. Drift can never <em>increase</em> the correlation — which matches intuition: the sky wandering off can only make a repeat look less like the original, never more.</p>
+
+  <h3>κ = 0 exactly when the gesture is one straight line</h3>
+  <p>This is the whole headline, and it drops out in three lines. If the gesture moves along a single fixed direction <span class="sym d vec" data-sym="n">n̂</span>, then <span class="sym d vec" data-sym="d">d</span>(t) = f(t)&thinsp;<span class="sym d vec" data-sym="n">n̂</span> and the structure matrix collapses to <b>rank 1</b>:</p>
+
+  <div class="eqn boxed">
+    <span class="sym d" data-sym="M">M</span> = <span class="paren">(</span>∫ f<sup>2</sup> dt<span class="paren">)</span> <span class="sym d vec" data-sym="n">n̂</span> <span class="sym d vec" data-sym="n">n̂</span><sup>⊤</sup>
+    <span class="note">a single-axis gesture — the cigar collapsed to a needle</span>
+  </div>
+
+  <p>The magic property of a rank-1 matrix: <span class="sym d" data-sym="M">M</span> times <em>anything</em> points along <span class="sym d vec" data-sym="n">n̂</span>. So <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="g">g</span> and <span class="sym d" data-sym="M">M</span><span class="sym g vec" data-sym="w">w</span> are <em>parallel</em>. Feed that into κ's numerator and the two terms become identical — they subtract to exactly zero:</p>
+
+  <div class="eqn">
+    <span class="sym k" data-sym="kappa">κ</span><sub>1D</sub> ∝ (<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="w">w</span>)<sup>2</sup>(<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="g">g</span>)<sup>2</sup> − (<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="g">g</span>)<sup>2</sup>(<span class="sym d vec" data-sym="n">n̂</span>·<span class="sym g vec" data-sym="w">w</span>)<sup>2</sup> = 0
+  </div>
+
+  <div class="callout intuition"><span class="tag">Why this makes physical sense</span>
+  A straight-line gesture is a single camera-shadow: the satellite only ever sees the scalar <span style="font-family:var(--mono)">n̂·g</span> times the fixed waveform f(t). When the sky drifts, that scalar changes — but it only rescales the <em>amplitude</em> of f(t); the <em>shape</em> is untouched. And correlation ignores amplitude (Step 04). So r stays pinned at 1. A round gesture instead paints a 2-D shadow whose <em>shape</em> morphs as g rotates — and that's what correlation punishes. <b>Dimension of the gesture, not its size, sets the window.</b></div>
+
+  <p>Confirm it yourself in Fig 3: drag the shape slider all the way to "thin." As the ellipse becomes a needle, κ crashes toward 0 and the correlation curve flattens into a horizontal line — no matter how far you push the drift slider.</p>
+</section>
+
+<!-- ============ 07 ============ -->
+<section class="step" id="s7">
+  <div class="eyebrow"><span class="num">07</span> The two probe gestures</div>
+  <h2>Push and star: the κ extremes</h2>
+  <p>The experiment uses two gestures chosen to sit at opposite ends of the κ scale, so everything else falls in between. Their structure matrices were measured from real recovered data; the eigenvalues below are the (normalized) spreads of <span class="sym d" data-sym="M">M</span> along its three axes.</p>
+
+  <div class="tbl">
+    <table>
+      <thead><tr><th>gesture</th><th>character</th><th>M eigenvalues (norm.)</th><th>κ</th><th>window</th></tr></thead>
+      <tbody>
+        <tr class="pushrow"><td><b>push</b></td><td>near single-axis</td><td><b>[1, 0.009, 0.008]</b></td><td><b style="color:var(--d)">≈ 0</b></td><td>wide (geometry-proof)</td></tr>
+        <tr class="starrow"><td><b>star</b></td><td>genuinely multi-axis</td><td><b>[1, 0.34, 0.28]</b></td><td><b style="color:var(--k)">&gt; 0</b></td><td>tight (the binding limit)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Push is almost pure rank-1 — its second and third eigenvalues are under 1% of the first, so it's a needle, and κ ≈ 0. Star spreads a third of its energy into the off-axes, so <span class="sym d" data-sym="M">M</span> is fat, κ is finite, and the signal decorrelates quadratically. The ratio of their windows is set entirely by <span style="font-family:var(--mono)">√(κ<sub>star</sub>/κ<sub>push</sub>)</span> — pure geometry of the two shapes.</p>
+
+  <div class="callout intuition"><span class="tag">The prediction this makes</span>
+  If the theory is right, a classifier trained at one time-of-day and tested later should fail <b>gesture-by-gesture, not uniformly</b>: push should survive geometry drift, star should collapse first. That gesture-shape-dependent failure is the signature the experiment hunts for.</div>
+</section>
+
+<!-- ============ 08 ============ -->
+<section class="step" id="s8">
+  <div class="eyebrow"><span class="num">08</span> From κ to a stopwatch</div>
+  <h2>The usable window δt<sub>max</sub></h2>
+  <p>κ is dimensionless. To get a <em>time</em>, we need two more facts: how much correlation we're willing to lose, and how fast the sky actually rotates.</p>
+  <p>Pick a minimum acceptable correlation <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Set the parabola equal to it and solve for the drift you can tolerate:</p>
+
+  <div class="eqn">
+    <span class="sym k" data-sym="rmin">r<sub>min</sub></span> = 1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span><span class="sym k" data-sym="kappa">κ</span> <span class="sym g" data-sym="dtheta">Δθ</span><sub>max</sub><sup>2</sup>
+    <span style="display:inline-block;width:26px"></span>⟹<span style="display:inline-block;width:26px"></span>
+    <span class="sym g" data-sym="dtheta">Δθ</span><sub>max</sub> =
+    <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2(1 − <span class="sym k" data-sym="rmin">r<sub>min</sub></span>)</span><span class="den"><span class="sym k" data-sym="kappa">κ</span></span></span></span></span>
+  </div>
+
+  <p>The sensitivity vector rotates at a steady rate <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0.45°/min — and here's the key point: <b>this is not a knob you turn.</b> It's fixed by how fast the satellites orbit, which you can't change. What you <em>can</em> change is <em>which constellation</em> you track, because different orbits move at different speeds. Since drift = rate × time, <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;<span class="sym k" data-sym="dt">δt</span>, and the window is:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="dt">δt<sub>max</sub></span>
+    <span class="op">=</span>
+    <span class="frac"><span class="num">1</span><span class="den"><span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span></span></span>
+    <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2(1 − <span class="sym k" data-sym="rmin">r<sub>min</sub></span>)</span><span class="den"><span class="sym k" data-sym="kappa">κ</span></span></span></span></span>
+    <span class="note">the headline formula: window shrinks like 1/√κ</span>
+  </div>
+
+  <details class="explainer">
+    <summary>How do we actually know ω<sub>LOS</sub> ≈ 0.45°/min? (and is it the same for every satellite?)</summary>
+    <div class="in">
+      <p><b>Two independent ways — one from physics, one from the data itself.</b></p>
+      <p><b>1 · From orbital mechanics (the sanity check).</b> The sky moves because the satellites move. A GPS satellite completes one orbit in about <b>11 h 58 m</b> (it laps the Earth twice per day). Its angular speed around Earth's center is therefore</p>
+      <div class="eqn" style="font-size:16px;text-align:left;margin:6px 0"><span class="op">n =</span> <span class="frac"><span class="num">360°</span><span class="den">11.97 h × 60</span></span> ≈ 0.50°/min.</div>
+      <p>That orbital rate is the dominant term. The line-of-sight rate seen from the ground is the same order, nudged by range and elevation (a satellite overhead sweeps a bit faster than one near the horizon), which is why it lands near 0.45–0.50 rather than exactly 0.50.</p>
+      <p><b>2 · Measured straight from our captures (the real source of 0.45).</b> Every capture stores each satellite's line-of-sight unit vector <span class="sym g" data-sym="e">ê<sub>i</sub></span> per epoch (the <code>los_enu</code> field). So you don't have to model anything — just take the angle between <span class="sym g" data-sym="e">ê</span> now and <span class="sym g" data-sym="e">ê</span> a minute later and divide by the minute. Across our satellites and elevations that clusters at <b>0.42–0.52°/min</b>, hence the working figure ≈ 0.45. It barely depends on elevation because the rate is set by orbital motion, not by where the satellite sits in the sky.</p>
+      <p><b>Is it constellation-specific? Yes — orbit altitude sets the speed.</b></p>
+      <table class="ctable">
+        <thead><tr><th>constellation</th><th>orbit type</th><th>period</th><th>≈ ω<sub>LOS</sub></th></tr></thead>
+        <tbody>
+          <tr><td>GPS</td><td>MEO (~20,200 km)</td><td>11 h 58 m</td><td><b>0.50°/min</b></td></tr>
+          <tr><td>BeiDou-MEO</td><td>MEO (~21,500 km)</td><td>12 h 53 m</td><td><b>0.47°/min</b></td></tr>
+          <tr><td>BeiDou GEO / IGSO</td><td>geo-synchronous</td><td>~24 h</td><td><b>≈ 0 (~0.03)</b></td></tr>
+        </tbody>
+      </table>
+      <p>GPS and BeiDou-<em>MEO</em> are close (both are medium-Earth-orbit, ~0.45–0.50°/min) — that's why the project lumps them together. But BeiDou also flies <b>geostationary</b> (GEO) and inclined-geosync (IGSO) birds that hang almost still over the ground: their <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> ≈ 0, so their geometric window is effectively unlimited. Same orbital difference is why the geometries <em>repeat</em> on different clocks — GPS every 1 sidereal day, BeiDou-MEO every 7 (Step 10). Bottom line: <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span> is physics, but it's <em>per-constellation</em> physics — so in the calculator below you pick a constellation, you don't dial a rate.</p>
+    </div>
+  </details>
+
+  <p>The scaling <span class="sym k" data-sym="dt">δt<sub>max</sub></span> ∝ <span class="sym k" data-sym="kappa">κ</span><sup>−1/2</sup> is the takeaway: halve nothing, just note that as κ → 0 the geometric window blows up (push is limited by other things, not the sky), while a finite κ pins the window to minutes. Try it:</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 4 · window calculator</span><span class="live">κ → minutes</span></div>
+    <canvas id="cvWin" class="stage" height="330" aria-label="Interactive: compute the usable time window from curvature, tolerance and drift rate"></canvas>
+    <div class="controls">
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>gesture</label>
+        <div class="btnrow"><button class="chip on" id="win_push">push</button><button class="chip" id="win_star">star</button></div>
+      </div>
+      <div class="ctl">
+        <label>tolerance r<sub>min</sub> <b id="win_rmin_l">0.80</b></label>
+        <input type="range" id="win_rmin" min="50" max="98" value="80">
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>constellation (this sets ω<sub>LOS</sub>) <b id="win_w_l">GPS · 0.50°/min</b></label>
+        <div class="btnrow"><button class="chip on geo" id="win_gps">GPS</button><button class="chip" id="win_bds">BeiDou-MEO</button><button class="chip" id="win_geo">GEO/IGSO</button></div>
+      </div>
+    </div>
+    <div class="readout">
+      <span class="r"><span class="lab">κ (illustrative)</span><span class="val k" id="win_k">—</span></span>
+      <span class="r"><span class="lab">tolerable drift Δθ</span><span class="val g" id="win_dt">—</span></span>
+      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="win_out">—</span></span>
+    </div>
+    <figcaption>The curve is <b>r(δt)</b> for the chosen gesture; the rose line is your tolerance <b>r<sub>min</sub></b>; where they cross is the window. <b>ω<sub>LOS</sub> isn't a free dial</b> — it's set by which satellites you track, so you pick a constellation. Switch to <b>GEO/IGSO</b> (near-stationary orbits) and the window explodes; switch gesture to <b>push</b> and the curve goes nearly flat. <em>κ values here are illustrative scale figures, not the lab's final calibrated numbers.</em></figcaption>
+  </figure>
+</section>
+
+<!-- ============ 09 ============ -->
+<section class="step" id="s9">
+  <div class="eyebrow"><span class="num">09</span> The catch</div>
+  <h2>Hands aren't machines: the floor α</h2>
+  <p>Everything so far assumed the gesture is <em>identical</em> both times. It isn't. Even at <b>zero</b> geometry drift, two free-hand repetitions don't perfectly match — you can't move your hand the exact same way twice. So the correlation doesn't start at 1; it starts at a ceiling <span class="sym k" data-sym="alpha">α</span> &lt; 1, the <b>reproducibility floor</b>. A better model multiplies the two effects:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="r">r</span>(<span class="sym k" data-sym="dt">δt</span>)
+    <span class="op">≈</span>
+    <span class="sym k" data-sym="alpha">α</span>
+    <span class="paren">(</span>1 − <span class="frac"><span class="num">1</span><span class="den">2</span></span><span class="sym k" data-sym="kappa">κ</span> <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span><sup>2</sup> <span class="sym k" data-sym="dt">δt</span><sup>2</sup><span class="paren">)</span>
+    <span class="note">repeatability × geometry falloff</span>
+  </div>
+
+  <p>Here's why this matters so much. To <em>measure</em> the geometric window, the parabola dip has to be visible above the reproducibility noise. But measured free-hand <span class="sym k" data-sym="alpha">α</span> ≈ 0.6 — well below the ~0.85 physical noise ceiling. The hand-sloppiness swamps the gentle geometry falloff, so κ is buried. Drag α below and watch the geometry signal vanish into the floor:</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 5 · why mechanical repetition is needed</span><span class="live">α vs the signal</span></div>
+    <canvas id="cvAlpha" class="stage" height="320" aria-label="Interactive: lower the reproducibility floor and watch the geometry signal disappear"></canvas>
+    <div class="controls">
+      <div class="ctl">
+        <label>reproducibility floor α <b id="al_a_l">0.60</b></label>
+        <input type="range" id="al_a" min="20" max="98" value="60">
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>gesture</label>
+        <div class="btnrow"><button class="chip on" id="al_push">push</button><button class="chip" id="al_star">star</button></div>
+      </div>
+    </div>
+    <figcaption>The amber curve is the ideal geometry falloff (starts at 1); the rose curve is what you actually measure (starts at α). When α is low, the two are nearly parallel and the geometric <b>dip</b> — the thing carrying κ — is lost in the offset. Pushing α toward the 0.85 ceiling is exactly why the experiment needs a <b>machine or rig</b> to repeat the gesture, not a human hand.</figcaption>
+  </figure>
+
+  <div class="callout honest"><span class="tag">The honest result</span>
+  On free-hand data this is where the thesis stalls: reproducibility (α≈0.6) is too low to isolate the geometric κ, the recoverable signal turns out to be mostly amplitude rather than phase-shape, and it doesn't transfer across days. The theory is clean; demonstrating it needs <b>mechanically reproduced</b> gestures — the derivation tells you precisely why. See the project's FINDINGS write-up for the full post-mortem.</div>
+
+  <h3 id="transfer">Does the mechanical window transfer to your hand?</h3>
+  <p>Here's the natural worry, and it's the right one to have: the real product is <em>free-hand</em>. So if the rig measures a window <span class="sym k" data-sym="dt">Z</span>, does that <span class="sym k" data-sym="dt">Z</span> still hold when a person does the gesture? Split the falloff back into its two independent parts and the answer drops out cleanly.</p>
+
+  <div class="callout"><span class="tag">The one decomposition to remember</span>
+  <b><span class="sym k" data-sym="kappa">κ</span> is the geometry clock — it depends only on the gesture <em>shape</em> and the sky, never on who performs it.</b> <span class="sym k" data-sym="alpha">α</span> is the starting line — it depends only on the performer. A machine starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.85; a free hand starts at <span class="sym k" data-sym="alpha">α</span> ≈ 0.60, and jittery.</div>
+
+  <p>So the <em>rate</em> of geometric decorrelation — measured as a fraction of wherever it starts — is <b>identical</b> for hand and machine: <span class="sym k" data-sym="r">r</span>(<span class="sym k" data-sym="dt">δt</span>)&thinsp;/&thinsp;<span class="sym k" data-sym="alpha">α</span> = 1 − ½<span class="sym k" data-sym="kappa">κ</span><span class="sym g" data-sym="wlos">ω</span><sub>LOS</sub><sup>2</sup><span class="sym k" data-sym="dt">δt</span><sup>2</sup>. The geometry clock ticks at the same speed for everyone. <b>The hand just starts the race further back, and shaking.</b></p>
+
+  <p>The catch appears the instant you demand an <em>absolute</em> quality bar <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Carry <span class="sym k" data-sym="alpha">α</span> all the way through the window formula and it now sits inside:</p>
+
+  <div class="eqn boxed">
+    <span class="sym k" data-sym="dt">δt<sub>max</sub></span>
+    <span class="op">=</span>
+    <span class="frac"><span class="num">1</span><span class="den"><span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span></span></span>
+    <span class="rad tall"><span class="sgn">√</span><span class="bd"><span class="frac"><span class="num">2<span class="paren">(</span>1 − <span class="sym k" data-sym="rmin">r<sub>min</sub></span> / <span class="sym k" data-sym="alpha">α</span><span class="paren">)</span></span><span class="den"><span class="sym k" data-sym="kappa">κ</span></span></span></span></span>
+    <span class="note">the same window formula — now honest about the starting line. If r<sub>min</sub> &gt; α, there is no real solution at all.</span>
+  </div>
+
+  <p>Set <span class="sym k" data-sym="rmin">r<sub>min</sub></span> = 0.8 and give it a hand's <span class="sym k" data-sym="alpha">α</span> ≈ 0.6: then <span class="sym k" data-sym="rmin">r<sub>min</sub></span>/<span class="sym k" data-sym="alpha">α</span> &gt; 1, the square root goes imaginary, and the window is <b>undefined</b> — the hand fails the bar at <em>zero</em> drift, before the sky moves at all. For a bare-hand <em>template match</em>, reproducibility, not geometry, is the binding limit — so <b><span class="sym k" data-sym="dt">Z</span>(hand) ≤ <span class="sym k" data-sym="dt">Z</span>(machine)</b>, and often far less. Drag the bar below: watch the machine earn a window while the hand can't even line up at the start.</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 6 · the two runners</span><span class="live">same clock, different start</span></div>
+    <canvas id="cvRun" class="stage" height="330" aria-label="Interactive: compare a machine and a hand decorrelating against a quality bar"></canvas>
+    <div class="controls">
+      <div class="ctl">
+        <label>quality bar r<sub>min</sub> <b id="run_rmin_l">0.70</b></label>
+        <input type="range" id="run_rmin" min="30" max="90" value="70">
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>gesture</label>
+        <div class="btnrow"><button class="chip" id="run_push">push</button><button class="chip on" id="run_star">star</button></div>
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>view</label>
+        <div class="btnrow"><button class="chip" id="run_norm">↕ normalize to start</button></div>
+      </div>
+    </div>
+    <div class="readout">
+      <span class="r"><span class="lab">machine window (α≈0.85)</span><span class="val g" id="run_m">—</span></span>
+      <span class="r"><span class="lab">hand window (α≈0.60)</span><span class="val k" id="run_h">—</span></span>
+    </div>
+    <figcaption>One gesture, one sky, two performers. The <b>machine</b> (cyan) starts near 0.85; the <b>hand</b> (rose) starts near 0.60. They fall along the <em>same</em> geometry curve — hit <b>normalize to start</b> and the two snap together, showing κ is shared. But against an absolute bar the hand can begin <em>below</em> it and never qualify: at r<sub>min</sub> = 0.7, star, the machine gets a window and the hand gets none. That gap is reproducibility, not geometry.</figcaption>
+  </figure>
+
+  <p><b>And the star gets hit twice.</b> It is the highest-<span class="sym k" data-sym="kappa">κ</span> gesture — the tightest geometric window — <em>and</em> the hardest to reproduce, since multi-axis motion gives your hand more ways to wander (lower <span class="sym k" data-sym="alpha">α</span>). It decorrelates faster from the sky <em>and</em> from your own hand at once. Toggle the panel to <b>push</b> and watch both windows stretch out; that's the low-<span class="sym k" data-sym="kappa">κ</span>, easy-to-repeat end.</p>
+
+  <div class="callout intuition"><span class="tag">So what is the mechanical Z actually for?</span>
+  It is <b>not</b> the product's operating window. The free-hand product never leans on signal correlation — it trains a <b>classifier across geometry</b> (that's the eventual goal). What the rig buys you is the <b>geometry budget</b>: measured cleanly, with <span class="sym k" data-sym="alpha">α</span> pushed near 1 so it isn't buried, <span class="sym k" data-sym="kappa">κ</span> tells you the timescale on which the signal genuinely changes <em>shape</em>. That tells you how densely to sample geometry when you collect hand data, and which gestures (star) demand it most. You use a machine to read <span class="sym k" data-sym="kappa">κ</span> precisely <em>because</em> the hand can't — and then <span class="sym k" data-sym="kappa">κ</span>, being performer-independent, hands that budget straight to the free-hand system.</div>
+
+  <p class="muted" style="font-size:15px">One honest wrinkle: a hand doesn't trace one fixed shape <span class="sym d" data-sym="M">M</span> — it draws a <em>distribution</em> of shapes, so what transfers is an <em>effective</em> <span class="sym k" data-sym="kappa">κ</span> averaged over that spread. Program the rig to trace a representative gesture and the budget carries over; let the hand drift into a different shape and you're measuring a different κ.</p>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="step" id="s10">
+  <div class="eyebrow"><span class="num">10</span> Measuring it directly</div>
+  <h2>Ask the sky to repeat itself</h2>
+  <p>You don't have to wait around for natural drift to trace out r(Δθ). Satellite geometry <em>repeats</em>: GPS returns to the same configuration one <b>sidereal day</b> later — 23h 56m 04s, about 3m 56s short of a solar day. So the same patch of sky you saw at noon today shows up at 11:56 tomorrow.</p>
+
+  <div class="eqn">
+    <span class="sym k" data-sym="tsid">T<sub>sid</sub></span> = 86164.09 s ≈ solar day − 3m 56s
+  </div>
+
+  <p>The clean measurement — the <b>repeat-offset sweep</b>: record a reference gesture at time T, then revisit at T + <span class="sym k" data-sym="tsid">T<sub>sid</sub></span> + ε for a handful of small offsets ε. Each offset injects a known drift <span class="sym g" data-sym="dtheta">Δθ</span> = <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>&thinsp;ε, so sweeping ε traces the decorrelation curve directly — and you check it against the predicted 1 − ½κΔθ². Scrub the offset and watch the sky nearly line back up:</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 7 · sidereal repeat sweep</span><span class="live">scrub the offset</span></div>
+    <canvas id="cvSid" class="stage" height="360" aria-label="Interactive: scrub a time offset to see the satellite sky realign one sidereal day later"></canvas>
+    <div class="controls">
+      <div class="ctl">
+        <label>offset ε from the sidereal repeat <b id="sid_e_l">+0 min</b></label>
+        <input type="range" id="sid_e" min="-30" max="30" value="8">
+      </div>
+    </div>
+    <div class="readout">
+      <span class="r"><span class="lab">induced drift Δθ</span><span class="val g" id="sid_dt">—</span></span>
+      <span class="r"><span class="lab">predicted r (star)</span><span class="val k" id="sid_r">—</span></span>
+    </div>
+    <figcaption>Faint arrows: yesterday's sky (the reference). Bright cyan: today's sky at offset ε. At ε = 0 they overlap — geometry has come full circle. Nudge ε and the two skies separate by exactly the drift the formula predicts. This is how you measure the window without waiting days.</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="step" id="s11">
+  <div class="eyebrow"><span class="num">11</span> The teach-back</div>
+  <h2>Say it back in five sentences</h2>
+  <p>If you can say these out loud without peeking, you own the derivation:</p>
+
+  <div class="recap">
+    <div class="rc"><div class="n">01 · SIGNAL</div><p>A hand near the antenna shifts each satellite's carrier phase by the <b>projection of its motion onto the line of sight</b>; strip the clock and range trend and the clean signal is just <b>s = g·d</b>.</p></div>
+    <div class="rc"><div class="n">02 · SHAPE</div><p>Repeat the gesture later and correlation becomes a <b>cosine in the metric M</b> — the gesture's 3×3 shape matrix carries all the shape, the vectors g carry all the sky.</p></div>
+    <div class="rc"><div class="n">03 · CURVATURE</div><p>For small drift, correlation falls like a parabola: <b>r ≈ 1 − ½κΔθ²</b>, with one dimensionless curvature κ ≥ 0 built from M, g and the drift direction w.</p></div>
+    <div class="rc"><div class="n">04 · DIMENSION</div><p>A <b>straight-line gesture makes M rank-1, so κ = 0</b> — its shadow only rescales, and correlation ignores scale. A round gesture morphs its shadow, so κ &gt; 0. Dimension, not size, sets the window.</p></div>
+    <div class="rc"><div class="n">05 · WINDOW</div><p>Turn κ into time: <b>δt ∝ 1/√κ</b> divided by the sky's rotation rate — but you only see it if the hand repeats well enough (α near the noise ceiling), which is why the measurement wants a machine.</p></div>
+  </div>
+
+  <div class="callout intuition" style="margin-top:30px"><span class="tag">The single sentence to leave people with</span>
+  <b>How long a GNSS gesture stays recognizable is decided by its shape's dimensionality: a one-dimensional motion is geometry-proof (κ = 0), and every extra dimension you add shrinks the window like 1/√κ.</b></div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="step" id="s12">
+  <div class="eyebrow"><span class="num">12</span> The control room</div>
+  <h2>The whole system, in one panel</h2>
+  <p>Everything you've built now lives on one console. On the <b>left</b> is the geometry: the gesture's shape <span class="sym d" data-sym="M">M</span> — an ellipse in 2-D, a full ellipsoid in 3-D — and the sensitivity vector <span class="sym g" data-sym="g">g</span> drifting to <span class="sym g" data-sym="g">g′</span> as the sky turns. On the <b>right</b> is the consequence: the correlation <span class="sym k" data-sym="r">r</span> decaying over time, capped by the reproducibility floor <span class="sym k" data-sym="alpha">α</span>, cut by your tolerance <span class="sym k" data-sym="rmin">r<sub>min</sub></span> — and where they meet is the window <span class="sym k" data-sym="dt">δt</span>. Every knob you've met is on this panel. <b>Flip to 3-D and drag</b> to see the dimension a flat picture hides.</p>
+
+  <figure class="panel">
+    <div class="head"><span>Fig 8 · the whole system</span><span class="live">κ · α · ω · r_min → δt</span></div>
+    <canvas id="cvMaster" class="stage" height="440" aria-label="Master interactive: gesture shape, geometry drift, and the resulting usable window, in 2D or 3D"></canvas>
+    <div class="controls">
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>gesture shape (sets κ)</label>
+        <div class="btnrow"><button class="chip" id="ms_push">push</button><button class="chip on" id="ms_star">star</button><button class="chip" id="ms_round">round</button></div>
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>view</label>
+        <div class="btnrow"><button class="chip on" id="ms_2d">2D</button><button class="chip" id="ms_3d">3D ⟲ drag</button></div>
+      </div>
+      <div class="ctl">
+        <label>reproducibility α (hand ↔ rig) <b id="ms_a_l">0.80</b></label>
+        <input type="range" id="ms_a" min="20" max="90" value="80">
+      </div>
+      <div class="ctl">
+        <label>tolerance r<sub>min</sub> <b id="ms_r_l">0.70</b></label>
+        <input type="range" id="ms_r" min="30" max="95" value="70">
+      </div>
+      <div class="ctl" style="flex:0 0 auto;min-width:auto">
+        <label>constellation (sets ω<sub>LOS</sub>)</label>
+        <div class="btnrow"><button class="chip on geo" id="ms_gps">GPS</button><button class="chip" id="ms_bds">BeiDou-MEO</button><button class="chip" id="ms_geo">GEO/IGSO</button></div>
+      </div>
+    </div>
+    <div class="readout">
+      <span class="r"><span class="lab">curvature κ</span><span class="val k" id="ms_k">—</span></span>
+      <span class="r"><span class="lab">floor α</span><span class="val" id="ms_a2">—</span></span>
+      <span class="r"><span class="lab">tolerance r_min</span><span class="val" id="ms_r2">—</span></span>
+      <span class="r"><span class="lab">ω_LOS</span><span class="val g" id="ms_w2">—</span></span>
+      <span class="r"><span class="lab">usable window δt</span><span class="val d" id="ms_out">—</span></span>
+    </div>
+    <figcaption>One console for the whole derivation. <b>Left</b>: the gesture ellipsoid <b>M</b> (amber) and the sensitivity vector <b>g</b> drifting to <b>g′</b> (cyan). <b>Right</b>: r(δt) = α·(1 − ½κω²δt²), with the α ceiling, the r<sub>min</sub> bar, and their crossing — the window. κ is computed from the full 3-D shape, so it doesn't change when you switch views; the <b>3-D</b> toggle just reveals the extra dimension a flat ellipse can't show — watch <b>push</b> stay a needle while <b>star</b> fattens into a blob. Absolute minutes are illustrative; the shape of the story is exact.</figcaption>
+  </figure>
+
+  <div class="callout intuition"><span class="tag">Reading the console the way the paper does</span>
+  Push (κ≈0) keeps the right-hand curve nearly flat — the window runs off the chart, limited only by <span class="sym k" data-sym="alpha">α</span>. Star fattens the ellipsoid, lifts κ, and pulls the crossing in. Drop <span class="sym k" data-sym="alpha">α</span> toward a hand's 0.6 and the whole curve sinks beneath a demanding <span class="sym k" data-sym="rmin">r<sub>min</sub></span>. Switch to GEO and even star goes geometry-proof. Shape sets <span class="sym k" data-sym="kappa">κ</span>, the performer sets <span class="sym k" data-sym="alpha">α</span>, the constellation sets <span class="sym g" data-sym="wlos">ω<sub>LOS</sub></span>, you set <span class="sym k" data-sym="rmin">r<sub>min</sub></span> — that's the entire result on one screen.</div>
+
+  <footer>
+    Derived from <b>window-experiment/docs/THEORY.md</b> and the project knowledge-base.<br>
+    Colors: <span style="color:var(--d)">amber = gesture</span> · <span style="color:var(--g)">cyan = geometry</span> · <span style="color:var(--k)">rose = the payoff</span>. Hover any symbol to trace it. Open <b>Σ Symbols</b> anytime for definitions.
+  </footer>
+</section>
+
+</main>
+
+<!-- ============ symbol dock ============ -->
+<div id="dockscrim"></div>
+<aside id="dock" aria-label="Symbol reference" aria-hidden="true">
+  <div class="dhead"><span>Σ &nbsp;Symbol reference</span><button id="dockClose" aria-label="Close symbol reference">×</button></div>
+  <div class="dbody">
+    <div class="grp gg">
+      <div class="glab">Geometry — the sky</div>
+      <div class="sitem" data-for="e"><span class="sy">ê<sub>i</sub></span><span class="sd">Line-of-sight unit vector, antenna → satellite <em>i</em>.</span></div>
+      <div class="sitem" data-for="lam"><span class="sy">λ</span><span class="sd">Carrier wavelength, ≈19 cm on GPS L1. <em>Converts length to phase: one λ = 2π.</em></span></div>
+      <div class="sitem" data-for="g"><span class="sy">g<sub>i</sub></span><span class="sd">Differential sensitivity vector, (2π/λ)(ê<sub>i</sub> − ê<sub>ref</sub>). <em>How hand motion maps to phase on sat i.</em></span></div>
+      <div class="sitem" data-for="dtheta"><span class="sy">Δθ</span><span class="sd">Small angle the LOS rotates between the two repetitions.</span></div>
+      <div class="sitem" data-for="dg"><span class="sy">Δg</span><span class="sd">Change in the sensitivity vector over the drift: Δg = Δθ·w.</span></div>
+      <div class="sitem" data-for="w"><span class="sy">w</span><span class="sd">Direction g drifts in, dg/dθ. <em>Fixed by the geometry.</em></span></div>
+      <div class="sitem" data-for="wlos"><span class="sy">ω<sub>LOS</sub></span><span class="sd">LOS rotation rate, ≈0.45°/min. <em>Set by orbital motion.</em></span></div>
+      <div class="sitem" data-for="i"><span class="sy">i</span><span class="sd">Index of a satellite.</span></div>
+    </div>
+    <div class="grp gd">
+      <div class="glab">Gesture — the shape</div>
+      <div class="sitem" data-for="d"><span class="sy">d(t)</span><span class="sd">Hand displacement trajectory — the gesture, over a few-second window.</span></div>
+      <div class="sitem" data-for="n"><span class="sy">n̂</span><span class="sd">Fixed unit direction of a single-axis (straight-line) gesture.</span></div>
+      <div class="sitem" data-for="M"><span class="sy">M</span><span class="sd">Structure matrix, ∫ d dᵀ dt. <em>The gesture's shape as a 3×3 scatter matrix.</em></span></div>
+    </div>
+    <div class="grp gs">
+      <div class="glab">Measured signal</div>
+      <div class="sitem" data-for="phi"><span class="sy">φ<sub>i</sub></span><span class="sd">Raw carrier-phase perturbation on satellite i.</span></div>
+      <div class="sitem" data-for="s"><span class="sy">s<sub>i</sub></span><span class="sd">Clean gesture signal after single-difference + detrend: g<sub>i</sub>·d(t).</span></div>
+      <div class="sitem" data-for="r"><span class="sy">r</span><span class="sd">Correlation between two repetitions, 0–1. <em>Ignores overall amplitude.</em></span></div>
+      <div class="sitem" data-for="abc"><span class="sy">a b c</span><span class="sd">The three quadratic scalars in the expansion (gᵀMg, gᵀMΔg, ΔgᵀMΔg).</span></div>
+      <div class="sitem" data-for="bg"><span class="sy">β γ</span><span class="sd">Normalized versions, b/a and c/a — orders Δθ and Δθ².</span></div>
+    </div>
+    <div class="grp gk">
+      <div class="glab">The payoff</div>
+      <div class="sitem" data-for="kappa"><span class="sy">κ</span><span class="sd">Decorrelation curvature (dimensionless). <em>κ=0 for single-axis; larger for multi-axis.</em></span></div>
+      <div class="sitem" data-for="dt"><span class="sy">δt<sub>max</sub></span><span class="sd">Usable time window before correlation drops below tolerance.</span></div>
+      <div class="sitem" data-for="rmin"><span class="sy">r<sub>min</sub></span><span class="sd">Minimum acceptable correlation you're willing to keep.</span></div>
+      <div class="sitem" data-for="alpha"><span class="sy">α</span><span class="sd">Reproducibility floor — correlation at zero drift. <em>Free-hand ≈0.6; ceiling ≈0.85.</em></span></div>
+      <div class="sitem" data-for="tsid"><span class="sy">T<sub>sid</sub></span><span class="sd">Sidereal day, 86164.09 s — the period after which GPS geometry repeats.</span></div>
+    </div>
+    <div class="grp gx">
+      <div class="glab">Removed nuisances</div>
+      <div class="sitem" data-for="c"><span class="sy">c(t)</span><span class="sd">Receiver clock error. <em>Killed by single-differencing (common to all sats).</em></span></div>
+      <div class="sitem" data-for="rho"><span class="sy">ρ<sub>i</sub></span><span class="sd">Smooth geometric range trend. <em>Killed by detrending.</em></span></div>
+      <div class="sitem" data-for="noise"><span class="sy">η</span><span class="sd">Thermal and tracking noise.</span></div>
+    </div>
+  </div>
+</aside>
+
+<script>
+"use strict";
+(function(){
+  var CS = getComputedStyle(document.documentElement);
+  var C = {
+    ground: CS.getPropertyValue('--ground').trim() || '#0F1230',
+    panel:  CS.getPropertyValue('--panel').trim()  || '#171B47',
+    text:   CS.getPropertyValue('--text').trim()   || '#ECEAF2',
+    muted:  CS.getPropertyValue('--muted').trim()  || '#8A8FB5',
+    d:      CS.getPropertyValue('--d').trim()       || '#FFC15E',
+    g:      CS.getPropertyValue('--g').trim()       || '#55D6E6',
+    k:      CS.getPropertyValue('--k').trim()       || '#FF74B0',
+    grid:   'rgba(255,255,255,0.08)'
+  };
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  // ---- hi-dpi canvas setup ----
+  function fit(cv, h){
+    var dpr = Math.min(window.devicePixelRatio||1, 2);
+    var w = cv.clientWidth || cv.parentElement.clientWidth;
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+    cv.style.height = h+'px';
+    var ctx = cv.getContext('2d');
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {ctx:ctx, w:w, h:h};
+  }
+
+  // =========================================================
+  //  progress bar
+  // =========================================================
+  var progbar = document.getElementById('progbar');
+  function onScroll(){
+    var st = window.scrollY || document.documentElement.scrollTop;
+    var max = document.documentElement.scrollHeight - window.innerHeight;
+    progbar.style.width = (max>0 ? (st/max*100):0) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // =========================================================
+  //  symbol dock: open/close + hover-link
+  // =========================================================
+  var dock = document.getElementById('dock');
+  var scrim = document.getElementById('dockscrim');
+  var dockBtn = document.getElementById('dockBtn');
+  function openDock(){dock.classList.add('open');scrim.classList.add('on');dock.setAttribute('aria-hidden','false');dockBtn.setAttribute('aria-expanded','true');}
+  function closeDock(){dock.classList.remove('open');scrim.classList.remove('on');dock.setAttribute('aria-hidden','true');dockBtn.setAttribute('aria-expanded','false');}
+  dockBtn.addEventListener('click', function(){dock.classList.contains('open')?closeDock():openDock();});
+  document.getElementById('dockClose').addEventListener('click', closeDock);
+  scrim.addEventListener('click', closeDock);
+  document.addEventListener('keydown', function(e){if(e.key==='Escape')closeDock();});
+
+  // hover-link: light up every instance of a symbol + its dock row
+  var syms = Array.prototype.slice.call(document.querySelectorAll('.sym[data-sym]'));
+  var dockItems = Array.prototype.slice.call(document.querySelectorAll('.sitem[data-for]'));
+  function setHot(name, on){
+    syms.forEach(function(el){ if(el.getAttribute('data-sym')===name) el.classList.toggle('hot', on); });
+    dockItems.forEach(function(el){ if(el.getAttribute('data-for')===name) el.classList.toggle('hot', on); });
+  }
+  syms.forEach(function(el){
+    var n = el.getAttribute('data-sym');
+    el.addEventListener('mouseenter', function(){setHot(n,true);});
+    el.addEventListener('mouseleave', function(){setHot(n,false);});
+  });
+  dockItems.forEach(function(el){
+    var n = el.getAttribute('data-for');
+    el.addEventListener('mouseenter', function(){setHot(n,true);});
+    el.addEventListener('mouseleave', function(){setHot(n,false);});
+    el.addEventListener('click', function(){
+      var first = syms.filter(function(s){return s.getAttribute('data-sym')===n;})[0];
+      if(first){ first.scrollIntoView({behavior:RM?'auto':'smooth', block:'center'}); setHot(n,true); setTimeout(function(){setHot(n,false);},1400); }
+    });
+  });
+
+  // algebra toggle
+  var alg = document.getElementById('algebra'), algBtn = document.getElementById('algToggle');
+  algBtn.addEventListener('click', function(){
+    var show = alg.hasAttribute('hidden');
+    if(show){alg.removeAttribute('hidden'); algBtn.textContent='▾ hide the algebra';}
+    else{alg.setAttribute('hidden',''); algBtn.textContent='▸ show the algebra between the lines';}
+  });
+
+  // =========================================================
+  //  small linear-algebra helpers (2x2)
+  // =========================================================
+  function rot(v,a){var c=Math.cos(a),s=Math.sin(a);return [c*v[0]-s*v[1], s*v[0]+c*v[1]];}
+  function Mrho(rho,psi){ // M = R diag(1,rho) Rᵀ
+    var c=Math.cos(psi),s=Math.sin(psi);
+    var m00=c*c+rho*s*s, m11=s*s+rho*c*c, m01=(1-rho)*c*s;
+    return [m00,m01,m01,m11];
+  }
+  function Mv(M,v){return [M[0]*v[0]+M[1]*v[1], M[2]*v[0]+M[3]*v[1]];}
+  function dot(a,b){return a[0]*b[0]+a[1]*b[1];}
+  function qform(M,u,v){return dot(u,Mv(M,v));}
+  function kappa(M,g,w){
+    var gMg=qform(M,g,g), wMw=qform(M,w,w), gMw=qform(M,g,w);
+    if(gMg<1e-12) return 0;
+    return (wMw*gMg - gMw*gMw)/(gMg*gMg);
+  }
+  function corr(M,gA,gB){
+    var num=qform(M,gA,gB), da=qform(M,gA,gA), db=qform(M,gB,gB);
+    if(da<1e-12||db<1e-12) return 1;
+    return num/Math.sqrt(da*db);
+  }
+
+  // =========================================================
+  //  IntersectionObserver: only animate visible canvases
+  // =========================================================
+  var visible = {};
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ visible[e.target.id] = e.isIntersecting; });
+  }, {threshold:0.02});
+
+  // =========================================================
+  //  FIG 1 — multipath projection
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvProj'); if(!cv)return; io.observe(cv);
+    var hand={x:0.5,y:0.62}, drag=false;
+    var offEl=document.getElementById('pj_off'), prEl=document.getElementById('pj_proj'), phEl=document.getElementById('pj_phase');
+    function losDir(){ // unit vector pointing up-right toward satellite
+      var a=-Math.PI*0.30; return [Math.cos(a),Math.sin(a)];
+    }
+    function draw(){
+      var d=fit(cv,360), ctx=d.ctx, W=d.w, H=d.h;
+      ctx.clearRect(0,0,W,H);
+      var ant={x:W*0.5, y:H*0.80};
+      var Lx=losDir()[0], Ly=losDir()[1];
+      // ground
+      ctx.strokeStyle=C.grid; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(0,ant.y); ctx.lineTo(W,ant.y); ctx.stroke();
+      // LOS ray (dashed cyan) from antenna toward satellite
+      ctx.save(); ctx.setLineDash([7,7]); ctx.strokeStyle=C.g; ctx.globalAlpha=.55; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(ant.x,ant.y); ctx.lineTo(ant.x+Lx*W, ant.y+Ly*W); ctx.stroke(); ctx.restore();
+      // satellite glyph
+      var satx=ant.x+Lx*W*0.42, saty=ant.y+Ly*W*0.42;
+      ctx.fillStyle=C.g; ctx.globalAlpha=.9;
+      ctx.beginPath(); ctx.arc(satx,saty,7,0,7); ctx.fill();
+      ctx.globalAlpha=.25; ctx.beginPath(); ctx.arc(satx,saty,13,0,7); ctx.fill(); ctx.globalAlpha=1;
+      ctx.fillStyle=C.muted; ctx.font='11px ui-monospace,monospace'; ctx.fillText('satellite',satx+16,saty+4);
+      // antenna
+      ctx.fillStyle=C.text; ctx.beginPath(); ctx.moveTo(ant.x-9,ant.y); ctx.lineTo(ant.x+9,ant.y); ctx.lineTo(ant.x,ant.y-16); ctx.closePath(); ctx.fill();
+      ctx.fillStyle=C.muted; ctx.fillText('antenna (fixed)',ant.x+14,ant.y-2);
+      // rest position of hand + current
+      var scale=Math.min(W,H);
+      var rest={x:W*0.5, y:H*0.44};
+      var hx=hand.x*W, hy=hand.y*H;
+      // displacement vector d (amber)
+      ctx.strokeStyle=C.d; ctx.lineWidth=2.5;
+      ctx.beginPath(); ctx.moveTo(rest.x,rest.y); ctx.lineTo(hx,hy); ctx.stroke();
+      arrow(ctx,rest.x,rest.y,hx,hy,C.d);
+      // projection onto LOS: component of (h-rest) along L
+      var dx=hx-rest.x, dy=hy-rest.y;
+      var proj=dx*Lx+dy*Ly; // pixels
+      var px=rest.x+proj*Lx, py=rest.y+proj*Ly;
+      // draw projection segment along LOS (cyan, thick)
+      ctx.strokeStyle=C.g; ctx.lineWidth=4; ctx.globalAlpha=.9;
+      ctx.beginPath(); ctx.moveTo(rest.x,rest.y); ctx.lineTo(px,py); ctx.stroke(); ctx.globalAlpha=1;
+      // dotted connector from hand to its projection
+      ctx.save(); ctx.setLineDash([3,4]); ctx.strokeStyle=C.muted; ctx.lineWidth=1.3;
+      ctx.beginPath(); ctx.moveTo(hx,hy); ctx.lineTo(px,py); ctx.stroke(); ctx.restore();
+      // rest marker
+      ctx.fillStyle=C.muted; ctx.beginPath(); ctx.arc(rest.x,rest.y,3,0,7); ctx.fill();
+      // hand
+      ctx.fillStyle=C.d; ctx.beginPath(); ctx.arc(hx,hy,drag?11:9,0,7); ctx.fill();
+      ctx.fillStyle=C.ground; ctx.font='12px ui-monospace,monospace'; ctx.textAlign='center'; ctx.fillText('✋',hx,hy+4); ctx.textAlign='left';
+      // labels
+      ctx.fillStyle=C.d; ctx.font='13px ui-monospace,monospace'; ctx.fillText('d',(rest.x+hx)/2+8,(rest.y+hy)/2);
+      ctx.fillStyle=C.g; ctx.fillText('ê·d',(rest.x+px)/2, (rest.y+py)/2-8);
+      // readouts (convert px to cm: assume 1 cm per ~ scale/24 px)
+      var cmPer= 24/scale;
+      var offcm=Math.sqrt(dx*dx+dy*dy)*cmPer;
+      var prcm=proj*cmPer;
+      var cyc=prcm/19.0; // lambda ~19cm
+      offEl.textContent=offcm.toFixed(1)+' cm';
+      prEl.textContent=prcm.toFixed(1)+' cm';
+      phEl.textContent=cyc.toFixed(2)+' cyc';
+    }
+    function arrow(ctx,x0,y0,x1,y1,col){
+      var a=Math.atan2(y1-y0,x1-x0); ctx.fillStyle=col;
+      ctx.beginPath(); ctx.moveTo(x1,y1);
+      ctx.lineTo(x1-9*Math.cos(a-0.4),y1-9*Math.sin(a-0.4));
+      ctx.lineTo(x1-9*Math.cos(a+0.4),y1-9*Math.sin(a+0.4));
+      ctx.closePath(); ctx.fill();
+    }
+    function pos(e){var r=cv.getBoundingClientRect();var t=e.touches?e.touches[0]:e;return {x:(t.clientX-r.left)/r.width, y:(t.clientY-r.top)/r.height};}
+    function down(e){drag=true;move(e);e.preventDefault();}
+    function move(e){if(!drag)return;var p=pos(e);hand.x=Math.max(.08,Math.min(.92,p.x));hand.y=Math.max(.12,Math.min(.72,p.y));draw();e.preventDefault();}
+    function up(){drag=false;draw();}
+    cv.addEventListener('mousedown',down);window.addEventListener('mousemove',move);window.addEventListener('mouseup',up);
+    cv.addEventListener('touchstart',down,{passive:false});cv.addEventListener('touchmove',move,{passive:false});cv.addEventListener('touchend',up);
+    window.addEventListener('resize',draw); draw();
+  })();
+
+  // =========================================================
+  //  FIG 2 — peel layers
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvPeel'); if(!cv)return; io.observe(cv);
+    var on={clock:true,trend:true,noise:true};
+    var noiseSeed=[]; for(var i=0;i<400;i++) noiseSeed.push((Math.sin(i*12.9898)*43758.5453)%1);
+    document.querySelectorAll('#peelBtns .chip').forEach(function(b){
+      b.addEventListener('click',function(){var l=b.getAttribute('data-layer');on[l]=!on[l];b.classList.toggle('on',on[l]);draw();});
+    });
+    function gesture(x){ // amber: a couple of wiggles, windowed
+      var t=x*Math.PI*2;
+      var env=Math.exp(-Math.pow((x-0.5)*2.4,2));
+      return (Math.sin(t*3.1)*0.7+Math.sin(t*5.3+1)*0.4)*env;
+    }
+    function draw(){
+      var d=fit(cv,330),ctx=d.ctx,W=d.w,H=d.h; ctx.clearRect(0,0,W,H);
+      var pad=20, x0=pad, x1=W-pad, mid=H*0.5, amp=H*0.30;
+      // axis
+      ctx.strokeStyle=C.grid; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x0,mid); ctx.lineTo(x1,mid); ctx.stroke();
+      var N=400;
+      function plot(fn,col,wd,al){
+        ctx.strokeStyle=col; ctx.lineWidth=wd; ctx.globalAlpha=al; ctx.beginPath();
+        for(var i=0;i<=N;i++){var x=i/N;var yy=mid-fn(x)*amp;var xx=x0+(x1-x0)*x; i?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+        ctx.stroke(); ctx.globalAlpha=1;
+      }
+      // amber gesture underneath (always)
+      plot(gesture,C.d,2.6,.95);
+      // raw = gesture + clock + trend + noise
+      function raw(x){
+        var v=gesture(x);
+        if(on.clock) v+=0.55*Math.sin(x*Math.PI*0.7+0.5); // slow common offset
+        if(on.trend) v+=1.15*(x-0.5)+0.9*Math.pow(x-0.45,2)*2.2; // smooth trend
+        if(on.noise) v+=0.12*(noiseSeed[Math.floor(x*399)]-0.5)*2;
+        return v*0.6;
+      }
+      var anyOn=on.clock||on.trend||on.noise;
+      if(anyOn) plot(raw,C.text,1.8,.85);
+      // labels
+      ctx.font='12px ui-monospace,monospace'; ctx.textAlign='left';
+      ctx.fillStyle=C.d; ctx.fillText('■ gesture  s = g·d', x0, H-12);
+      if(anyOn){ctx.fillStyle=C.text; ctx.fillText('■ what the receiver logs', x0+180, H-12);}
+      else{ctx.fillStyle=C.g; ctx.fillText('clean — nuisances removed ✓', x0+180, H-12);}
+    }
+    window.addEventListener('resize',draw); draw();
+  })();
+
+  // =========================================================
+  //  FIG 3 — kappa playground
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvKap'); if(!cv)return; io.observe(cv);
+    var rhoS=document.getElementById('kap_rho'), psiS=document.getElementById('kap_psi'), dtS=document.getElementById('kap_dt');
+    var rhoL=document.getElementById('kap_rho_l'), psiL=document.getElementById('kap_psi_l'), dtL=document.getElementById('kap_dt_l');
+    var kEl=document.getElementById('kap_k'), rtEl=document.getElementById('kap_rt'), raEl=document.getElementById('kap_ra');
+    function state(){
+      return {
+        rho: Math.max(0, 1 - rhoS.value/100),   // slider 0→round(rho=1), 100→thin(rho=0)
+        psi: psiS.value*Math.PI/180,
+        dt:  dtS.value*Math.PI/180
+      };
+    }
+    document.getElementById('kap_push').addEventListener('click',function(){rhoS.value=98;psiS.value=25;draw();});
+    document.getElementById('kap_star').addEventListener('click',function(){rhoS.value=69;psiS.value=25;draw();});
+    [rhoS,psiS,dtS].forEach(function(s){s.addEventListener('input',draw);});
+    function draw(){
+      var d=fit(cv,380),ctx=d.ctx,W=d.w,H=d.h; ctx.clearRect(0,0,W,H);
+      var st=state();
+      var M=Mrho(st.rho,st.psi);
+      var gA=[Math.cos(0),Math.sin(0)]; // g along +x baseline
+      var w=[-gA[1],gA[0]]; // perpendicular = dg/dθ for rotation
+      var gB=rot(gA,st.dt);
+      var amp=qform(M,gA,gA);            // how much this satellite senses the gesture (max eig = 1)
+      var blind=amp<0.04;                // g nearly perpendicular to M → satellite can't see it
+      var K=kappa(M,gA,w);
+      var rt=corr(M,gA,gB);
+      var ra=1-0.5*K*st.dt*st.dt;
+      rhoL.textContent=(st.rho).toFixed(3);
+      psiL.textContent=Math.round(psiS.value)+'°';
+      dtL.textContent=Math.round(dtS.value)+'°';
+      kEl.textContent=blind?'— blind':K.toFixed(2);
+      rtEl.textContent=blind?'—':rt.toFixed(3);
+      raEl.textContent=blind?'—':ra.toFixed(3);
+
+      var splitX=Math.min(W*0.46, 360);
+      // ---- left: M ellipse + g vectors ----
+      var cx=splitX*0.52, cy=H*0.5, R=Math.min(splitX,H)*0.30;
+      // ellipse of M: draw as x = R * sqrt(eig) direction
+      ctx.strokeStyle=C.grid; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(cx-R*1.4,cy); ctx.lineTo(cx+R*1.4,cy); ctx.moveTo(cx,cy-R*1.4); ctx.lineTo(cx,cy+R*1.4); ctx.stroke();
+      // ellipse: semi-axes sqrt(1) and sqrt(rho) along psi
+      ctx.save(); ctx.translate(cx,cy); ctx.rotate(-st.psi); // canvas y down => negative
+      ctx.strokeStyle=C.d; ctx.lineWidth=2.4; ctx.fillStyle='rgba(255,193,94,0.13)';
+      ctx.beginPath(); ctx.ellipse(0,0,R*1.0,R*Math.sqrt(st.rho),0,0,7); ctx.fill(); ctx.stroke();
+      ctx.restore();
+      ctx.fillStyle=C.d; ctx.font='12px ui-monospace,monospace'; ctx.fillText('M', cx-R*1.3, cy-R*1.15);
+      // g vectors (cyan) — note canvas y is down, so negate y
+      function vec(v,col,lab,al){
+        var ex=cx+v[0]*R*1.15, ey=cy-v[1]*R*1.15;
+        ctx.strokeStyle=col; ctx.globalAlpha=al||1; ctx.lineWidth=2.6;
+        ctx.beginPath(); ctx.moveTo(cx,cy); ctx.lineTo(ex,ey); ctx.stroke();
+        var a=Math.atan2(ey-cy,ex-cx); ctx.fillStyle=col;
+        ctx.beginPath();ctx.moveTo(ex,ey);ctx.lineTo(ex-10*Math.cos(a-.4),ey-10*Math.sin(a-.4));ctx.lineTo(ex-10*Math.cos(a+.4),ey-10*Math.sin(a+.4));ctx.closePath();ctx.fill();
+        ctx.font='13px ui-monospace,monospace'; ctx.fillText(lab, ex+6, ey+ (v[1]>0?-6:14)); ctx.globalAlpha=1;
+      }
+      // drift arc
+      ctx.strokeStyle=C.k; ctx.globalAlpha=.6; ctx.lineWidth=1.5;
+      ctx.beginPath(); ctx.arc(cx,cy,R*0.55,0,-st.dt,true); ctx.stroke(); ctx.globalAlpha=1;
+      vec(gA,C.g,'g',.55);
+      vec(gB,C.g,"g'",1);
+
+      // ---- right: r vs Δθ curve ----
+      var px0=splitX+34, px1=W-24, py0=34, py1=H-40;
+      // axes
+      ctx.strokeStyle=C.grid; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(px0,py0); ctx.lineTo(px0,py1); ctx.lineTo(px1,py1); ctx.stroke();
+      ctx.fillStyle=C.muted; ctx.font='11px ui-monospace,monospace';
+      ctx.fillText('r', px0-4, py0-10); ctx.fillText('Δθ →', px1-40, py1+22);
+      ctx.fillText('1.0', px0-26, py0+4); ctx.fillText('0', px0-14, py1+4);
+      var maxDeg=70, y1v=1.0, y0v=0.0;
+      function X(deg){return px0+(px1-px0)*deg/maxDeg;}
+      function Y(r){return py1-(py1-py0)*(r-y0v)/(y1v-y0v);}
+      if(blind){
+        ctx.fillStyle=C.k; ctx.font='13px ui-monospace,monospace';
+        ctx.fillText('satellite is nearly blind here:', px0+8, (py0+py1)/2-10);
+        ctx.fillStyle=C.muted;
+        ctx.fillText('g ⟂ M, so g·d ≈ 0 — no signal,', px0+8, (py0+py1)/2+10);
+        ctx.fillText('correlation undefined.', px0+8, (py0+py1)/2+28);
+        return;
+      }
+      // true correlation curve (cyan)
+      ctx.strokeStyle=C.g; ctx.lineWidth=2.6; ctx.beginPath();
+      for(var deg=0;deg<=maxDeg;deg++){var a=deg*Math.PI/180;var rr=corr(M,gA,rot(gA,a));var xx=X(deg),yy=Y(Math.max(0,rr));deg?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+      ctx.stroke();
+      // parabola prediction (rose dashed)
+      ctx.save(); ctx.setLineDash([6,5]); ctx.strokeStyle=C.k; ctx.lineWidth=2; ctx.beginPath();
+      for(var deg2=0;deg2<=maxDeg;deg2++){var a2=deg2*Math.PI/180;var rp=1-0.5*K*a2*a2;var yy2=Y(Math.max(0,rp));var xx2=X(deg2);deg2?ctx.lineTo(xx2,yy2):ctx.moveTo(xx2,yy2);}
+      ctx.stroke(); ctx.restore();
+      // current Δθ marker
+      var mx=X(dtS.value*1);
+      ctx.strokeStyle=C.text; ctx.globalAlpha=.4; ctx.setLineDash([2,3]); ctx.beginPath(); ctx.moveTo(mx,py0); ctx.lineTo(mx,py1); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha=1;
+      ctx.fillStyle=C.g; ctx.beginPath(); ctx.arc(mx,Y(Math.max(0,rt)),4,0,7); ctx.fill();
+      // legend
+      ctx.font='11px ui-monospace,monospace';
+      ctx.fillStyle=C.g; ctx.fillText('— true r', px1-92, py0+6);
+      ctx.fillStyle=C.k; ctx.fillText('-- 1−½κΔθ²', px1-92, py0+22);
+    }
+    window.addEventListener('resize',draw); draw();
+  })();
+
+  // =========================================================
+  //  FIG 4 — window calculator
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvWin'); if(!cv)return; io.observe(cv);
+    var KAP={push:0.02, star:0.55}; // illustrative dimensionless (per rad²)
+    var which='star';
+    var rminS=document.getElementById('win_rmin');
+    var rminL=document.getElementById('win_rmin_l'), wL=document.getElementById('win_w_l');
+    var kEl=document.getElementById('win_k'), dtEl=document.getElementById('win_dt'), outEl=document.getElementById('win_out');
+    var OMEGA={gps:0.50, bds:0.47, geo:0.03};                                          // °/min, per constellation
+    var OMLAB={gps:'GPS · 0.50°/min', bds:'BeiDou-MEO · 0.47°/min', geo:'GEO/IGSO · ~0.03°/min'};
+    var con='gps';
+    document.getElementById('win_push').addEventListener('click',function(){which='push';setBtns();draw();});
+    document.getElementById('win_star').addEventListener('click',function(){which='star';setBtns();draw();});
+    ['gps','bds','geo'].forEach(function(c){document.getElementById('win_'+c).addEventListener('click',function(){con=c;setCon();draw();});});
+    function setBtns(){document.getElementById('win_push').classList.toggle('on',which==='push');document.getElementById('win_star').classList.toggle('on',which==='star');}
+    function setCon(){['gps','bds','geo'].forEach(function(c){var b=document.getElementById('win_'+c);b.classList.toggle('on',c===con);b.classList.toggle('geo',c===con);});}
+    rminS.addEventListener('input',draw);
+    function draw(){
+      var d=fit(cv,330),ctx=d.ctx,W=d.w,H=d.h; ctx.clearRect(0,0,W,H);
+      var K=KAP[which], rmin=rminS.value/100, wdeg=OMEGA[con]; // °/min set by constellation, not a dial
+      var wrad=wdeg*Math.PI/180;
+      rminL.textContent=rmin.toFixed(2); wL.textContent=OMLAB[con];
+      // dtmax in minutes: Δθmax = sqrt(2(1-rmin)/K); δt=Δθ/ω
+      var dthetaMax=Math.sqrt(2*(1-rmin)/K); // rad
+      var dtMax=dthetaMax/wrad; // minutes
+      kEl.textContent=K.toFixed(2);
+      dtEl.textContent=(dthetaMax*180/Math.PI).toFixed(1)+'°';
+      // plot r(δt) over 0..maxMin
+      var maxMin=180;
+      var px0=54,px1=W-20,py0=24,py1=H-40;
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px0,py0);ctx.lineTo(px0,py1);ctx.lineTo(px1,py1);ctx.stroke();
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';
+      ctx.fillText('r',px0-6,py0-8);ctx.fillText('minutes →',px1-70,py1+22);
+      ctx.fillText('1.0',px0-30,py0+4);ctx.fillText('0.5',px0-30,(py0+py1)/2);ctx.fillText('0',px0-14,py1+4);
+      ctx.fillText('90',(px0+px1)/2-6,py1+16);ctx.fillText('180',px1-14,py1+16);
+      function X(m){return px0+(px1-px0)*m/maxMin;}
+      function Y(r){return py1-(py1-py0)*r;}
+      // rmin threshold
+      ctx.strokeStyle=C.k;ctx.globalAlpha=.55;ctx.setLineDash([6,5]);ctx.lineWidth=1.6;
+      ctx.beginPath();ctx.moveTo(px0,Y(rmin));ctx.lineTo(px1,Y(rmin));ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      ctx.fillStyle=C.k;ctx.fillText('r_min',px1-46,Y(rmin)-6);
+      // curve r=1-½K(ωt)²
+      ctx.strokeStyle=C.d;ctx.lineWidth=2.8;ctx.beginPath();
+      for(var m=0;m<=maxMin;m+=0.5){var th=wrad*m;var r=1-0.5*K*th*th;if(r<0)r=0;var xx=X(m),yy=Y(r);m?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+      ctx.stroke();
+      // marker at dtMax
+      if(dtMax<=maxMin){
+        ctx.strokeStyle=C.text;ctx.globalAlpha=.4;ctx.setLineDash([2,3]);
+        ctx.beginPath();ctx.moveTo(X(dtMax),py0);ctx.lineTo(X(dtMax),py1);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+        ctx.fillStyle=C.d;ctx.beginPath();ctx.arc(X(dtMax),Y(rmin),5,0,7);ctx.fill();
+        outEl.textContent=dtMax.toFixed(1)+' min';
+        outEl.style.color=C.d;
+      } else {
+        outEl.textContent='> '+maxMin+' min (geometry-proof)';
+        outEl.style.color=C.g;
+        ctx.fillStyle=C.g;ctx.font='12px ui-monospace,monospace';
+        ctx.fillText('curve stays above r_min → window runs off-chart', px0+8, py0+18);
+      }
+    }
+    setBtns(); setCon(); window.addEventListener('resize',draw); draw();
+  })();
+
+  // =========================================================
+  //  FIG 5 — alpha floor
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvAlpha'); if(!cv)return; io.observe(cv);
+    var KAP={push:0.02, star:0.55}; var which='push';
+    var aS=document.getElementById('al_a'), aL=document.getElementById('al_a_l');
+    document.getElementById('al_push').addEventListener('click',function(){which='push';setB();draw();});
+    document.getElementById('al_star').addEventListener('click',function(){which='star';setB();draw();});
+    function setB(){document.getElementById('al_push').classList.toggle('on',which==='push');document.getElementById('al_star').classList.toggle('on',which==='star');}
+    aS.addEventListener('input',draw);
+    function draw(){
+      var d=fit(cv,320),ctx=d.ctx,W=d.w,H=d.h;ctx.clearRect(0,0,W,H);
+      var K=KAP[which], alpha=aS.value/100, w=0.45*Math.PI/180;
+      aL.textContent=alpha.toFixed(2);
+      var maxMin=60,px0=54,px1=W-20,py0=24,py1=H-40;
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px0,py0);ctx.lineTo(px0,py1);ctx.lineTo(px1,py1);ctx.stroke();
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';
+      ctx.fillText('r',px0-6,py0-8);ctx.fillText('minutes →',px1-70,py1+22);
+      ctx.fillText('1.0',px0-30,py0+4);ctx.fillText('0',px0-14,py1+4);
+      // ceiling line 0.85
+      ctx.strokeStyle=C.muted;ctx.globalAlpha=.4;ctx.setLineDash([3,4]);ctx.beginPath();
+      ctx.moveTo(px0,py1-(py1-py0)*0.85);ctx.lineTo(px1,py1-(py1-py0)*0.85);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      ctx.fillStyle=C.muted;ctx.fillText('noise ceiling 0.85',px0+8,py1-(py1-py0)*0.85-6);
+      function X(m){return px0+(px1-px0)*m/maxMin;}
+      function Y(r){return py1-(py1-py0)*r;}
+      function curve(fn,col,wd){ctx.strokeStyle=col;ctx.lineWidth=wd;ctx.beginPath();for(var m=0;m<=maxMin;m+=0.5){var th=w*m;var r=fn(th);if(r<0)r=0;var xx=X(m),yy=Y(r);m?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}ctx.stroke();}
+      curve(function(th){return 1-0.5*K*th*th;},C.d,2.4);          // ideal
+      curve(function(th){return alpha*(1-0.5*K*th*th);},C.k,2.8);   // measured
+      ctx.font='12px ui-monospace,monospace';
+      ctx.fillStyle=C.d;ctx.fillText('— ideal (starts at 1)',px1-190,py0+6);
+      ctx.fillStyle=C.k;ctx.fillText('— measured (starts at α)',px1-190,py0+22);
+    }
+    setB();window.addEventListener('resize',draw);draw();
+  })();
+
+  // =========================================================
+  //  FIG 6 — the two runners (hand vs machine)
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvRun'); if(!cv)return; io.observe(cv);
+    var KAP={push:0.02, star:0.55}; var which='star', norm=false;
+    var rS=document.getElementById('run_rmin'), rL=document.getElementById('run_rmin_l');
+    var mEl=document.getElementById('run_m'), hEl=document.getElementById('run_h');
+    var nBtn=document.getElementById('run_norm');
+    var AM=0.85, AH=0.60, WR=0.45; // machine α, hand α, drift rate °/min
+    document.getElementById('run_push').addEventListener('click',function(){which='push';setB();draw();});
+    document.getElementById('run_star').addEventListener('click',function(){which='star';setB();draw();});
+    nBtn.addEventListener('click',function(){norm=!norm;nBtn.classList.toggle('on',norm);draw();});
+    function setB(){document.getElementById('run_push').classList.toggle('on',which==='push');document.getElementById('run_star').classList.toggle('on',which==='star');}
+    rS.addEventListener('input',draw);
+    function win(alpha,K,rmin){var ratio=rmin/alpha;if(ratio>=1)return null;var deg=Math.sqrt(2*(1-ratio)/K)*180/Math.PI;return {deg:deg, min:deg/WR};}
+    function draw(){
+      var d=fit(cv,330),ctx=d.ctx,Wd=d.w,H=d.h;ctx.clearRect(0,0,Wd,H);
+      var K=KAP[which], rmin=rS.value/100; rL.textContent=rmin.toFixed(2);
+      var maxDeg=70, px0=54,px1=Wd-20,py0=24,py1=H-40;
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px0,py0);ctx.lineTo(px0,py1);ctx.lineTo(px1,py1);ctx.stroke();
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';
+      ctx.fillText('r',px0-6,py0-8);ctx.fillText('drift Δθ (°) →',px1-100,py1+22);
+      ctx.fillText('1.0',px0-30,py0+4);ctx.fillText('0',px0-14,py1+4);
+      function X(deg){return px0+(px1-px0)*deg/maxDeg;}
+      function Y(r){return py1-(py1-py0)*r;}
+      function geo(th){return 1-0.5*K*th*th;}
+      function curve(alpha,col){ctx.strokeStyle=col;ctx.lineWidth=2.8;ctx.beginPath();for(var deg=0;deg<=maxDeg;deg++){var th=deg*Math.PI/180;var r=(norm?1:alpha)*geo(th);if(r<0)r=0;var xx=X(deg),yy=Y(r);deg?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}ctx.stroke();}
+      if(norm){
+        curve(1,C.g);
+        ctx.fillStyle=C.d;ctx.font='12px ui-monospace,monospace';
+        ctx.fillText('normalized r/α: both performers trace the SAME curve', px0+8, py0+16);
+        ctx.fillText('→ κ is identical, hand or machine', px0+8, py0+34);
+        mEl.textContent='same κ'; mEl.style.color=C.text; hEl.textContent='same κ'; hEl.style.color=C.text;
+        return;
+      }
+      // absolute quality bar
+      ctx.strokeStyle=C.text;ctx.globalAlpha=.5;ctx.setLineDash([6,5]);ctx.lineWidth=1.6;
+      ctx.beginPath();ctx.moveTo(px0,Y(rmin));ctx.lineTo(px1,Y(rmin));ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      ctx.fillStyle=C.text;ctx.fillText('r_min',px1-42,Y(rmin)-6);
+      curve(AM,C.g); curve(AH,C.k);
+      // start dots + labels
+      ctx.fillStyle=C.g;ctx.beginPath();ctx.arc(X(0),Y(AM),4.5,0,7);ctx.fill();
+      ctx.fillStyle=C.k;ctx.beginPath();ctx.arc(X(0),Y(AH),4.5,0,7);ctx.fill();
+      ctx.font='11px ui-monospace,monospace';
+      ctx.fillStyle=C.g;ctx.fillText('machine',X(0)+9,Y(AM)-6);
+      ctx.fillStyle=C.k;ctx.fillText('hand',X(0)+9,Y(AH)+15);
+      // window crossings
+      var wm=win(AM,K,rmin), wh=win(AH,K,rmin);
+      function mark(w,col){if(w&&w.deg<=maxDeg){ctx.strokeStyle=col;ctx.globalAlpha=.4;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(X(w.deg),py0);ctx.lineTo(X(w.deg),py1);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;ctx.fillStyle=col;ctx.beginPath();ctx.arc(X(w.deg),Y(rmin),5,0,7);ctx.fill();}}
+      mark(wm,C.g); mark(wh,C.k);
+      mEl.textContent = wm ? (wm.deg.toFixed(0)+'° ≈ '+wm.min.toFixed(0)+' min') : 'starts below bar';
+      mEl.style.color = wm ? C.g : C.muted;
+      hEl.textContent = wh ? (wh.deg.toFixed(0)+'° ≈ '+wh.min.toFixed(0)+' min') : 'starts below bar';
+      hEl.style.color = wh ? C.k : C.muted;
+    }
+    setB(); window.addEventListener('resize',draw); draw();
+  })();
+
+  // =========================================================
+  //  FIG 7 — sidereal repeat sky
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvSid'); if(!cv)return; io.observe(cv);
+    var eS=document.getElementById('sid_e'), eL=document.getElementById('sid_e_l');
+    var dtEl=document.getElementById('sid_dt'), rEl=document.getElementById('sid_r');
+    // fixed set of satellites (az in deg, elev in deg)
+    var sats=[{a:35,e:62},{a:110,e:40},{a:170,e:70},{a:225,e:30},{a:290,e:55},{a:320,e:20},{a:75,e:25},{a:200,e:48}];
+    eS.addEventListener('input',draw);
+    function draw(){
+      var d=fit(cv,360),ctx=d.ctx,W=d.w,H=d.h;ctx.clearRect(0,0,W,H);
+      var cx=W*0.5, cy=H*0.52, R=Math.min(W,H)*0.42;
+      // sky dome rings
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;
+      [0.33,0.66,1].forEach(function(f){ctx.beginPath();ctx.arc(cx,cy,R*f,0,7);ctx.stroke();});
+      ctx.beginPath();ctx.moveTo(cx-R,cy);ctx.lineTo(cx+R,cy);ctx.moveTo(cx,cy-R);ctx.lineTo(cx,cy+R);ctx.stroke();
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';ctx.textAlign='center';
+      ctx.fillText('N',cx,cy-R-8);ctx.fillText('E',cx+R+10,cy+4);ctx.fillText('zenith',cx,cy-4);ctx.textAlign='left';
+      var eps=+eS.value; eL.textContent=(eps>=0?'+':'')+eps+' min';
+      // drift proportional to eps: ~0.45°/min, exaggerate visually ×6 for legibility
+      var driftDeg=0.45*eps, vis=driftDeg*6;
+      dtEl.textContent=Math.abs(driftDeg).toFixed(1)+'°';
+      var K=0.55; var rr=1-0.5*K*Math.pow(Math.abs(driftDeg)*Math.PI/180,2); if(rr<0)rr=0;
+      rEl.textContent=rr.toFixed(3);
+      function place(a,e){var rad=(90-e)/90*R;var ang=(a-90)*Math.PI/180;return [cx+rad*Math.cos(ang), cy+rad*Math.sin(ang)];}
+      // yesterday (faint) at reference az
+      sats.forEach(function(s){var p=place(s.a,s.e);ctx.fillStyle=C.muted;ctx.globalAlpha=.4;ctx.beginPath();ctx.arc(p[0],p[1],5,0,7);ctx.fill();ctx.globalAlpha=1;});
+      // today (bright) shifted in azimuth by vis
+      sats.forEach(function(s){
+        var p0=place(s.a,s.e), p=place(s.a+vis,s.e);
+        // connector
+        ctx.strokeStyle=C.g;ctx.globalAlpha=.35;ctx.lineWidth=1.2;ctx.beginPath();ctx.moveTo(p0[0],p0[1]);ctx.lineTo(p[0],p[1]);ctx.stroke();ctx.globalAlpha=1;
+        ctx.fillStyle=C.g;ctx.beginPath();ctx.arc(p[0],p[1],6,0,7);ctx.fill();
+        ctx.globalAlpha=.2;ctx.beginPath();ctx.arc(p[0],p[1],11,0,7);ctx.fill();ctx.globalAlpha=1;
+      });
+      ctx.font='12px ui-monospace,monospace';
+      ctx.fillStyle=C.muted;ctx.fillText('○ yesterday (reference)',14,H-30);
+      ctx.fillStyle=C.g;ctx.fillText('● today at T_sid + ε',14,H-12);
+      if(Math.abs(eps)<0.6){ctx.fillStyle=C.k;ctx.textAlign='center';ctx.fillText('geometry realigned ✓',cx,cy+R+22);ctx.textAlign='left';}
+    }
+    window.addEventListener('resize',draw);draw();
+  })();
+
+  // =========================================================
+  //  FIG 8 — the whole system (2D / 3D master console)
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('cvMaster'); if(!cv)return; io.observe(cv);
+    function norm3(v){var n=Math.hypot(v[0],v[1],v[2])||1;return [v[0]/n,v[1]/n,v[2]/n];}
+    function cross3(a,b){return [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];}
+    function dot3(a,b){return a[0]*b[0]+a[1]*b[1]+a[2]*b[2];}
+    function Mmul(e,v){return [e[0]*v[0], e[1]*v[1], e[2]*v[2]];}      // M is diagonal in the gesture frame
+    function qf3(e,u,v){return dot3(u,Mmul(e,v));}
+    function rodrigues(v,k,ang){var c=Math.cos(ang),s=Math.sin(ang),kv=cross3(k,v),kd=dot3(k,v);return [v[0]*c+kv[0]*s+k[0]*kd*(1-c),v[1]*c+kv[1]*s+k[1]*kd*(1-c),v[2]*c+kv[2]*s+k[2]*kd*(1-c)];}
+    var EIG={push:[1,0.01,0.008], star:[1,0.34,0.28], round:[1,0.85,0.70]};
+    var OMEGA={gps:0.50, bds:0.47, geo:0.03}, OMLAB={gps:'0.50°/min',bds:'0.47°/min',geo:'~0.03°/min'};
+    var gdir=norm3([1,0.72,0.16]);        // sensitivity vector direction (non-axis-aligned so shape matters)
+    var axis=norm3([0.05,0.10,1.0]);      // LOS drift axis
+    var shape='star', con='gps', view='2d';
+    var yaw=0.7, pitch=0.5, dragging=false, lastx=0, lasty=0, autorot=!RM;
+    var aS=document.getElementById('ms_a'), rS=document.getElementById('ms_r');
+    var aL=document.getElementById('ms_a_l'), rL=document.getElementById('ms_r_l');
+    var kEl=document.getElementById('ms_k'),a2=document.getElementById('ms_a2'),r2=document.getElementById('ms_r2'),w2=document.getElementById('ms_w2'),outEl=document.getElementById('ms_out');
+    function kappa3(e){var g=gdir,w=cross3(axis,g);var gMg=qf3(e,g,g),wMw=qf3(e,w,w),gMw=qf3(e,g,w);if(gMg<1e-9)return 0;return (wMw*gMg-gMw*gMw)/(gMg*gMg);}
+    ['push','star','round'].forEach(function(s){document.getElementById('ms_'+s).addEventListener('click',function(){shape=s;setShape();draw();});});
+    ['gps','bds','geo'].forEach(function(c){document.getElementById('ms_'+c).addEventListener('click',function(){con=c;setCon();draw();});});
+    document.getElementById('ms_2d').addEventListener('click',function(){view='2d';setView();draw();});
+    document.getElementById('ms_3d').addEventListener('click',function(){view='3d';setView();draw();});
+    function setShape(){['push','star','round'].forEach(function(s){document.getElementById('ms_'+s).classList.toggle('on',s===shape);});}
+    function setCon(){['gps','bds','geo'].forEach(function(c){var b=document.getElementById('ms_'+c);b.classList.toggle('on',c===con);b.classList.toggle('geo',c===con);});}
+    function setView(){document.getElementById('ms_2d').classList.toggle('on',view==='2d');document.getElementById('ms_3d').classList.toggle('on',view==='3d');}
+    aS.addEventListener('input',draw); rS.addEventListener('input',draw);
+    function pos(e){var t=e.touches?e.touches[0]:e;return {x:t.clientX,y:t.clientY};}
+    cv.addEventListener('mousedown',function(e){if(view!=='3d')return;dragging=true;var p=pos(e);lastx=p.x;lasty=p.y;});
+    window.addEventListener('mousemove',function(e){if(!dragging)return;var p=pos(e);yaw+=(p.x-lastx)*0.01;pitch=Math.max(-1.4,Math.min(1.4,pitch+(p.y-lasty)*0.01));lastx=p.x;lasty=p.y;draw();});
+    window.addEventListener('mouseup',function(){dragging=false;});
+    cv.addEventListener('touchstart',function(e){if(view!=='3d')return;dragging=true;var p=pos(e);lastx=p.x;lasty=p.y;e.preventDefault();},{passive:false});
+    cv.addEventListener('touchmove',function(e){if(!dragging)return;var p=pos(e);yaw+=(p.x-lastx)*0.01;pitch=Math.max(-1.4,Math.min(1.4,pitch+(p.y-lasty)*0.01));lastx=p.x;lasty=p.y;draw();e.preventDefault();},{passive:false});
+    cv.addEventListener('touchend',function(){dragging=false;});
+    function project(p,cx,cy,scl){var cyw=Math.cos(yaw),sy=Math.sin(yaw);var x1=p[0]*cyw+p[2]*sy,z1=-p[0]*sy+p[2]*cyw,y1=p[1];var cp=Math.cos(pitch),sp=Math.sin(pitch);var y2=y1*cp-z1*sp,z2=y1*sp+z1*cp;return {x:cx+x1*scl,y:cy-y2*scl,z:z2};}
+    function arrow2(ctx,x0,y0,x1,y1,col,wd){ctx.strokeStyle=col;ctx.lineWidth=wd||2.5;ctx.beginPath();ctx.moveTo(x0,y0);ctx.lineTo(x1,y1);ctx.stroke();var a=Math.atan2(y1-y0,x1-x0);ctx.fillStyle=col;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x1-10*Math.cos(a-.4),y1-10*Math.sin(a-.4));ctx.lineTo(x1-10*Math.cos(a+.4),y1-10*Math.sin(a+.4));ctx.closePath();ctx.fill();}
+    function drawGeom3D(ctx,cx,cy,R,e){
+      var A=Math.sqrt(e[0]),B=Math.sqrt(e[1]),Cc=Math.sqrt(e[2]),i,j,u,v,p,first;
+      ctx.strokeStyle=C.d;ctx.globalAlpha=.28;ctx.lineWidth=1;
+      for(i=0;i<=6;i++){v=Math.PI*i/6;first=true;ctx.beginPath();for(j=0;j<=44;j++){u=2*Math.PI*j/44;p=project([A*Math.sin(v)*Math.cos(u),B*Math.sin(v)*Math.sin(u),Cc*Math.cos(v)],cx,cy,R);first?(ctx.moveTo(p.x,p.y),first=false):ctx.lineTo(p.x,p.y);}ctx.stroke();}
+      for(j=0;j<12;j++){u=2*Math.PI*j/12;first=true;ctx.beginPath();for(i=0;i<=44;i++){v=Math.PI*i/44;p=project([A*Math.sin(v)*Math.cos(u),B*Math.sin(v)*Math.sin(u),Cc*Math.cos(v)],cx,cy,R);first?(ctx.moveTo(p.x,p.y),first=false):ctx.lineTo(p.x,p.y);}ctx.stroke();}
+      ctx.globalAlpha=1;
+      var o=project([0,0,0],cx,cy,R);
+      [[A,0,0],[0,B,0],[0,0,Cc]].forEach(function(ax,idx){var p=project(ax,cx,cy,R);ctx.strokeStyle='rgba(255,193,94,'+(idx===0?.9:idx===1?.5:.35)+')';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(o.x,o.y);ctx.lineTo(p.x,p.y);ctx.stroke();});
+      var gp=project([gdir[0]*R*1.25,gdir[1]*R*1.25,gdir[2]*R*1.25],cx,cy,R);
+      var gd2=rodrigues(gdir,axis,30*Math.PI/180);
+      var gpp=project([gd2[0]*R*1.25,gd2[1]*R*1.25,gd2[2]*R*1.25],cx,cy,R);
+      arrow2(ctx,o.x,o.y,gp.x,gp.y,'rgba(85,214,230,.55)',2.4);
+      arrow2(ctx,o.x,o.y,gpp.x,gpp.y,C.g,2.8);
+      ctx.fillStyle=C.g;ctx.font='13px ui-monospace,monospace';ctx.fillText("g'",gpp.x+6,gpp.y);ctx.globalAlpha=.6;ctx.fillText('g',gp.x+6,gp.y);ctx.globalAlpha=1;
+    }
+    function drawGeom2D(ctx,cx,cy,R,e){
+      var A=Math.sqrt(e[0]),B=Math.sqrt(e[1]);
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(cx-R*1.4,cy);ctx.lineTo(cx+R*1.4,cy);ctx.moveTo(cx,cy-R*1.4);ctx.lineTo(cx,cy+R*1.4);ctx.stroke();
+      ctx.strokeStyle=C.d;ctx.lineWidth=2.4;ctx.fillStyle='rgba(255,193,94,.13)';ctx.beginPath();ctx.ellipse(cx,cy,R*A,R*B,0,0,7);ctx.fill();ctx.stroke();
+      ctx.fillStyle=C.d;ctx.font='12px ui-monospace,monospace';ctx.fillText('M',cx-R*1.25,cy-R*1.12);
+      var gn=Math.hypot(gdir[0],gdir[1])||1, ang=Math.atan2(gdir[1]/gn,gdir[0]/gn), ang2=ang+30*Math.PI/180;
+      ctx.strokeStyle=C.k;ctx.globalAlpha=.5;ctx.lineWidth=1.4;ctx.beginPath();ctx.arc(cx,cy,R*0.5,-ang,-ang2,true);ctx.stroke();ctx.globalAlpha=1;
+      arrow2(ctx,cx,cy,cx+Math.cos(ang)*R*1.2,cy-Math.sin(ang)*R*1.2,'rgba(85,214,230,.55)',2.4);
+      arrow2(ctx,cx,cy,cx+Math.cos(ang2)*R*1.2,cy-Math.sin(ang2)*R*1.2,C.g,2.8);
+      ctx.fillStyle=C.g;ctx.font='13px ui-monospace,monospace';ctx.fillText("g'",cx+Math.cos(ang2)*R*1.2+6,cy-Math.sin(ang2)*R*1.2);ctx.globalAlpha=.6;ctx.fillText('g',cx+Math.cos(ang)*R*1.2+6,cy-Math.sin(ang)*R*1.2+4);ctx.globalAlpha=1;
+    }
+    function draw(){
+      var d=fit(cv,440),ctx=d.ctx,W=d.w,H=d.h;ctx.clearRect(0,0,W,H);
+      var e=EIG[shape], alpha=aS.value/100, rmin=rS.value/100, wdeg=OMEGA[con], wrad=wdeg*Math.PI/180, K=kappa3(e);
+      aL.textContent=alpha.toFixed(2); rL.textContent=rmin.toFixed(2);
+      kEl.textContent=K.toFixed(2); a2.textContent=alpha.toFixed(2); r2.textContent=rmin.toFixed(2); w2.textContent=OMLAB[con];
+      var splitX=Math.min(W*0.44,380), cx=splitX*0.52, cy=H*0.5, R=Math.min(splitX,H)*0.28;
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';ctx.fillText(view==='3d'?'3-D · drag to rotate':'2-D · main plane',12,18);
+      if(view==='3d') drawGeom3D(ctx,cx,cy,R,e); else drawGeom2D(ctx,cx,cy,R,e);
+      ctx.strokeStyle='rgba(255,255,255,.09)';ctx.beginPath();ctx.moveTo(splitX+16,20);ctx.lineTo(splitX+16,H-42);ctx.stroke();
+      var maxMin=180, px0=splitX+46,px1=W-20,py0=28,py1=H-42;
+      ctx.strokeStyle=C.grid;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px0,py0);ctx.lineTo(px0,py1);ctx.lineTo(px1,py1);ctx.stroke();
+      ctx.fillStyle=C.muted;ctx.font='11px ui-monospace,monospace';
+      ctx.fillText('r',px0-6,py0-8);ctx.fillText('minutes →',px1-72,py1+22);
+      ctx.fillText('1.0',px0-30,py0+4);ctx.fillText('0',px0-14,py1+4);ctx.fillText('90',(px0+px1)/2-6,py1+16);ctx.fillText('180',px1-16,py1+16);
+      function X(m){return px0+(px1-px0)*m/maxMin;}
+      function Y(r){return py1-(py1-py0)*r;}
+      ctx.strokeStyle=C.d;ctx.globalAlpha=.5;ctx.setLineDash([3,4]);ctx.lineWidth=1.4;ctx.beginPath();ctx.moveTo(px0,Y(alpha));ctx.lineTo(px1,Y(alpha));ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      ctx.fillStyle=C.d;ctx.fillText('α ceiling',px0+4,Y(alpha)-5);
+      ctx.strokeStyle=C.k;ctx.globalAlpha=.55;ctx.setLineDash([6,5]);ctx.lineWidth=1.6;ctx.beginPath();ctx.moveTo(px0,Y(rmin));ctx.lineTo(px1,Y(rmin));ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+      ctx.fillStyle=C.k;ctx.fillText('r_min',px1-46,Y(rmin)-6);
+      ctx.strokeStyle=C.g;ctx.lineWidth=2.8;ctx.beginPath();
+      for(var m=0;m<=maxMin;m+=1){var th=wrad*m;var r=alpha*(1-0.5*K*th*th);if(r<0)r=0;var xx=X(m),yy=Y(r);m?ctx.lineTo(xx,yy):ctx.moveTo(xx,yy);}
+      ctx.stroke();
+      var ratio=rmin/alpha, dtMax=null;
+      if(ratio<1){dtMax=Math.sqrt(2*(1-ratio)/K)/wrad;}
+      if(dtMax!=null && dtMax<=maxMin){
+        ctx.strokeStyle=C.text;ctx.globalAlpha=.4;ctx.setLineDash([2,3]);ctx.beginPath();ctx.moveTo(X(dtMax),py0);ctx.lineTo(X(dtMax),py1);ctx.stroke();ctx.setLineDash([]);ctx.globalAlpha=1;
+        ctx.fillStyle=C.d;ctx.beginPath();ctx.arc(X(dtMax),Y(rmin),5,0,7);ctx.fill();
+        outEl.textContent=dtMax.toFixed(0)+' min'; outEl.style.color=C.d;
+      } else if(dtMax==null){
+        outEl.textContent='0 · starts below r_min'; outEl.style.color=C.muted;
+        ctx.fillStyle=C.muted;ctx.fillText('α < r_min: never clears the bar',px0+8,py0+16);
+      } else {
+        outEl.textContent='> '+maxMin+' min (geometry-proof)'; outEl.style.color=C.g;
+        ctx.fillStyle=C.g;ctx.fillText('curve stays above r_min → off-chart',px0+8,py0+16);
+      }
+    }
+    function loop(){ if(view==='3d' && !dragging && autorot && visible['cvMaster']){yaw+=0.006;draw();} requestAnimationFrame(loop); }
+    setShape();setCon();setView();window.addEventListener('resize',draw);draw();
+    if(!RM) requestAnimationFrame(loop);
+  })();
+
+  // =========================================================
+  //  HERO — drifting sky
+  // =========================================================
+  (function(){
+    var cv=document.getElementById('skyHero'); if(!cv)return;
+    var heroEl=cv.parentElement;
+    var stars=[]; for(var i=0;i<90;i++) stars.push({x:Math.random(),y:Math.random(),r:Math.random()*1.4+0.3,tw:Math.random()*6});
+    var sats=[]; for(var j=0;j<7;j++) sats.push({a0:Math.random()*Math.PI*2, e:0.2+Math.random()*0.7, sp:0.02+Math.random()*0.03});
+    var t0=0, raf;
+    function frame(t){
+      var d=fit(cv, heroEl.clientHeight||Math.round(window.innerHeight*0.88)), ctx=d.ctx, W=d.w, H=d.h;
+      ctx.clearRect(0,0,W,H);
+      var cx=W*0.5, cy=H*0.46, R=Math.min(W,H)*0.62;
+      var tt=t*0.00018;
+      // stars
+      stars.forEach(function(s){
+        var tw=0.5+0.5*Math.sin(t*0.001+s.tw);
+        ctx.fillStyle='rgba(236,234,242,'+(0.12+tw*0.25)+')';
+        ctx.beginPath();ctx.arc(s.x*W,s.y*H*0.9,s.r,0,7);ctx.fill();
+      });
+      // faint dome
+      ctx.strokeStyle='rgba(85,214,230,0.10)';ctx.lineWidth=1;
+      [0.4,0.7,1].forEach(function(f){ctx.beginPath();ctx.arc(cx,cy,R*f,0,7);ctx.stroke();});
+      // antenna at bottom center
+      var ant={x:cx,y:cy+R*0.98};
+      // satellites + LOS lines
+      sats.forEach(function(s){
+        var a=s.a0+tt*s.sp*40;
+        var rad=(1-s.e)*R;
+        var px=cx+Math.cos(a)*rad, py=cy+Math.sin(a)*rad*0.55 - R*0.1;
+        // LOS
+        ctx.strokeStyle='rgba(85,214,230,0.16)';ctx.lineWidth=1;
+        ctx.beginPath();ctx.moveTo(ant.x,ant.y);ctx.lineTo(px,py);ctx.stroke();
+        ctx.fillStyle=C.g;ctx.globalAlpha=.85;ctx.beginPath();ctx.arc(px,py,3.2,0,7);ctx.fill();
+        ctx.globalAlpha=.18;ctx.beginPath();ctx.arc(px,py,7,0,7);ctx.fill();ctx.globalAlpha=1;
+      });
+      // antenna glyph
+      ctx.fillStyle='rgba(255,193,94,0.9)';
+      ctx.beginPath();ctx.moveTo(ant.x-7,ant.y);ctx.lineTo(ant.x+7,ant.y);ctx.lineTo(ant.x,ant.y-12);ctx.closePath();ctx.fill();
+      if(!RM) raf=requestAnimationFrame(frame);
+    }
+    if(RM){ frame(0); } else { raf=requestAnimationFrame(frame); }
+    window.addEventListener('resize',function(){ if(RM) frame(0); });
+  })();
+
+})();
+</script>
+
+</body>
+</html>

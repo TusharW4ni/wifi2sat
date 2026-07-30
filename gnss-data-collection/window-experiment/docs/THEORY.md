@@ -5,6 +5,12 @@
 
 The headline theoretical result is that the window is governed by a single dimensionless curvature **κ** that depends on the **shape of the gesture**, and that **single-axis gestures are geometrically robust (κ → 0) while multi-axis gestures decorrelate quadratically with geometry drift.**
 
+> 📐 **Prefer to see it?** An interactive, step-by-step walkthrough of this entire
+> derivation — with a persistent symbol reference, live κ / α / window widgets, a
+> constellation-aware window calculator, and a 2-D↔3-D gesture-shape explorer — lives
+> next to this file: **[`derivation-explainer.html`](derivation-explainer.html)**
+> (self-contained; open it in any browser). This document remains the canonical text.
+
 ---
 
 ## 1. Setup and signal model
