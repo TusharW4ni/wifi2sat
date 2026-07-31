@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Two-phase build plan for the gesture-reproduction rig: a minimal-metal 1-axis de-risk rig, then a programmable gantry workhorse, with the recommended option for each phase.">
+<title>Rig Build Plan: Phases 1 and 2</title>
+<style>
+  :root{
+    --ground:#0F1230; --panel:#171B47; --panel-2:#1E2358;
+    --text:#ECEAF2; --muted:#8A8FB5; --line:rgba(255,255,255,.09); --line-soft:rgba(255,255,255,.05);
+    --d:#FFC15E;    /* gesture / reflector */
+    --g:#55D6E6;    /* geometry / antenna / RF */
+    --k:#FF74B0;    /* the payoff: kappa, alpha */
+    --ok:#63D6A0;   /* go / pass */
+    --bad:#FF6B6B;  /* stop / fail */
+    --mono:ui-monospace,"SF Mono",Menlo,"Cascadia Code",Consolas,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --col:min(780px,92vw);
+    --wide:min(1000px,94vw);
+  }
+  *{box-sizing:border-box}
+  html{scrollbar-color:var(--panel-2) var(--ground);scrollbar-width:thin;scroll-behavior:smooth}
+  *{scrollbar-color:var(--panel-2) var(--ground)}
+  ::-webkit-scrollbar{width:13px;height:13px}
+  ::-webkit-scrollbar-track{background:var(--ground)}
+  ::-webkit-scrollbar-thumb{background:var(--panel-2);border-radius:10px;border:3px solid var(--ground)}
+  ::-webkit-scrollbar-thumb:hover{background:#333c86}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--ground);color:var(--text);font-family:var(--sans);font-size:17.5px;line-height:1.72;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:var(--g);text-decoration:none;border-bottom:1px solid rgba(85,214,230,.35)}
+  a:hover{border-bottom-color:var(--g)}
+  :focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:3px}
+
+  header.bar{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:12px;padding:10px clamp(14px,4vw,30px);background:rgba(15,18,48,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);font-family:var(--mono)}
+  header.bar .dot{width:10px;height:10px;border-radius:50%;background:var(--ok);box-shadow:0 0 10px var(--ok);flex:0 0 auto}
+  header.bar .who{font-size:12.5px;letter-spacing:.06em;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  header.bar .tag{margin-left:auto;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok);border:1px solid rgba(99,214,160,.4);border-radius:6px;padding:3px 9px;white-space:nowrap}
+
+  .hero{max-width:var(--col);margin:0 auto;padding:56px 0 18px}
+  .hero .eyebrow{font-family:var(--mono);font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--ok);margin-bottom:18px}
+  .hero h1{font-family:var(--mono);font-weight:600;font-size:clamp(26px,4.4vw,38px);line-height:1.13;margin:0 0 18px;letter-spacing:-.01em}
+  .hero .sub{font-size:clamp(16px,2vw,19px);color:var(--text);opacity:.92}
+  .hero .meta{font-family:var(--mono);font-size:12.5px;color:var(--muted);margin-top:22px;line-height:1.9}
+  .hero .meta b{color:var(--text)}
+  .toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .toc a{font-family:var(--mono);font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:6px 11px}
+  .toc a:hover{color:var(--text);border-color:var(--g)}
+
+  section{max-width:var(--col);margin:0 auto;padding:50px 0 4px;scroll-margin-top:66px}
+  section.wide{max-width:var(--wide)}
+  .eyebrow{font-family:var(--mono);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px;margin-bottom:12px}
+  .eyebrow .num{color:var(--ok);font-weight:700;border:1px solid rgba(99,214,160,.4);border-radius:6px;padding:2px 8px}
+  h2{font-family:var(--mono);font-weight:600;font-size:clamp(21px,3.2vw,29px);line-height:1.16;margin:0 0 16px;letter-spacing:-.01em}
+  h3{font-family:var(--mono);font-weight:600;font-size:17.5px;margin:28px 0 8px;color:var(--text)}
+  p{margin:14px 0} ul{margin:12px 0;padding-left:22px} li{margin:7px 0}
+  strong,b{color:var(--text)} .muted{color:var(--muted)}
+  code{font-family:var(--mono);font-size:.9em;background:var(--panel-2);padding:1px 6px;border-radius:5px;color:var(--g)}
+  .d{color:var(--d)} .g{color:var(--g)} .k{color:var(--k)} .ok{color:var(--ok)} .bad{color:var(--bad)}
+
+  .callout{border-left:3px solid var(--g);background:rgba(85,214,230,.06);padding:14px 18px;margin:20px 0;border-radius:0 8px 8px 0;font-size:16px}
+  .callout .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px;color:var(--g)}
+  .rec{border:1px solid rgba(99,214,160,.4);background:linear-gradient(180deg,rgba(99,214,160,.08),rgba(99,214,160,.02));border-radius:12px;padding:18px 20px;margin:20px 0}
+  .rec .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ok);display:block;margin-bottom:8px}
+  .rec b.pick{color:var(--ok)}
+
+  .bluf{border:1px solid rgba(85,214,230,.32);background:linear-gradient(180deg,rgba(85,214,230,.06),rgba(85,214,230,.02));border-radius:12px;padding:20px 22px;margin:24px 0}
+  .bluf .lab{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--g);display:block;margin-bottom:8px}
+  .bluf p{margin:9px 0}
+
+  /* phase badge */
+  .pbadge{display:inline-block;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:6px}
+  .pbadge.one{color:var(--d);border:1px solid rgba(255,193,94,.45)}
+  .pbadge.two{color:var(--g);border:1px solid rgba(85,214,230,.45)}
+
+  /* figures */
+  figure.fig{max-width:var(--wide);margin:26px auto;border:1px solid var(--line);border-radius:14px;background:var(--panel);overflow:hidden}
+  figure.fig .fhead{padding:11px 16px;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);background:rgba(255,255,255,.02)}
+  figure.fig .cap{padding:12px 18px;border-top:1px solid var(--line-soft);font-size:14px;color:var(--muted);line-height:1.55}
+  figure.fig .cap b{color:var(--text)}
+  .svgwrap{padding:16px;overflow-x:auto}
+  svg{display:block;max-width:100%;height:auto;margin:0 auto}
+  svg text{font-family:var(--mono)}
+
+  /* decision gate flow */
+  .flow{display:grid;grid-template-columns:1fr;gap:14px;padding:20px 16px}
+  .flow .card{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);padding:15px 16px}
+  .flow .card .t{font-family:var(--mono);font-size:13px;color:var(--text);margin-bottom:4px}
+  .flow .card .s{font-size:14px;color:var(--muted);line-height:1.5}
+  .flow .card.p1{border-color:rgba(255,193,94,.45)} .flow .card.p1 .t{color:var(--d)}
+  .flow .card.gate{border-color:rgba(255,116,176,.5)} .flow .card.gate .t{color:var(--k)}
+  .flow .arrow{justify-self:center;color:var(--muted);font-size:20px}
+  .flow .split{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .flow .card.yes{border-color:rgba(99,214,160,.5)} .flow .card.yes .t{color:var(--ok)}
+  .flow .card.no{border-color:rgba(255,107,107,.5)} .flow .card.no .t{color:var(--bad)}
+  @media (max-width:640px){.flow .split{grid-template-columns:1fr}}
+
+  .tbl{max-width:var(--wide);margin:22px auto;overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:14.5px;min-width:560px}
+  th,td{padding:10px 13px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:600}
+  tr td:first-child{color:var(--text);font-family:var(--mono);font-size:13.5px}
+  td b{color:var(--text)}
+
+  footer{max-width:var(--col);margin:54px auto 90px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:13.5px;font-family:var(--mono);line-height:1.8}
+  footer b{color:var(--text)} footer a{color:var(--g)}
+
+  @media (max-width:640px){ body{font-size:16px} }
+  @media print{
+    header.bar{display:none}
+    body{background:#fff;color:#111}
+    a{color:#0b5}
+    .muted,.eyebrow,th{color:#555} h1,h2,h3{color:#111}
+    .callout,.bluf,.rec{background:#f4f7f5}
+    figure.fig,.flow .card{background:#0F1230}
+    figure.fig .cap{color:#ddd}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <span class="dot" aria-hidden="true"></span>
+  <span class="who">GESTURE RIG · build plan</span>
+  <span class="tag">phases 1 &amp; 2</span>
+</header>
+
+<div class="hero">
+  <div class="eyebrow">Engineering plan · gesture-reproduction rig</div>
+  <h1>Building the rig, in two phases</h1>
+  <p class="sub">The diagnostic said the free-hand data can't measure the window because carrier-phase reproducibility (<span class="k">α</span>) sits at the noise floor and geometry is confounded with time. A rig fixes both. But rather than build the versatile, RF-hostile workhorse first, we stage it: a cheap, minimal-metal <b class="d">Phase 1</b> rig asks the make-or-break question, and only if it passes do we build the <b class="g">Phase 2</b> workhorse that measures <span class="k">κ</span>.</p>
+  <div class="meta">
+    Follows from <b>experiment-diagnostic.html</b> and <b>THEORY.md</b>.<br>
+    Scope: the recommended option for each phase, with build, protocol, and the gate between them.
+  </div>
+  <nav class="toc">
+    <a href="#ov">Overview &amp; the gate</a>
+    <a href="#p1">Phase 1 · de-risk rig</a>
+    <a href="#p2">Phase 2 · workhorse</a>
+    <a href="#shared">Shared build notes</a>
+    <a href="#sum">Summary</a>
+  </nav>
+</div>
+
+<!-- overview -->
+<section id="ov" class="wide">
+  <div class="eyebrow"><span class="num">0</span> The logic of two phases</div>
+  <h2>Answer the cheap question before building the expensive rig</h2>
+  <p style="max-width:var(--col)">Everything hinges on one unknown: <b>does perfect mechanical repetition lift carrier-phase <span class="k">α</span> off the noise floor at all?</b> If yes, the geometry mechanism (<span class="k">κ</span>) becomes measurable and the full rig is worth building. If no, the single-antenna phase channel simply doesn't carry usable gesture signal on this hardware, and that is a decisive, publishable negative you want to reach for a couple hundred dollars, not after building a gantry. So Phase 1 exists purely to pass or fail that gate.</p>
+
+  <figure class="fig">
+    <div class="fhead">the gate between the phases</div>
+    <div class="flow">
+      <div class="card p1"><div class="t">PHASE 1 · de-risk rig (~$150)</div><div class="s">Minimal-metal 1-axis reproducer. Repeat a single push, mechanically, thousands of times. Measure whether phase α rises above noise.</div></div>
+      <div class="arrow">↓</div>
+      <div class="card gate"><div class="t">GATE · does phase α lift off the floor?</div><div class="s">Lock-in / fold the periodic drive per satellite. Is the carrier-phase response reproducible and clearly above the noise null?</div></div>
+      <div class="arrow">↓</div>
+      <div class="split">
+        <div class="card yes"><div class="t">YES → PHASE 2</div><div class="s">Build the programmable gantry. Measure κ per gesture (push vs star), interleaved, across geometry. Produce δt_max(r_min).</div></div>
+        <div class="card no"><div class="t">NO → pivot</div><div class="s">Phase channel is unusable here. Report the honest result: a single fixed antenna senses the hand via broadband amplitude/proximity, not carrier-phase geometry. Stop before the gantry.</div></div>
+      </div>
+    </div>
+    <div class="cap"><b>Phase 1 gates Phase 2.</b> The cheap rig either green-lights the expensive one or kills the phase thesis early. Either outcome is a win: a measurement or a decisive, low-cost negative.</div>
+  </figure>
+</section>
+
+<!-- phase 1 -->
+<section id="p1">
+  <div class="eyebrow"><span class="num">1</span> The de-risk rig</div>
+  <span class="pbadge one">Phase 1</span>
+  <h2>Does mechanical repetition rescue the phase channel?</h2>
+  <p><b>Goal:</b> a single question, one gesture (push), maximum RF-cleanliness. We are not measuring κ yet; we are checking whether a flawlessly repeated motion produces a reproducible carrier-phase signal at all. The design rule: keep the drive far away, and let only the reflector plus a nonconductive rod approach the antenna.</p>
+
+  <div class="rec">
+    <span class="lab">Recommended option</span>
+    <p style="margin:0 0 6px"><b class="pick">A constant-speed crank (or Scotch-yoke) reproducer, with a pendulum as the same-day proof of life.</b></p>
+    <p style="margin:0;color:var(--muted);font-size:15px">One gearmotor spins steadily at one end, a crank converts rotation into back-and-forth linear motion, and a long fiberglass/nylon rod pushes the reflector past the antenna. If you want a controlled ramp-and-hold profile with precise per-stroke onset instead of a sinusoid, substitute a leadscrew linear actuator plus stepper. It is barely more complex and repeats even better.</p>
+  </div>
+
+  <h3>Why the crank</h3>
+  <ul>
+    <li><b>Minimal metal, minimal electronics.</b> One motor, kept more than a meter away; near the antenna there is only a plastic rod and the reflector. This is exactly the RF-cleanliness the printer can't offer.</li>
+    <li><b>Repeatability is mechanically forced.</b> A crank traces the same stroke every rotation with no control loop to drift.</li>
+    <li><b>It is periodic, which is the real gift.</b> A steady drive gives hundreds of cycles you can fold and average (synchronous averaging / lock-in at the drive frequency). That pulls a weak periodic phase signal far up out of the noise, turning "is there any phase signal" from an unanswerable single-shot question into a high-SNR measurement. A human hand can never give you a stable frequency to lock into; a motor can.</li>
+  </ul>
+
+  <h3>Build (parts)</h3>
+  <ul>
+    <li>12 V DC gearmotor, roughly 10 to 40 RPM (one push-pull cycle every few seconds, matching the gesture timescale).</li>
+    <li>3-D-printed crank disk + connecting rod driving a low-friction slider (a drawer slide, or two smooth rods with linear bearings).</li>
+    <li>30 to 50 cm RF-transparent pushrod: fiberglass tent-pole segment, nylon, or a wooden dowel (not carbon fiber, it conducts).</li>
+    <li>Reflector at the tip: start with a flat metal plate (the cleanest, most reproducible reflector).</li>
+    <li>A photogate + a small flag on the crank to mark each cycle's phase. This is the timing reference you fold on.</li>
+    <li>Motor driver + supply kept back with the electronics; ferrites on the leads.</li>
+  </ul>
+
+  <h3>Protocol &amp; data</h3>
+  <ul>
+    <li>Run the crank continuously at a fixed cycle time for about 2 hours, logging RAWX + SFRBX at 10 Hz plus the photogate. That yields hundreds to thousands of cycles spread across roughly 50 degrees of natural geometry drift.</li>
+    <li><b>Controls</b> (the programmable/periodic drive makes these trivial): (1) with reflector, (2) bare rod, no reflector, same motion = the machine's own artifact, (3) motor off, static = environment baseline.</li>
+    <li>Log C/N0 with the rig off, on-idle, and moving, to confirm the motor isn't desensing the receiver.</li>
+  </ul>
+
+  <h3>Analysis &amp; the gate</h3>
+  <p>Lock in (or fold) at the drive frequency per satellite to get a clean complex phase response per cycle. Then ask two things: is that response reproducibly above the noise null (an α proxy), and does its correlation with a reference cycle stay high (push should be geometry-robust, κ near zero)?</p>
+  <ul>
+    <li><b class="ok">PASS:</b> the phase response is clearly above noise and reproducible across cycles. Phase α lifts. Green-light Phase 2.</li>
+    <li><b class="bad">FAIL:</b> even a perfectly repeated, lock-in-amplified push stays at the floor. The carrier-phase channel is unusable on this hardware. Stop, and write up the amplitude/proximity result. This is the cheap decisive negative the whole phase exists to find.</li>
+  </ul>
+  <p class="muted" style="font-size:15px">Cost: under $150. Time: days.</p>
+</section>
+
+<!-- phase 2 -->
+<section id="p2">
+  <div class="eyebrow"><span class="num">2</span> The workhorse</div>
+  <span class="pbadge two">Phase 2</span>
+  <h2>Measure κ per gesture, with geometry isolated</h2>
+  <p><b>Goal (only if Phase 1 passes):</b> measure the decorrelation curvature <span class="k">κ</span> for the real gesture set, cleanly enough to test the theory's central prediction (push robust, star tight) and to produce a <span class="k">δt<sub>max</sub></span>(<span class="k">r<sub>min</sub></span>) curve. This needs arbitrary trajectories, interleaved gesture order, and geometry sampled two ways.</p>
+
+  <div class="rec">
+    <span class="lab">Recommended option</span>
+    <p style="margin:0 0 6px"><b class="pick">A modified CoreXY 3-D printer (or small moving-gantry CNC), with the heated bed removed and the reflector on a long RF-transparent standoff.</b></p>
+    <p style="margin:0;color:var(--muted);font-size:15px">CoreXY over a bedslinger, because its motors are bolted to the frame (only a light toolhead moves near the reflector), whereas a bedslinger's X motor rides along and its bed-driven axis is an awkward metal plate. For full 3-D reflector motion, use a moving-gantry machine so the toolhead moves in all three axes; most of the gestures are planar, so a clean 2-axis plane is often enough.</p>
+  </div>
+
+  <h3>Why it works, and the honest caveat</h3>
+  <p>Trajectory, repeatability (about 50 µm), and homing are already solved by G-code and firmware, and being programmable buys the two fixes the diagnostic called for: <b>interleaved gesture order for free</b> (breaking the gesture-versus-time confound), and the <b>with/without-reflector control</b> to subtract the machine's own reflection. The caveat is real: a printer is a pile of moving metal and switching noise next to a sensitive antenna, so the work shifts from "make it move" (solved) to "keep its metal and EMI away from the antenna" (the shared build notes below).</p>
+
+  <h3>Configuration</h3>
+  <ul>
+    <li>Remove the heated bed and glass (you are not printing); that deletes a big reflector and a heat source.</li>
+    <li>Klipper firmware, driven by a host script: home, dwell, trace the gesture (3 to 6 s), return, wait, repeat; toggle a GPIO pin at each onset to timestamp against the receiver.</li>
+    <li>Reflector on a 30 to 50 cm fiberglass/nylon standoff reaching toward the antenna, kept stiff so it doesn't flex.</li>
+    <li>Linear or battery power, ferrites, mainboard and PSU kept more than a meter from the antenna.</li>
+  </ul>
+
+  <h3>Protocol &amp; data</h3>
+  <ul>
+    <li><b>Gestures:</b> push and star at minimum (the κ extremes), ideally push, pushpull, triangle, m, star.</li>
+    <li><b>Interleave</b> gesture order within each window (randomized) so the gesture label is decoupled from recording time.</li>
+    <li><b>Geometry, two ways:</b> within-session, repeat the interleaved set every few minutes for about 2 hours to sweep roughly 50 degrees of drift; and the sidereal revisit, leave the rig and antenna bolted in place and re-run identically about 4 minutes earlier the next day (plus a few offsets ε) to hold geometry fixed while time changes.</li>
+    <li>Aim for roughly 100 to 150 executions per gesture for a solid r(Δθ) fit; every capture sees several satellites, each a separate geometry sample, which multiplies the data.</li>
+    <li>Same controls as Phase 1: bare-standoff run, static baseline, C/N0 desense check.</li>
+  </ul>
+
+  <h3>Output</h3>
+  <ul>
+    <li>κ per gesture, with the predicted push-versus-star ordering (or an honest null).</li>
+    <li>The <span class="k">δt<sub>max</sub></span>(<span class="k">r<sub>min</sub></span>) curve: the actual, measured window, at last.</li>
+    <li>A cross-day transfer result that is now attributable to geometry, because interleaving removed the time confound.</li>
+  </ul>
+  <p class="muted" style="font-size:15px">Cost: $150 to $500. Time: weeks.</p>
+</section>
+
+<!-- shared -->
+<section id="shared">
+  <div class="eyebrow"><span class="num">3</span> Shared build notes</div>
+  <h2>The parts that decide whether either rig works</h2>
+  <p>Both rigs live or die on RF hygiene. The layout principle is identical: the antenna faces the sky, the reflector moves in its near field, and everything metallic or noisy stays far away on a nonconductive rod.</p>
+
+  <figure class="fig">
+    <div class="fhead">shared layout · drive far, reflector near, antenna isolated</div>
+    <div class="svgwrap">
+      <svg viewBox="0 0 640 250" role="img" aria-label="Side view: satellites overhead, an isolated antenna at left, a reflector on a plastic rod moving in its near field, and the drive kept far to the right.">
+        <!-- satellites + LOS -->
+        <g fill="var(--g)">
+          <circle cx="120" cy="30" r="4"/><circle cx="210" cy="22" r="4"/><circle cx="70" cy="52" r="3.5"/>
+        </g>
+        <g stroke="var(--g)" stroke-width="1" opacity=".35">
+          <line x1="120" y1="30" x2="150" y2="150"/><line x1="210" y1="22" x2="150" y2="150"/><line x1="70" y1="52" x2="150" y2="150"/>
+        </g>
+        <text x="245" y="26" fill="var(--muted)" font-size="10">satellites (drifting sky)</text>
+        <!-- ground -->
+        <line x1="20" y1="228" x2="620" y2="228" stroke="rgba(255,255,255,.15)"/>
+        <!-- antenna on its own stand -->
+        <line x1="150" y1="150" x2="150" y2="228" stroke="var(--g)" stroke-width="2"/>
+        <path d="M138,150 L162,150 L150,134 Z" fill="var(--g)"/>
+        <rect x="132" y="228" width="36" height="4" fill="var(--g)" opacity=".6"/>
+        <text x="150" y="246" fill="var(--g)" font-size="10" text-anchor="middle">antenna (fixed, own isolated stand)</text>
+        <!-- near-field keep-out arc -->
+        <circle cx="150" cy="150" r="72" fill="none" stroke="var(--bad)" stroke-width="1" stroke-dasharray="4 5" opacity=".55"/>
+        <text x="150" y="86" fill="var(--bad)" font-size="10" text-anchor="middle">keep bulk metal + EMI out</text>
+        <!-- reflector near antenna with oscillation arrows -->
+        <rect x="212" y="140" width="20" height="20" rx="3" fill="var(--d)"/>
+        <text x="222" y="176" fill="var(--d)" font-size="10" text-anchor="middle">reflector</text>
+        <g stroke="var(--d)" stroke-width="1.5" fill="var(--d)">
+          <line x1="196" y1="150" x2="182" y2="150"/><path d="M182,150 l7,-4 l0,8 z"/>
+          <line x1="248" y1="150" x2="262" y2="150"/><path d="M262,150 l-7,-4 l0,8 z"/>
+        </g>
+        <!-- rod to drive -->
+        <line x1="232" y1="150" x2="470" y2="150" stroke="var(--muted)" stroke-width="3"/>
+        <text x="350" y="142" fill="var(--muted)" font-size="10" text-anchor="middle">RF-transparent rod (fiberglass / nylon / wood)</text>
+        <!-- drive box far right -->
+        <rect x="470" y="122" width="150" height="60" rx="8" fill="var(--panel-2)" stroke="var(--line)"/>
+        <text x="545" y="146" fill="var(--text)" font-size="11" text-anchor="middle">drive: motor + crank</text>
+        <text x="545" y="162" fill="var(--muted)" font-size="10" text-anchor="middle">(Phase 1) or gantry (Phase 2)</text>
+        <text x="545" y="176" fill="var(--muted)" font-size="9" text-anchor="middle">&gt; 1 m away · ferrites · own base</text>
+      </svg>
+    </div>
+    <div class="cap">The only difference between the phases is the box on the right: a dumb crank in Phase 1, a programmable gantry in Phase 2. The antenna, the near-field keep-out zone, and the reflector-on-a-nonconductive-rod are identical.</div>
+  </figure>
+
+  <ul>
+    <li><b>Reflector:</b> start with a flat metal plate (cleanest, most reproducible, best chance of seeing the signal). Add a rigid tissue-mimicking phantom later to confirm the result holds for hand-like targets.</li>
+    <li><b>Arm:</b> fiberglass, nylon, or wood, stiff enough that flex doesn't spoil repeatability. Never carbon fiber (it conducts).</li>
+    <li><b>Antenna:</b> on its own rigid tripod, mechanically decoupled from the rig so motor vibration doesn't move it. A moving antenna breaks the whole model.</li>
+    <li><b>EMI:</b> electronics more than a meter away, ferrites on cables, linear or battery power if possible. Then measure the desense (C/N0 off vs idle vs moving) before trusting anything.</li>
+    <li><b>Sidereal rigidity:</b> bolt the rig and antenna together as one fixture and leave it between the sidereally-aligned sessions, so the only thing changing day to day is the sky.</li>
+    <li><b>Sync:</b> a photogate on the crank (Phase 1) or a GPIO onset pin per stroke (Phase 2), logged beside the RAWX stream.</li>
+  </ul>
+</section>
+
+<!-- summary -->
+<section id="sum" class="wide">
+  <div class="eyebrow"><span class="num">4</span> Summary</div>
+  <h2>The two phases side by side</h2>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>&nbsp;</th><th>Phase 1 · de-risk</th><th>Phase 2 · workhorse</th></tr></thead>
+      <tbody>
+        <tr><td>question</td><td>does phase α lift off the floor?</td><td>what is κ per gesture, and the window?</td></tr>
+        <tr><td>recommended rig</td><td><b class="d">constant-speed crank</b> (pendulum as proof of life; leadscrew actuator if a controlled profile is wanted)</td><td><b class="g">modified CoreXY printer / moving-gantry CNC</b></td></tr>
+        <tr><td>gestures</td><td>push only</td><td>push + star (ideally all five)</td></tr>
+        <tr><td>key trick</td><td>periodic drive → lock-in / synchronous averaging</td><td>programmable → interleaving + machine-artifact control</td></tr>
+        <tr><td>geometry sampling</td><td>within-session drift over ~2 h</td><td>within-session drift + sidereal revisit</td></tr>
+        <tr><td>output</td><td>pass/fail on the phase channel</td><td>κ per gesture, δt<sub>max</sub>(r<sub>min</sub>), attributable cross-day result</td></tr>
+        <tr><td>cost / time</td><td>&lt; $150 · days</td><td>$150–500 · weeks</td></tr>
+        <tr><td>gate</td><td colspan="2"><b>Phase 1 must PASS before Phase 2 is built.</b> A fail is a cheap, decisive negative (amplitude/proximity story), not a loss.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="bluf">
+    <span class="lab">The plan in one line</span>
+    <p>Build a $150 dumb crank first and ask whether a perfectly repeated push lifts carrier-phase α off the floor. If it does, a modified CoreXY printer measures κ per gesture with interleaving and the sidereal revisit, and finally gives you a measured window. If it doesn't, you have saved yourself the gantry and earned an honest negative.</p>
+  </div>
+
+  <footer>
+    Rig build plan · follows <b>experiment-diagnostic.html</b> and <b>THEORY.md</b>.<br>
+    See also <a href="derivation-explainer.html">derivation-explainer.html</a> and <a href="derivation-steps.html">derivation-steps.html</a>.<br>
+    Colors: <span class="d">amber = reflector / gesture</span> · <span class="g">cyan = antenna / geometry</span> · <span class="k">rose = κ / α</span> · <span class="ok">green = go</span> · <span class="bad">red = stop</span>.
+  </footer>
+</section>
+
+</body>
+</html>
