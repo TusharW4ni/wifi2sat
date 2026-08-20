@@ -126,6 +126,115 @@ def process_file_finesat(filepath):
         
     return np.array(sample_features)
 
+def process_file_finesat_by_satellite(filepath):
+    """Like process_file_finesat, but keys features by actual satellite
+    identity (PRN) instead of collapsing everything into a fixed 6-slot,
+    elevation-ranked vector.
+
+    Slot position isn't a stable channel across captures -- "slot 3" can be
+    a different satellite every time depending on which ones pass the health
+    check. Keying by PRN instead means every feature vector for "GPS_014"
+    actually is GPS_014, so pooling/statistics per satellite are meaningful.
+    Also means no zero-padding: a satellite just contributes a row when it's
+    present in a capture, and no row when it isn't.
+
+    Returns:
+        dict {satellite_key: 13-element feature np.array} for this one file,
+        or None if the file doesn't have at least 2 healthy satellites
+        (mirrors the "corrupted file" check in process_file_finesat).
+    """
+    elevations, phases = parse_rtcm(filepath)
+
+    good_sats = []
+    for k in phases:
+        arr = np.array(phases[k][:TARGET_EPOCHS])
+        if len(arr) == TARGET_EPOCHS and int(np.sum(np.abs(np.diff(arr)) > CYCLE_SLIP_THRESH)) == 0:
+            good_sats.append((k, elevations.get(k, -91)))
+
+    good_sats.sort(key=lambda x: x[1], reverse=True)
+
+    if len(good_sats) < 2:
+        return None  # Corrupted file
+
+    ref_key = good_sats[0][0]
+    ref_signal = np.array(phases[ref_key][:TARGET_EPOCHS])
+    t = np.linspace(0, 10, TARGET_EPOCHS)
+
+    # Every other healthy satellite becomes a target -- no MAX_TARGET_SATS
+    # cap here, since we're not building a fixed-size vector anymore.
+    target_keys = [k for k, _ in good_sats[1:]]
+
+    sat_features = {}
+    for tgt_key in target_keys:
+        tgt_signal = np.array(phases[tgt_key][:TARGET_EPOCHS])
+
+        # Same FineSat math as process_file_finesat: difference against the
+        # reference, then 3rd-order polyfit detrend.
+        diff_signal = tgt_signal - ref_signal
+        trend = np.polyval(np.polyfit(t, diff_signal, POLY_ORDER), t)
+        finesat_signal = diff_signal - trend
+
+        sat_features[tgt_key] = extract_13_features(finesat_signal)
+
+    return sat_features
+
+
+def build_finesat_dataset_by_satellite(filepaths, verbose=True):
+    """Builds a per-satellite FineSat feature dataset.
+
+    Args:
+        filepaths: iterable of .rtcm file paths. Gesture label is taken from
+            the filename, text before the first '-' (matches the
+            "<label>-<timestamp>.rtcm" naming from capture_sample.py; note
+            this differs from build_finesat_dataset's split('_'), which
+            would truncate a label like "swipe_left" to just "swipe" -- if
+            your filenames follow the capture_sample.py convention, this
+            split('-') is the correct one).
+        verbose: print progress/summary info.
+
+    Returns:
+        features: dict {satellite_key: np.array of shape (n_obs, 13)}
+        labels:   dict {satellite_key: np.array of shape (n_obs,)} -- gesture
+                  label for each row of the corresponding features array, in
+                  the same order, so features[sat][i] <-> labels[sat][i].
+                  Filter to one gesture with e.g.:
+                      mask = labels["GPS_014"] == "push"
+                      push_only = features["GPS_014"][mask]
+    """
+    filepaths = list(filepaths)
+
+    raw_features = defaultdict(list)  # sat -> list of (13,) feature vectors
+    raw_labels = defaultdict(list)    # sat -> list of label strings
+
+    n_ok, n_skipped = 0, 0
+    for f in filepaths:
+        label = os.path.basename(f).split('-')[0]
+
+        sat_features = process_file_finesat_by_satellite(f)
+        if sat_features is None:
+            n_skipped += 1
+            if verbose:
+                print(f"Skipping corrupted file: {f}")
+            continue
+
+        n_ok += 1
+        for sat_key, feats in sat_features.items():
+            raw_features[sat_key].append(feats)
+            raw_labels[sat_key].append(label)
+
+    features = {sat: np.array(v) for sat, v in raw_features.items()}
+    labels = {sat: np.array(v) for sat, v in raw_labels.items()}
+
+    if verbose:
+        print(f"\nProcessed {n_ok} file(s), skipped {n_skipped} as corrupted.")
+        print(f"Satellites observed: {len(features)}")
+        for sat in sorted(features):
+            print(f"  {sat}: {features[sat].shape[0]} samples "
+                  f"({np.unique(labels[sat]).tolist()})")
+
+    return features, labels
+
+
 def build_finesat_dataset(filepaths, save=True, output_dir=".", verbose=True):
     """Builds the FineSat feature dataset from a list of RTCM file paths.
 
@@ -153,7 +262,7 @@ def build_finesat_dataset(filepaths, save=True, output_dir=".", verbose=True):
         print(f"Processing {len(filepaths)} files for FINESAT Pipeline...")
 
     for f in filepaths:
-        label = os.path.basename(f).split('-')[0]
+        label = os.path.basename(f).split('_')[0]
 
         features = process_file_finesat(f)
         if features is not None:
